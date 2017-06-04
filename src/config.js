@@ -26,7 +26,7 @@ module.exports = {
   },
 
   // Database
-  databaseUrl: process.env.DATABASE_URL || 'sqlite:database.sqlite',
+  databaseUrl: process.env.DATABASE_URL || 'postgres://postgres:meow@localhost:5432/react-meow',
 
   // Web analytics
   analytics: {

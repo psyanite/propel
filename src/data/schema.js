@@ -9,20 +9,21 @@
 
 import {
   GraphQLSchema as Schema,
-  GraphQLObjectType as ObjectType,
 } from 'graphql';
+import Query from './queries';
+import Mutation from './mutations';
 
-import me from './queries/me';
-import news from './queries/news';
-
+// self-built query and mutations
 const schema = new Schema({
-  query: new ObjectType({
-    name: 'Query',
-    fields: {
-      me,
-      news,
-    },
-  }),
+  query: Query,
+  mutation: Mutation
 });
+
+// Using graphql-sequelize-crud
+// only works with package.json: "graphql": "^0.8.0",
+// import sequelize from './sequelize';
+// const { getSchema } = require('graphql-sequelize-crud');
+// const schema = getSchema(sequelize);
+
 
 export default schema;
