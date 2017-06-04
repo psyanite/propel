@@ -1,46 +1,35 @@
 @import '../../components/variables.css';
 
-.root {
-  padding-left: 20px;
-  padding-right: 20px;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.container {
-  margin: 0 auto;
-  padding: 0 0 40px;
-  max-width: var(--max-content-width);
+.lWrap {
+  /*max-width: 1140px;*/
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.newsItem {
-  margin: 0 0 2rem;
+.lFloor:after {
+  display: table;
+  clear: both;
+  content: '';
 }
 
-.newsTitle {
+.lTile {
+  width: calc((100% - var(--page-margin) * 2 * 4) / 4);
+  margin-left: var(--page-margin);
+  margin-right: var(--page-margin);
+  background: rgba(0, 0, 255, 0.25);
+  float: left;
+}
+
+.title {
   font-size: 1.5rem;
 }
 
 .picture {
-  width: 600px;
-}
-
-.newsDesc {
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: 1.125rem;
-  }
-
-  pre {
-    white-space: pre-wrap;
-    font-size: 0.875rem;
-  }
-
-  img {
-    max-width: 100%;
-  }
-
+  width: 100%;
 }
