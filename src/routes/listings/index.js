@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../components/Layout';
+import Meowout from '../../components/Meowout';
 import Listings from './Listings';
 
 const title = 'Meow';
@@ -18,7 +18,7 @@ export default {
     if (!data || !data.Listings) throw new Error('Ayy Lmeow.');
     return {
       title,
-      component: <Layout><Listings title={title} listings={data.Listings} /></Layout>,
+      component: <Meowout><Listings title={title} listings={data.Listings} /></Meowout>,
     };
   },
 
