@@ -12,7 +12,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
-import graphqlExpress from 'graphql-server-express';
+import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
 // import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
 import fetch from 'node-fetch';
@@ -98,15 +98,15 @@ app.get(
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-//app.use('/graphql', expressGraphQL(req => ({
-//  schema,
-//  graphiql: __DEV__,
-//  rootValue: { request: req },
-//  pretty: __DEV__,
-//})),);const myGraphQLSchema = // ... define or import your schema here!
-const PORT = 3000;
-app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: myGraphQLSchema })); //body parser is for post
-app.listen(PORT);
+// app.use('/graphql', expressGraphQL(req => ({
+//   schema,
+//   graphiql: __DEV__,
+//   rootValue: { request: req },
+//   pretty: __DEV__,
+// })),);
+
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema })); //body parser is usedfor post
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 //
 // Register server-side rendering middleware

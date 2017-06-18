@@ -12,7 +12,6 @@ database.sqlite
 # Test coverage
 coverage
 .nyc_output
-
 # Logs
 npm-debug.log*
 yarn-debug.log*
@@ -28,3 +27,6 @@ yarn-error.log*
 
 # Misc
 .DS_Store
+yarn.lock
+.yarnclean
+package-lock.json

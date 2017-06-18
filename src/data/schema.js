@@ -1,28 +1,30 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
+// src/schema.js
+import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+// import graphql from 'graphql';
+import { graphql } from 'graphql';
 
-import {
-  GraphQLSchema as Schema,
-  GraphQLObjectType as ObjectType,
-} from 'graphql';
+import resolvers from './resolvers';
 
-import me from './queries/me';
-import news from './queries/news';
 
-const schema = new Schema({
-  query: new ObjectType({
-    name: 'Query',
-    fields: {
-      me,
-      news,
-    },
-  }),
-});
+const typeDefs = `
+type Channel {
+  id: ID!
+   name: String
+}
+
+type Query {
+   channels: [Channel]
+}
+`;
+
+const schema = makeExecutableSchema({ typeDefs: typeDefs, resolvers: resolvers });
+// addMockFunctionsToSchema({ schema });
+
+const query = `
+query tasksForUser {
+  user(id: 6) { id, name }
+}
+`;
+// graphql(schema, query).then((result) => console.log('Got result', result));
 
 export default schema;
