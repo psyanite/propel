@@ -8,14 +8,18 @@ export default {
 
   async action({ fetch }) {
     const resp = await fetch('/graphql', {
+      method: 'POST',
       body: JSON.stringify({
-        query: '{Listings(orderBy: {field: id}){id,name,price,guestCount,bedroomCount,bedCount,image,description}}',
+        query: '{allListings(orderBy:ID_ASC){edges{node{id,name,price,guestCount,bedroomCount,bedCount,image,description}}}}',
       }),
+      headers: new Headers(),
     });
     const { data } = await resp.json();
-    if (!data || !data.Listings) throw new Error('Ayy Lmeow.');
+    if (!data) {
+      throw new Error('Ayy Lmeow1!!!');
+    }
     return {
-      component: <Meowout><Listings listings={data.Listings} /></Meowout>,
+      component: <Meowout><Listings listings={data.allListings.edges} /></Meowout>,
     };
   },
 
