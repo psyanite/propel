@@ -1,29 +1,30 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
+// src/schema.js
+import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+// import graphql from 'graphql';
+import { graphql } from 'graphql';
 
-import {
-  GraphQLSchema as Schema,
-} from 'graphql';
-import Query from './queries';
-import Mutation from './mutations';
+import resolvers from './resolvers';
 
-// self-built query and mutations
-const schema = new Schema({
-  query: Query,
-  mutation: Mutation
-});
 
-// Using graphql-sequelize-crud
-// only works with package.json: "graphql": "^0.8.0",
-// import sequelize from './sequelize';
-// const { getSchema } = require('graphql-sequelize-crud');
-// const schema = getSchema(sequelize);
+const typeDefs = `
+type Channel {
+  id: ID!
+   name: String
+}
 
+type Query {
+   channels: [Channel]
+}
+`;
+
+const schema = makeExecutableSchema({ typeDefs: typeDefs, resolvers: resolvers });
+// addMockFunctionsToSchema({ schema });
+
+const query = `
+query tasksForUser {
+  user(id: 6) { id, name }
+}
+`;
+// graphql(schema, query).then((result) => console.log('Got result', result));
 
 export default schema;

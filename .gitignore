@@ -10,3 +10,5 @@ yarn-error.log
 coverage
 .nyc_output
 yarn.lock
+.yarnclean
+package-lock.json
