@@ -12,7 +12,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
-import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
+import postgraphql from 'postgraphql'
 // import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
 import React from 'react';
@@ -93,8 +93,11 @@ app.get('/login/facebook/return',
 //   rootValue: { request: req },
 //   pretty: __DEV__,
 // })));
-app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema })); // body parser is used for post
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+// app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema })); // body parser is used for post
+// app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+const postgraphqlConfig = { graphiql: true};
+app.use(postgraphql('postgres://postgres:meow@localhost:5432/react-meow', 'public', postgraphqlConfig));
+
 
 //
 // Register server-side rendering middleware

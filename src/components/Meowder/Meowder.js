@@ -12,8 +12,8 @@ class Meowder extends React.Component {
         <div className={s.container}>
           <Meowvigation />
           <Link className={s.brand} to="/">
-            <img src={logoUrl} width="100" alt="Meowderer" />
-            <div className={s.brandTxt}>Meowderer</div>
+            <img src={logoUrl} width="100" alt="Bro, can you not." />
+            <div className={s.brandTxt}>Bro, can you not.</div>
           </Link>
         </div>
       </div>
