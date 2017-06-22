@@ -1,26 +1,13 @@
-import React from 'react';
-import Meowout from '../../components/Meowout';
-import Listings from './Listings';
+/* eslint-disable global-require */
 
+// The top-level (parent) route
 export default {
 
-  path: '/',
+  path: '/listings',
 
-  async action({ fetch }) {
-    const resp = await fetch('/graphql', {
-      method: 'POST',
-      body: JSON.stringify({
-        query: '{allListings(orderBy:ID_ASC){edges{node{id,name,price,guestCount,bedroomCount,bedCount,image,description}}}}',
-      }),
-      headers: new Headers(),
-    });
-    const { data } = await resp.json();
-    if (!data) {
-      throw new Error('Ayy Lmeow1!!!');
-    }
-    return {
-      component: <Meowout><Listings listings={data.allListings.edges} /></Meowout>,
-    };
-  },
+  // Keep in mind, routes are evaluated in order
+  children: [
+    require('./list').default,
+  ],
 
 };
