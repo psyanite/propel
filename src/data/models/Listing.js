@@ -1,12 +1,12 @@
 import DataType from 'sequelize';
 import Model from '../sequelize';
 
-const Listing = Model.define('Listing', {
+const Listing = Model.define('listings', {
 
   id: {
     type: DataType.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
 
   name: {
