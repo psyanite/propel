@@ -1,0 +1,35 @@
+@import '../../../components/variables.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.lWrap {
+  /*max-width: 1140px;*/
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lFloor:after {
+  display: table;
+  clear: both;
+  content: '';
+}
+
+.lTile {
+  width: calc((100% - var(--page-margin) * 2 * 4) / 4);
+  margin-left: var(--page-margin);
+  margin-right: var(--page-margin);
+  background: rgba(0, 0, 255, 0.25);
+  float: left;
+}
+
+.title {
+  font-size: 1.5rem;
+}
+
+.picture {
+  width: 100%;
+}
