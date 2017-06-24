@@ -61,5 +61,7 @@ module.exports = {
       // https://github.com/kriasoft/react-starter-kit/pull/961
       // You can reopen this if you still want this rule
       'react/prefer-stateless-function': 'off',
+
+      'max-len': [1, 150, 4]
     },
   };
