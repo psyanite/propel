@@ -62,6 +62,6 @@ module.exports = {
       // You can reopen this if you still want this rule
       'react/prefer-stateless-function': 'off',
 
-      'max-len': [1, 150, 4]
+      'max-len': [1, 1500, 4]
     },
   };
