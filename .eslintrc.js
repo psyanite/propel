@@ -78,6 +78,6 @@ module.exports = {
     },
 
     // Maximum length for file
-    'max-len': [1, 150, 4]
+    'max-len': [1, 1500, 4]
   },
 };
