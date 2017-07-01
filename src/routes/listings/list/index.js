@@ -2,6 +2,7 @@ import React from 'react';
 import Meowout from '../../../components/Meowout/Meowout';
 import Listings from './Listings';
 
+/* todo: there must be some better than way than to do .. three times in the import? */
 export default {
 
   path: '/',

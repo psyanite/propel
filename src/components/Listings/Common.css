@@ -1,0 +1,64 @@
+/* todo: not sure how to write re-usable that can be used across two components :S */
+.list,
+.thumbnails {
+  width: 62%;
+  margin: 0 19% 200px;
+  background: white;
+  padding: 10px;
+}
+
+.header > span,
+.row > span {
+  display: inline-block;
+  padding: 10px 15px;
+}
+
+.header > span {
+  font-weight: bold;
+  color: #39bee6;
+}
+
+.row:hover {
+  background-color: rgba(209, 246, 249, 0.31);
+}
+
+hr {
+  border-top: 1px solid rgb(226, 246, 249);
+  margin: 0;
+  height: 0px;
+}
+
+.list > div:last-child hr,
+.thumbnails > div:last-child hr {
+  border-top: none;
+}
+
+
+
+/* List */
+.list .header > span:first-child,
+.list .row > span:first-child {
+  width: 40%;
+}
+
+.list .header > span,
+.list .row > span {
+  width: 20%;
+}
+
+
+
+.priceSign {
+  top: -0.2em;
+  font-weight: bold;
+}
+
+.priceValue {
+  display: inline-block;
+  margin-right: 2px;
+  font-weight: bold;
+}
+
+.priceUnit {
+  font-size: 0.9em;
+}
