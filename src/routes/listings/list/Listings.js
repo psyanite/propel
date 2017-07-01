@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Listings.css';
+import List from '../../../components/Listings/List';
+import Thumbnails from '../../../components/Listings/Thumbnails';
+import Tiles from '../../../components/Listings/Tiles';
 
-// todo: Remove repeating item.node
-// todo: Update propTypes
+// todo: remove repeating item.node
+// todo: update propTypes
 
 class Listings extends React.Component {
   static propTypes = {
@@ -15,8 +18,8 @@ class Listings extends React.Component {
 
   render() {
     return (
-      <div className={s.lWrap}>
-        <div className={s.lFloor}>
+      <div className={s.wrap}>
+        <div className={s.floor}>
           <div className={s.navvi}>
             <div className={s.filters}>
               <button className={s.filter}>
@@ -42,56 +45,11 @@ class Listings extends React.Component {
             </div>
           </div>
 
+          <List listings={this.props.listings} />
 
-          <div className={s.grid}>
-            <div className={s.gridHeader}>
-              <span>Listing name</span>
-              <span>Area</span>
-              <span>Price</span>
-              <span>Other</span>
-              <hr />
-            </div>
+          <Thumbnails listings={this.props.listings} />
 
-            {this.props.listings.map(item => (
-              <div className={s.gridRow} key={item.node.id}>
-                <span>{item.node.name}</span>
-                <span>{item.node.area}</span>
-                <span><sup className={s.pSign}>$</sup><span className={s.pValue}>{item.node.price}</span><span className={s.pUnit}>AUD/night</span></span>
-                <span><span>{item.node.guestCount} Guests · {item.node.bedroomCount} Bedrooms · {item.node.bedCount} Beds</span></span>
-                <hr />
-              </div>
-            ))}
-          </div>
-
-
-          <div className={s.thumbnailGrid}>
-            {this.props.listings.map(item => (
-              <div className={s.thumbnailGridRow} key={item.node.id}>
-                <img className={s.picture} src={item.node.image} alt={item.node.name} />
-                <span>{item.node.name}</span>
-                <span>{item.node.area}</span>
-                <span><sup className={s.pSign}>$</sup><span className={s.pValue}>{item.node.price}</span><span className={s.pUnit}>AUD/night</span></span>
-                <span><span>{item.node.guestCount} Guests · {item.node.bedroomCount} Bedrooms · {item.node.bedCount} Beds</span></span>
-                <hr />
-              </div>
-            ))}
-          </div>
-
-          {this.props.listings.map(item => (
-            <div key={item.node.id} className={s.lTile}>
-              <div className={s.carousel}>
-                <div className={s.pContainer}>
-                  <div className={s.pContent}>
-                    <sup className={s.pSign}>$</sup>
-                    <span className={s.pValue}>{item.node.price}</span><span className={s.pUnit}>AUD/night</span>
-                  </div>
-                </div>
-                <img className={s.picture} src={item.node.image} alt={item.node.name} />
-              </div>
-              <h1 className={s.title}>{item.node.name}</h1>
-              <span>{item.node.guestCount} Guests · {item.node.bedroomCount} Bedrooms · {item.node.bedCount} Beds</span>
-            </div>
-          ))}
+          <Tiles listings={this.props.listings} />
 
         </div>
       </div>
