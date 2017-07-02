@@ -8,6 +8,7 @@ export default {
   // Keep in mind, routes are evaluated in order
   children: [
     require('./list').default,
+    require('./one').default,
   ],
 
 };
