@@ -8,6 +8,7 @@ import Tiles from '../../../components/Listings/Tiles';
 
 // todo: remove repeating item.node
 // todo: update propTypes
+// todo: refactor nav into nav component
 
 class Listings extends React.Component {
   static propTypes = {
