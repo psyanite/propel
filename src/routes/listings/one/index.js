@@ -1,25 +1,25 @@
 import React from 'react';
 import Meowout from '../../../components/Meowout/Meowout';
-import Listings from './Listings';
+import Listing from './Listing';
 
 export default {
 
-  path: '/one',
+  path: '/:id',
 
-  async action({ fetch }) {
+  async action({ params, fetch }) {
     const resp = await fetch('/graphql', {
       method: 'POST',
       body: JSON.stringify({
-        query: '{allListings(orderBy:ID_ASC){edges{node{id,name,price,guestCount,bedroomCount,bedCount,image,description}}}}',
+        query: `{listingById(id:${params.id}){id,name}}`,
       }),
       headers: new Headers(),
     });
     const { data } = await resp.json();
-    if (!data) {
+    if (!data.listingById) {
       throw new Error('Ayy Lmeow1!!!');
     }
     return {
-      component: <Meowout><Listings listings={data.allListings.edges} /></Meowout>,
+      component: <Meowout><Listing listing={data.listingById} /></Meowout>,
     };
   },
 
