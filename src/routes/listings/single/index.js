@@ -10,7 +10,7 @@ export default {
     const resp = await fetch('/graphql', {
       method: 'POST',
       body: JSON.stringify({
-        query: `{listingById(id:${params.id}){id,name}}`,
+        query: `{listingById(id:${params.id}){id,name,area,price,guestCount,bedroomCount,bedCount,image,description}}`,
       }),
       headers: new Headers(),
     });
