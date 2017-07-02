@@ -1,0 +1,36 @@
+.floor {
+  width: 62%;
+  margin: 0 19%;
+}
+.header {
+
+}
+
+.summary {
+
+}
+
+.carousel img {
+  width: 100%;
+}
+
+.other {
+
+}
+
+
+
+.priceSign {
+  top: -0.2em;
+  font-weight: bold;
+}
+
+.priceValue {
+  display: inline-block;
+  margin-right: 2px;
+  font-weight: bold;
+}
+
+.priceUnit {
+  font-size: 0.9em;
+}
