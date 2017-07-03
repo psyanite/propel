@@ -38,7 +38,7 @@ const Listing = Model.define('listings', {
   },
 
   description: {
-    type: DataType.STRING(255),
+    type: DataType.TEXT,
   },
 
   createdAt: {
@@ -47,7 +47,7 @@ const Listing = Model.define('listings', {
 
   updatedAt: {
     type: DataType.DATE,
-  }
+  },
 
 }, {
 
