@@ -20,4 +20,15 @@
   --screen-sm-min: 768px;  /* Small screen / tablet */
   --screen-md-min: 992px;  /* Medium screen / desktop */
   --screen-lg-min: 1200px; /* Large screen / wide desktop */
+
+  /*
+   * Colors
+   * ======================================================================== */
+
+  --color-text: #222;
+  --color-aqua: #43DDE0;
+  --color-teal: #4095FF;
+  --color-link: #1c7cf1;
+
 }
+

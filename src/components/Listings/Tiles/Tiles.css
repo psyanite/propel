@@ -1,5 +1,9 @@
 @import '../../../components/variables.css';
 
+.tile {
+  color: var(--color-text);
+}
+
 
 .tile {
   width: calc((100% - var(--page-margin) * 2 * 4) / 4);
@@ -8,7 +12,7 @@
 }
 
 .tile:hover {
-  color: #1c7cf1;
+  color: var(--color-link);
   transition: color 0.5s ease-out;
   cursor: pointer;
 }
@@ -25,10 +29,9 @@
 .picture {
   width: 100%;
 }
-
 .priceContainer {
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   right: 0;
 }
 
@@ -36,8 +39,8 @@
   position: relative;
   padding: 5px 9px;
   opacity: 0.9;
-  background-color: white;
-  color: #1c7cf1;
+  background-color: #fff;
+  color: var(--color-link);
 }
 
 .priceContent:after {
@@ -49,5 +52,5 @@
   left: -10px;
   border-style: solid;
   border-width: 16px 10px 16px 0;
-  border-color: transparent white;
+  border-color: transparent #fff;
 }
