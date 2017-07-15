@@ -2,8 +2,26 @@
 drop schema public cascade;
 create schema public;
 
+-- Create Listing table
+CREATE TABLE public.listings (
+  id integer NOT NULL,
+  name character varying(255),
+  area character varying(255),
+  price integer,
+  "bedroomCount" integer,
+  "guestCount" integer,
+  "bedCount" integer,
+  image character varying(255),
+  description text,
+  link character varying(255),
+  "createdAt" timestamp with time zone,
+  "updatedAt" timestamp with time zone,
+  CONSTRAINT listings_pkey PRIMARY KEY (id)
+);
+
+
 -- Populate Listing table
-INSERT INTO "Listing"
+INSERT INTO listings
 (name, area, price, "bedroomCount", "guestCount", "bedCount", image, description)
 VALUES
 ('Js Apartment', 'Katsushika', 80, 1, 1, 1, 'https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large', 'Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )'),
