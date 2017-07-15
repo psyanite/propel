@@ -14,11 +14,15 @@ class Tiles extends React.Component {
     })).isRequired,
   };
 
+  buildUri(item) {
+    return `/listings/${item.id}`;
+  }
+
   render() {
     return (
       <div>
         {this.props.listings.map(item => (
-          <div key={item.node.id} className={s.tile}>
+          <a key={item.node.id} className={s.tile} href={this.buildUri(item.node)}>
             <div className={s.carousel}>
               <div className={s.priceContainer}>
                 <div className={s.priceContent}>
@@ -30,7 +34,7 @@ class Tiles extends React.Component {
             </div>
             <h1 className={s.title}>{item.node.name}</h1>
             <span>{item.node.guestCount} Guests · {item.node.bedroomCount} Bedrooms · {item.node.bedCount} Beds</span>
-          </div>
+          </a>
         ))}
       </div>
     );

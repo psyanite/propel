@@ -18,12 +18,12 @@ class Listing extends React.Component {
     return (
       <div className={s.floor}>
         <div className={s.header}>
-          <h1>{this.props.listing.name}</h1>
+          <a className={s.title} href={this.props.listing.link} target="_blank" rel="noopener noreferrer">{this.props.listing.name}</a>
           <span className={s.price}><sup className={s.priceSign}>$</sup><span className={s.priceValue}>{this.props.listing.price}</span><span className={s.priceUnit}>AUD/night</span></span>
           <span>Listed Fri 16 June, 10:05 am</span>
           <br />
           <span>{this.props.listing.area}</span> <span><span>{this.props.listing.guestCount} Guests · {this.props.listing.bedroomCount} Bedrooms · {this.props.listing.bedCount} Beds</span></span>
-          <button>ayy lmao</button>
+          <a className={s.linky} href={this.props.listing.link} target="_blank" rel="noopener noreferrer">View listing &#8250;</a>
         </div>
         <div className={s.other}>
           <div className={s.description}>

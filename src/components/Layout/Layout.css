@@ -11,7 +11,7 @@
  * ========================================================================== */
 
 html {
-  color: #222;
+  color: var(--color-text);
   font-weight: 100;
   font-size: 1em; /* ~16px; */
   font-family: var(--font-family-base);
@@ -23,7 +23,7 @@ body {
 }
 
 a {
-  color: #0074c2;
+  color: var(--color-link);
 }
 
 /*

@@ -1,10 +1,11 @@
 /* todo: not sure how to write re-usable that can be used across two components :S */
+@import '../../components/variables.css';
 
 .list,
 .thumbnails {
   width: 62%;
   margin: 0 19% 200px;
-  background: white;
+  background: #fff;
   padding: 10px;
 }
 
@@ -17,6 +18,10 @@
 .header > span {
   font-weight: bold;
   color: #39bee6;
+}
+
+.row {
+  display: block;
 }
 
 .row:hover {
@@ -34,12 +39,22 @@ hr {
   border-top: none;
 }
 
+.list .row,
+.thumbnails .row {
+  color: var(--color-text);
+}
+
+.list .row:hover,
+.thumbnails .row:hover {
+  color: #39bee6;
+}
+
 
 
 /* List */
 .list .header > span:first-child,
 .list .row > span:first-child {
-  width: 40%;
+  width: 30%;
 }
 
 .list .header > span,
@@ -47,7 +62,14 @@ hr {
   width: 20%;
 }
 
+.list .header > span.other,
+.list .row > span.other {
+  width: 30%;
+}
 
+
+
+/* Price */
 
 .priceSign {
   top: -0.2em;

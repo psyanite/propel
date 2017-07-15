@@ -5,6 +5,7 @@ import s from '../Common.css';
 
 // todo: remove repeating item.node
 // todo: update propTypes
+// todo: rework buildUri
 
 class List extends React.Component {
   static propTypes = {
@@ -13,6 +14,10 @@ class List extends React.Component {
     })).isRequired,
   };
 
+  buildUri(item) {
+    return `/listings/${item.id}`;
+  }
+
   render() {
     return (
       <div className={s.list}>
@@ -20,18 +25,18 @@ class List extends React.Component {
           <span>Listing name</span>
           <span>Area</span>
           <span>Price</span>
-          <span>Other</span>
+          <span className={s.other}>Other</span>
           <hr />
         </div>
 
         {this.props.listings.map(item => (
-          <div className={s.row} key={item.node.id}>
+          <a className={s.row} key={item.node.id} href={this.buildUri(item.node)}>
             <span>{item.node.name}</span>
             <span>{item.node.area}</span>
             <span><sup className={s.priceSign}>$</sup><span className={s.priceValue}>{item.node.price}</span><span className={s.priceUnit}>AUD/night</span></span>
-            <span><span>{item.node.guestCount} Guests · {item.node.bedroomCount} Bedrooms · {item.node.bedCount} Beds</span></span>
+            <span className={s.other}><span>{item.node.guestCount} Guests · {item.node.bedroomCount} Bedrooms · {item.node.bedCount} Beds</span></span>
             <hr />
-          </div>
+          </a>
         ))}
       </div>
     );
