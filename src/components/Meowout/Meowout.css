@@ -27,6 +27,22 @@ a:visited {
   color: inherit;
 }
 
+
+
+button {
+  background: none;
+  border: none;
+}
+
+a:hover,
+a:focus,
+button:hover,
+button:focus {
+  cursor: pointer;
+  outline: none;
+}
+
+
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
