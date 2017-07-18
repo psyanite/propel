@@ -4,13 +4,21 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import renderHtml from 'react-render-html';
 import s from './Listing.css';
 
-/* todo: remove this.props.listing from every property? */
-/* todo: update propTypes */
+// todo: remove this.props.listing from every property?
+// todo: update propTypes
 class Listing extends React.Component {
   static propTypes = {
     listing: PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+      area: PropTypes.string.isRequired,
+      price: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+      guestCount: PropTypes.string.isRequired,
+      bedroomCount: PropTypes.string.isRequired,
+      bedCount: PropTypes.string.isRequired,
     }).isRequired,
   };
 
