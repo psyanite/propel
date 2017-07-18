@@ -77,7 +77,13 @@ module.exports = {
       },
     },
 
-    // Maximum length for file
-    'max-len': [1, 1500, 4]
-  },
-};
+    // Maximum length for file  'max-len': [1, 1500, 4],
+
+  'brace-style': [
+        "error",
+        "stroustrup",
+        {
+          allowSingleLine: true
+        }
+      ],
+    },};
