@@ -22,6 +22,7 @@
 
 /* Filters */
 /* todo: rename these classes better */
+/* todo: refactor into separate component */
 .navvi {
   margin: 20px var(--page-margin) var(--page-margin) var(--page-margin);
 }
@@ -66,24 +67,11 @@
   float: right;
 }
 
-.gridView {
-  width: 12px;
-  height: 12px;
-  cursor: pointer !important;
-  border: none;
-  -webkit-appearance: none !important;
-  margin-right: 10px;
-  padding: 5px;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAYCAYAAADOMhxqAAAANklEQVQ4y2MwNjb+jwUzQDGGHMMw0UASJkvDyAtWtpBd/9ExEDCAMDa5YaEBJkksJl3DSAxWAFtmDLOlYu/SAAAAAElFTkSuQmCC) no-repeat 100% 0;
+.views button svg {
+  width: 13px;
+  fill: #ababab;
 }
 
-.listView {
-  width: 14px;
-  height: 14px;
-  cursor: pointer !important;
-  border: none;
-  -webkit-appearance: none !important;
-  margin-right: 10px;
-  padding: 5px;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAcCAYAAABRVo5BAAAAQElEQVQ4jWNIS0v7j4yBgIEYzIBLI7o4Oqa+RoJOJVYh0X4cDZwREjiSEXv/I2OKNaKLo2Pqa6RdAhgNnJEdOADQHvkWX7Of/AAAAABJRU5ErkJggg==) no-repeat 100% 0;
+.views button:hover svg {
+  fill: var(--color-aqua);
 }
