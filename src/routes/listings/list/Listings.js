@@ -5,6 +5,9 @@ import s from './Listings.css';
 import List from '../../../components/Listings/List';
 import Thumbnails from '../../../components/Listings/Thumbnails';
 import Tiles from '../../../components/Listings/Tiles';
+import { Tiles as TilesIcon,
+  List as ListIcon,
+  Thumbnails as ThumbnailsIcon } from '../../../components/Icons/Icons';
 
 // todo: remove repeating item.node
 // todo: update propTypes
@@ -17,7 +20,23 @@ class Listings extends React.Component {
     })).isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = { view: 'tiles' };
+  }
+
+  changeView(newView) {
+    this.setState({ view: newView });
+  }
+
   render() {
+    let view = <Tiles listings={this.props.listings} />;
+    if (this.state.view === 'thumbnails') {
+      view = <Thumbnails listings={this.props.listings} />;
+    }
+    else if (this.state.view === 'list') {
+      view = <List listings={this.props.listings} />;
+    }
     return (
       <div className={s.wrap}>
         <div className={s.floor}>
@@ -41,17 +60,12 @@ class Listings extends React.Component {
               </button>
             </div>
             <div className={s.views}>
-              <button className={s.gridView}></button>
-              <button className={s.listView}></button>
+              <button id="tiles-view" onClick={() => this.changeView('tiles')}><TilesIcon /></button>
+              <button id="thumbnails-view" onClick={() => this.changeView('thumbnails')}><ThumbnailsIcon /></button>
+              <button id="list-view" onClick={() => this.changeView('list')}><ListIcon /></button>
             </div>
           </div>
-
-          <List listings={this.props.listings} />
-
-          <Thumbnails listings={this.props.listings} />
-
-          <Tiles listings={this.props.listings} />
-
+          {view}
         </div>
       </div>
     );
