@@ -34,8 +34,8 @@ hr {
   height: 0px;
 }
 
-.list > div:last-child hr,
-.thumbnails > div:last-child hr {
+.list > .row:last-child hr,
+.thumbnails > .row:last-child hr {
   border-top: none;
 }
 
