@@ -4,6 +4,7 @@
   --brand-color: #61dafb;
 }
 
+/* todo: use mixin */
 .root {
   background: -moz-linear-gradient(315deg, #43DDE0 0%, #4095FF 100%); /* ff3.6+ */
   background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #43DDE0), color-stop(100%, #4095FF)); /* safari4+,chrome */
@@ -29,7 +30,10 @@
 
 .brandTxt {
   display: inline-block;
-  margin: 9px 0 0 15px;
+  vertical-align: bottom;
+  margin: 9px 0 4px 15px;
+  font-family: var(--font-family-fancy);
+  font-weight: 700;
 }
 
 .banner {
