@@ -4,13 +4,12 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import c from '../Common.css';
 import s from './Tiles.css';
 
-// todo: remove repeating item.node
 // todo: update propTypes
 
 class Tiles extends React.Component {
   static propTypes = {
     listings: PropTypes.arrayOf(PropTypes.shape({
-      node: PropTypes.shape.isRequired,
+      id: PropTypes.number.isRequired,
     })).isRequired,
   };
 
@@ -22,18 +21,18 @@ class Tiles extends React.Component {
     return (
       <div>
         {this.props.listings.map(item => (
-          <a key={item.node.id} className={s.tile} href={this.buildUri(item.node)}>
+          <a key={item.id} className={s.tile} href={this.buildUri(item)}>
             <div className={s.carousel}>
               <div className={s.priceContainer}>
                 <div className={s.priceContent}>
                   <sup className={c.priceSign}>$</sup>
-                  <span className={c.priceValue}>{item.node.price}</span><span className={c.priceUnit}>AUD/night</span>
+                  <span className={c.priceValue}>{item.price}</span><span className={c.priceUnit}>AUD/night</span>
                 </div>
               </div>
-              <img className={s.picture} src={item.node.image} alt={item.node.name} />
+              <img className={s.picture} src={item.image} alt={item.name} />
             </div>
-            <h1 className={s.title}>{item.node.name}</h1>
-            <span>{item.node.guestCount} Guests · {item.node.bedroomCount} Bedrooms · {item.node.bedCount} Beds</span>
+            <h1 className={s.title}>{item.name}</h1>
+            <span>{item.guestCount} Guests · {item.bedroomCount} Bedrooms · {item.bedCount} Beds</span>
           </a>
         ))}
       </div>
