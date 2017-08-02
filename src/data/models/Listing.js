@@ -13,10 +13,6 @@ const Listing = Model.define('listings', {
     type: DataType.STRING(255),
   },
 
-  area: {
-    type: DataType.STRING(255),
-  },
-
   price: {
     type: DataType.INTEGER,
   },
