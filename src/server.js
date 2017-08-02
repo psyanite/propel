@@ -12,7 +12,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
-import postgraphql from 'postgraphql'
+import postgraphql from 'postgraphql';
 // import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
 import fetch from 'node-fetch';
@@ -98,6 +98,13 @@ app.get(
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
+const postgraphqlConfig = { graphiql: true };
+app.use(postgraphql('postgres://postgres:meow@localhost:5432/react-meow', 'public', postgraphqlConfig));
+
+//
+// Register API middleware
+// -----------------------------------------------------------------------------
+// Express GraphQL
 // app.use('/graphql', expressGraphQL(req => ({
 //   schema,
 //   graphiql: __DEV__,
@@ -105,10 +112,6 @@ app.get(
 //   pretty: __DEV__,
 // })),);
 
-// app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema })); //body parser is usedfor post
-// app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
-const postgraphqlConfig = { graphiql: true};
-app.use(postgraphql('postgres://postgres:meow@localhost:5432/react-meow', 'public', postgraphqlConfig));
 
 //
 // Register server-side rendering middleware
