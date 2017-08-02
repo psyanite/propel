@@ -1,4 +1,5 @@
 import React from 'react';
+import graphqlify, { Enum } from 'graphqlify';
 import Meowout from '../../../components/Meowout/Meowout';
 import Listings from './Listings';
 
@@ -8,19 +9,41 @@ export default {
   path: '/',
 
   async action({ fetch }) {
+    const allListingsQuery = graphqlify({
+      allListings: {
+        params: { orderBy: Enum('ID_ASC') },
+        fields: {
+          nodes: {
+            fields: {
+              id: {},
+              name: {},
+              area: {
+                field: 'areaByAreaId',
+                fields: {
+                  name: {},
+                },
+              },
+              price: {},
+              guestCount: {},
+              bedroomCount: {},
+              image: {},
+              description: {},
+            },
+          },
+        },
+      },
+    });
     const resp = await fetch('/graphql', {
       method: 'POST',
-      body: JSON.stringify({
-        query: '{allListings(orderBy:ID_ASC){edges{node{id,name,area,price,guestCount,bedroomCount,bedCount,image,description}}}}',
-      }),
+      body: JSON.stringify({ query: allListingsQuery }),
       headers: new Headers(),
     });
     const { data } = await resp.json();
     if (!data) {
-      throw new Error('Ayy Lmeow1!!!');
+      throw new Error('Meow');
     }
     return {
-      component: <Meowout><Listings listings={data.allListings.edges} /></Meowout>,
+      component: <Meowout><Listings listings={data.allListings.nodes} /></Meowout>,
     };
   },
 

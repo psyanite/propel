@@ -9,33 +9,49 @@ import { Tiles as TilesIcon,
   List as ListIcon,
   Thumbnails as ThumbnailsIcon } from '../../../components/Icons/Icons';
 
-// todo: remove repeating item.node
 // todo: update propTypes
 // todo: refactor nav into nav component
 
 class Listings extends React.Component {
   static propTypes = {
     listings: PropTypes.arrayOf(PropTypes.shape({
-      node: PropTypes.shape.isRequired,
+      id: PropTypes.number.isRequired,
     })).isRequired,
   };
 
   constructor(props) {
     super(props);
-    this.state = { view: 'tiles' };
+    this.state = {
+      view: 'tiles',
+      filters: {
+        name: '',
+      },
+    };
+    this.updateFilters = this.updateFilters.bind(this);
   }
 
   changeView(newView) {
     this.setState({ view: newView });
   }
 
+  updateFilters(event) {
+    this.setState({
+      filters: {
+        name: event.target.value,
+      },
+    });
+  }
+
   render() {
-    let view = <Tiles listings={this.props.listings} />;
+    const filteredListings = this.props.listings.filter(
+      listing => listing.name.toLowerCase().indexOf(this.state.filters.name.toLowerCase()) !== -1,
+    );
+    let view = <Tiles listings={filteredListings} />;
     if (this.state.view === 'thumbnails') {
-      view = <Thumbnails listings={this.props.listings} />;
+      view = <Thumbnails listings={filteredListings} />;
     }
     else if (this.state.view === 'list') {
-      view = <List listings={this.props.listings} />;
+      view = <List listings={filteredListings} />;
     }
     return (
       <div className={s.wrap}>
@@ -44,20 +60,21 @@ class Listings extends React.Component {
             <div className={s.filters}>
               <button className={s.filter}>
                 <span>Location</span>
-                <span className={s.chevron}><svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z"></path></svg></span>
+                <span className={s.chevron}><svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false"><path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z"></path></svg></span>
               </button>
               <button className={s.filter}>
                 <span>Property type</span>
-                <span className={s.chevron}><svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z"></path></svg></span>
+                <span className={s.chevron}><svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false"><path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z"></path></svg></span>
               </button>
               <button className={s.filter}>
                 <span>Price range</span>
-                <span className={s.chevron}><svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z"></path></svg></span>
+                <span className={s.chevron}><svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false"><path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z"></path></svg></span>
               </button>
               <button className={s.filter}>
                 <span>More filters</span>
-                <span className={s.chevron}><svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z"></path></svg></span>
+                <span className={s.chevron}><svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false"><path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z"></path></svg></span>
               </button>
+              <input type="text" value={this.state.filters.name} onChange={this.updateFilters} />
             </div>
             <div className={s.views}>
               <button id="tiles-view" onClick={() => this.changeView('tiles')}><TilesIcon /></button>

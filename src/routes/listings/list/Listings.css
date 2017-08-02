@@ -48,18 +48,25 @@
   -webkit-appearance: none !important;
   margin-right: 10px;
   padding: 5px;
-  color: #3e3e3e;
-  font-size: 1em;
+  color: #8599ad;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: var(--font-family-fancy);
 }
 
 .filter:hover {
-  background-color: #eee;
+  color: var(--color-aqua);
 }
 
 .chevron {
   display: inline-block;
   margin-left: 5px;
   width: 10px;
+  fill: #8599ad;
+}
+
+.filter:hover .chevron {
+  fill: var(--color-aqua);
 }
 
 .views {
@@ -69,7 +76,7 @@
 
 .views button svg {
   width: 13px;
-  fill: #ababab;
+  fill: #8599ad;
 }
 
 .views button:hover svg {
