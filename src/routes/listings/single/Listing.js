@@ -4,7 +4,6 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import renderHtml from 'react-render-html';
 import s from './Listing.css';
 
-// todo: remove this.props.listing from every property?
 // todo: update propTypes
 class Listing extends React.Component {
   static propTypes = {
@@ -13,32 +12,35 @@ class Listing extends React.Component {
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       link: PropTypes.string.isRequired,
-      area: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
+      area: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+      price: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
-      guestCount: PropTypes.string.isRequired,
-      bedroomCount: PropTypes.string.isRequired,
-      bedCount: PropTypes.string.isRequired,
+      guestCount: PropTypes.number.isRequired,
+      bedroomCount: PropTypes.number.isRequired,
+      bedCount: PropTypes.number.isRequired,
     }).isRequired,
   };
 
   render() {
+    const listing = this.props.listing;
     return (
       <div className={s.floor}>
         <div className={s.header}>
-          <a className={s.title} href={this.props.listing.link} target="_blank" rel="noopener noreferrer">{this.props.listing.name}</a>
-          <span className={s.price}><sup className={s.priceSign}>$</sup><span className={s.priceValue}>{this.props.listing.price}</span><span className={s.priceUnit}>AUD/night</span></span>
+          <a className={s.title} href={listing.link} target="_blank" rel="noopener noreferrer">{listing.name}</a>
+          <span className={s.price}><sup className={s.priceSign}>$</sup><span className={s.priceValue}>{listing.price}</span><span className={s.priceUnit}>AUD/night</span></span>
           <span>Listed Fri 16 June, 10:05 am</span>
           <br />
-          <span>{this.props.listing.area}</span> <span><span>{this.props.listing.guestCount} Guests · {this.props.listing.bedroomCount} Bedrooms · {this.props.listing.bedCount} Beds</span></span>
-          <a className={s.linky} href={this.props.listing.link} target="_blank" rel="noopener noreferrer">View listing &#8250;</a>
+          <span>{listing.area.name}</span> <span><span>{listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span></span>
+          <a className={s.linky} href={listing.link} target="_blank" rel="noopener noreferrer">View listing &#8250;</a>
         </div>
         <div className={s.other}>
           <div className={s.description}>
-            {renderHtml(this.props.listing.description)}
+            {renderHtml(listing.description)}
           </div>
           <div className={s.carousel}>
-            <img src={this.props.listing.image} alt={this.props.listing.name} />
+            <img src={listing.image} alt={listing.name} />
           </div>
         </div>
       </div>
