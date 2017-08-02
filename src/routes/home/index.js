@@ -1,31 +1,45 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
+import graphqlify from 'graphqlify';
+import Layout from '../../components/Home/Layout';
 import Home from './Home';
-import Layout from '../../components/Layout';
 
 async function action({ fetch }) {
+  const allAreasQuery = graphqlify({
+    allAreas: {
+      fields: {
+        nodes: {
+          fields: {
+            name: {},
+          },
+        },
+      },
+    },
+  });
   const resp = await fetch('/graphql', {
-    body: JSON.stringify({
-      query: '{news{title,link,content}}',
-    }),
+    method: 'POST',
+    body: JSON.stringify({ query: allAreasQuery }),
+    headers: new Headers(),
   });
   const { data } = await resp.json();
-  if (!data || !data.news) throw new Error('Failed to load the news feed.');
+  if (!data) {
+    throw new Error('Meow');
+  }
+
+  // TODO: Refactor areaOptions
+  const areas = data.allAreas.nodes
+    .map(node => node.area)
+    .reduce((x, y) => x.includes(y) ? x : [...x, y], [])
+    .reduce((acc, cur, i) => {
+      acc[i] = { value: cur, label: cur };
+      return acc;
+    }, {});
+  const areaOptions = Object.values(areas);
+
   return {
     chunks: ['home'],
-    title: 'React Starter Kit',
+    title: 'Meow',
     component: (
-      <Layout>
-        <Home news={data.news} />
-      </Layout>
+      <Layout><Home areaOptions={areaOptions} /></Layout>
     ),
   };
 }
