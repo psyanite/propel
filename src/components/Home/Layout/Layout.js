@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Layout.css';
-import Footer from '../Footer';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -12,10 +11,7 @@ class Layout extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.props.children}
-        <Footer />
-      </div>
+      <div> {this.props.children} </div>
     );
   }
 }
