@@ -17,6 +17,12 @@ export default {
             fields: {
               id: {},
               name: {},
+              propertyType: {
+                field: 'propertyTypeByPropertyTypeId',
+                fields: {
+                  name: {},
+                },
+              },
               area: {
                 field: 'areaByAreaId',
                 fields: {
