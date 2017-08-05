@@ -8,8 +8,19 @@ export default {
   path: '/',
 
   async action({ fetch }) {
-    const allAreasQuery = graphqlify({
-      allAreas: {
+    const filterOptionsQuery = graphqlify({
+      areas: {
+        field: 'allAreas',
+        fields: {
+          nodes: {
+            fields: {
+              name: {},
+            },
+          },
+        },
+      },
+      propertyTypes: {
+        field: 'allPropertyTypes',
         fields: {
           nodes: {
             fields: {
@@ -21,7 +32,7 @@ export default {
     });
     const resp = await fetch('/graphql', {
       method: 'POST',
-      body: JSON.stringify({ query: allAreasQuery }),
+      body: JSON.stringify({ query: filterOptionsQuery }),
       headers: new Headers(),
     });
     const { data } = await resp.json();
@@ -29,18 +40,15 @@ export default {
       throw new Error('Meow');
     }
 
-    // TODO: Refactor areaOptions
-    const areas = data.allAreas.nodes
-      .map(node => node.area)
-      .reduce((x, y) => x.includes(y) ? x : [...x, y], [])
-      .reduce((acc, cur, i) => {
-        acc[i] = { value: cur, label: cur };
-        return acc;
-      }, {});
-    const areaOptions = Object.values(areas);
+    const filters = Object.keys(data).map((key) => {
+      const filter = {};
+      filter[key] = data[key].nodes.map(node => ({ name: node.name, value: node.name }));
+      filter[key].unshift({ name: 'Any', value: null });
+      return filter;
+    });
 
     return {
-      component: <Layout><Home areaOptions={areaOptions} /></Layout>,
+      component: <Layout><Home filterOptions={filters} /></Layout>,
     };
   },
 

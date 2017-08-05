@@ -8,14 +8,17 @@ class Filter extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(PropTypes.string).isRequired,
+    options: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.string,
+    })).isRequired,
     currentValue: PropTypes.string.isRequired,
-    onOptionChange: PropTypes.func.isRequired,
+    onSelectChange: PropTypes.func.isRequired,
   };
 
-  onOptionChange = (type) => (e) => {
+  onSelectChange = (type) => (e) => {
     const value = e.target.value;
-    this.props.onOptionChange(value, type);
+    this.props.onSelectChange(value, type);
   };
 
   render() {
@@ -23,8 +26,8 @@ class Filter extends React.Component {
     return (
       <div className={s.root}>
         <span>{this.props.label}</span>
-        <select id={id} value={this.props.currentValue} onChange={this.onOptionChange(id)}>
-          {this.props.options.map(option => <option key={option} value={option}>{option}</option>)}
+        <select id={id} value={this.props.currentValue} onChange={this.onSelectChange(id)}>
+          {this.props.options.map(option => <option key={option.name} value={option.value}>{option.name}</option>)}
         </select>
       </div>
     );
