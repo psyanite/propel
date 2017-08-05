@@ -32,7 +32,7 @@ class Tiles extends React.Component {
               <img className={s.picture} src={item.image} alt={item.name} />
             </div>
             <h1 className={s.title}>{item.name}</h1>
-            <span>{item.guestCount} Guests · {item.bedroomCount} Bedrooms · {item.bedCount} Beds</span>
+            <span>{item.propertyType.name} · {item.guestCount} Guests · {item.bedroomCount} Bedrooms · {item.bedCount} Beds</span>
           </a>
         ))}
       </div>
