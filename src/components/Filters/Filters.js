@@ -10,9 +10,10 @@ class Filters extends React.Component {
       id: PropTypes.string.isRequired,
       options: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string.isRequired,
-        value: PropTypes.string,
+        value: PropTypes.number,
       })).isRequired,
     })).isRequired,
+    onSelectChange: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -36,9 +37,10 @@ class Filters extends React.Component {
     };
   };
 
-  updateParameters = (value, type) => {
+  updateParameters = (type, value) => {
     const updatedParameters = Object.assign(this.state.parameters, { [type]: value });
     this.setState({ parameters: updatedParameters });
+    this.props.onSelectChange(type, value);
   };
 
   convertToTitleCase = (value) => {
