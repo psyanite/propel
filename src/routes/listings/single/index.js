@@ -39,7 +39,6 @@ export default {
     if (!data.listingById) {
       throw new Error('Meow');
     }
-    console.log(data.listingById);
     return {
       component: <Meowout><Listing listing={data.listingById} /></Meowout>,
     };
