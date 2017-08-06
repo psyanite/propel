@@ -13,8 +13,8 @@ class List extends React.Component {
     })).isRequired,
   };
 
-  buildUri(item) {
-    return `/listings/${item.id}`;
+  buildUri(listing) {
+    return `/listings/${listing.id}`;
   }
 
   render() {
@@ -28,12 +28,12 @@ class List extends React.Component {
           <hr />
         </div>
 
-        {this.props.listings.map(item => (
-          <a className={s.row} key={item.id} href={this.buildUri(item)}>
-            <span>{item.name}</span>
-            <span>{item.area}</span>
-            <span><sup className={s.priceSign}>$</sup><span className={s.priceValue}>{item.price}</span><span className={s.priceUnit}>AUD/night</span></span>
-            <span className={s.other}><span>{item.guestCount} Guests · {item.bedroomCount} Bedrooms · {item.bedCount} Beds</span></span>
+        {this.props.listings.map(listing => (
+          <a className={s.row} key={listing.id} href={this.buildUri(listing)}>
+            <span>{listing.name}</span>
+            <span>{listing.area}</span>
+            <span><sup className={s.priceSign}>$</sup><span className={s.priceValue}>{listing.price}</span><span className={s.priceUnit}>AUD/night</span></span>
+            <span className={s.other}><span>{listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span></span>
             <hr />
           </a>
         ))}

@@ -25,8 +25,7 @@ class Home extends React.Component {
 
   search = (e) => {
     e.preventDefault();
-    if (this.state && this.state.params) {
-      console.log(this.state.params);
+    if (this.state.params.areaId[0] != null) {
       history.push(`/listings?${qs.stringify(this.state.params)}`);
     }
   };

@@ -24,83 +24,40 @@ export default {
       }
     });
 
+    console.log(queryParams);
 
     const meow = graphqlify({
       listings: {
-        field: 'searchListings',
-        params: queryParams,
-        fields: {
-          nodes: {
-            fields: {
-              id: {},
-              name: {},
-              propertyType: {
-                field: 'propertyTypeByPropertyTypeId',
-                fields: {
-                  name: {},
-                },
-              },
-              area: {
-                field: 'areaByAreaId',
-                fields: {
-                  name: {},
-                },
-              },
-              price: {},
-              guestCount: {},
-              bedroomCount: {},
-              image: {},
-              description: {},
-            },
-          },
-        },
-      },
-    });
-    console.log(meow);
-
-    const listingsQuery = graphqlify({
-      listings: {
         field: 'allListings',
-        params: { orderBy: Enum('ID_ASC') },
         fields: {
-          nodes: {
+          id: {},
+          name: {},
+          area: {
             fields: {
-              id: {},
               name: {},
-              propertyType: {
-                field: 'propertyTypeByPropertyTypeId',
-                fields: {
-                  name: {},
-                },
-              },
-              area: {
-                field: 'areaByAreaId',
-                fields: {
-                  name: {},
-                },
-              },
-              price: {},
-              guestCount: {},
-              bedroomCount: {},
-              image: {},
-              description: {},
             },
           },
+          price: {},
+          guestCount: {},
+          bedroomCount: {},
+          image: {},
+          description: {},
         },
       },
     });
+    // TODO: create Type for PropertyType
+
     const resp = await fetch('/graphql', {
       method: 'POST',
       body: JSON.stringify({ query: meow }),
       headers: new Headers(),
     });
-
     const { data } = await resp.json();
     if (!data) {
       throw new Error('Meow');
     }
     return {
-      component: <Meowout><Listings listings={data.listings.nodes} params={params} /></Meowout>,
+      component: <Meowout><Listings listings={data.listings} params={params} /></Meowout>,
     };
   },
 

@@ -11,10 +11,10 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLString as String,
   GraphQLObjectType as ObjectType,
-} from "graphql";
+} from 'graphql';
 
 import { Listing } from '../models';
-import ListingType from "../types/ListingType";
+import ListingType from '../types/ListingType';
 
 const addListing = {
   type: ListingType,
@@ -22,19 +22,17 @@ const addListing = {
   args: {
     name: {
       name: 'Listing name',
-      type: new NonNull(String)
-    }
+      type: new NonNull(String),
+    },
   },
-  resolve: (value, {name}) => {
-    return Listing.create({name: name});
-  }
+  resolve: (value, { name }) => Listing.create({ name }),
 };
 
 const Mutation = new ObjectType({
-  name: "Meowtation",
-  description: "Meowtation",
+  name: 'Meowtation',
+  description: 'Meowtation',
   fields: {
-    addListing: addListing
+    addListing,
   },
 });
 

@@ -8,32 +8,19 @@ export default {
   path: '/',
 
   async action({ fetch }) {
-    const filterOptionsQuery = graphqlify({
+    const filtersQuery = graphqlify({
       areaId: {
         field: 'allAreas',
         fields: {
-          nodes: {
-            fields: {
-              id: {},
-              name: {},
-            },
-          },
+          id: {},
+          name: {},
         },
       },
-      // propertyTypeId: {
-      //   field: 'allPropertyTypes',
-      //   fields: {
-      //     nodes: {
-      //       fields: {
-      //         name: {},
-      //       },
-      //     },
-      //   },
-      // },
     });
+
     const resp = await fetch('/graphql', {
       method: 'POST',
-      body: JSON.stringify({ query: filterOptionsQuery }),
+      body: JSON.stringify({ query: filtersQuery }),
       headers: new Headers(),
     });
     const { data } = await resp.json();
@@ -43,7 +30,7 @@ export default {
 
     const filters = Object.keys(data).map((key) => {
       const filter = {};
-      filter[key] = data[key].nodes.map(node => ({ name: node.name, value: node.id }));
+      filter[key] = data[key].map(option => ({ name: option.name, value: option.id }));
       filter[key].unshift({ name: 'Any', value: null });
       return filter;
     });

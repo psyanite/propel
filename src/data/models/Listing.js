@@ -41,14 +41,6 @@ const Listing = Model.define('listings', {
     type: DataType.STRING(255),
   },
 
-  createdAt: {
-    type: DataType.DATE,
-  },
-
-  updatedAt: {
-    type: DataType.DATE,
-  },
-
 }, {
 
   indexes: [

@@ -3,8 +3,8 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
-import postgraphql from 'postgraphql';
-// import expressGraphQL from 'express-graphql';
+// import postgraphql from 'postgraphql';
+import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
@@ -17,6 +17,7 @@ import createFetch from './createFetch';
 import passport from './passport';
 import router from './router';
 import models from './data/models';
+import schema from './data/schema';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
 
@@ -75,21 +76,20 @@ app.get('/login/facebook/return',
 );
 
 //
-// Register API middleware
+// Register API middleware - PostGraphQL
 // -----------------------------------------------------------------------------
-const postgraphqlConfig = { graphiql: true };
-app.use(postgraphql('postgres://postgres:meow@localhost:5432/react-meow', 'public', postgraphqlConfig));
+// const postgraphqlConfig = { graphiql: true };
+// app.use(postgraphql('postgres://postgres:meow@localhost:5432/react-meow', 'public', postgraphqlConfig));
 
 //
-// Register API middleware
+// Register API middleware - Express GraphQL
 // -----------------------------------------------------------------------------
-// Express GraphQL
-// app.use('/graphql', expressGraphQL(req => ({
-//   schema,
-//   graphiql: __DEV__,
-//   rootValue: { request: req },
-//   pretty: __DEV__,
-// })));
+app.use('/graphql', expressGraphQL(req => ({
+  schema,
+  graphiql: __DEV__,
+  rootValue: { request: req },
+  pretty: __DEV__,
+})));
 
 //
 // Register server-side rendering middleware

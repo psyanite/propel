@@ -13,26 +13,26 @@ class Tiles extends React.Component {
     })).isRequired,
   };
 
-  buildUri(item) {
-    return `/listings/${item.id}`;
+  buildUri(listing) {
+    return `/listings/${listing.id}`;
   }
 
   render() {
     return (
       <div>
-        {this.props.listings.map(item => (
-          <a key={item.id} className={s.tile} href={this.buildUri(item)}>
+        {this.props.listings.map(listing => (
+          <a key={listing.id} className={s.tile} href={this.buildUri(listing)}>
             <div className={s.carousel}>
               <div className={s.priceContainer}>
                 <div className={s.priceContent}>
                   <sup className={c.priceSign}>$</sup>
-                  <span className={c.priceValue}>{item.price}</span><span className={c.priceUnit}>AUD/night</span>
+                  <span className={c.priceValue}>{listing.price}</span><span className={c.priceUnit}>AUD/night</span>
                 </div>
               </div>
-              <img className={s.picture} src={item.image} alt={item.name} />
+              <img className={s.picture} src={listing.image} alt={listing.name} />
             </div>
-            <h1 className={s.title}>{item.name}</h1>
-            <span>{item.propertyType.name} · {item.guestCount} Guests · {item.bedroomCount} Bedrooms · {item.bedCount} Beds</span>
+            <h1 className={s.title}>{listing.name}</h1>
+            <span>{listing.propertyType.name} · {listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span>
           </a>
         ))}
       </div>
