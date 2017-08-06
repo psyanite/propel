@@ -5,15 +5,27 @@ import Home from './Home';
 
 async function action({ fetch }) {
   const filterOptionsQuery = graphqlify({
-    allAreas: {
+    areaId: {
+      field: 'allAreas',
       fields: {
         nodes: {
           fields: {
+            id: {},
             name: {},
           },
         },
       },
     },
+    // propertyTypeId: {
+    //   field: 'allPropertyTypes',
+    //   fields: {
+    //     nodes: {
+    //       fields: {
+    //         name: {},
+    //       },
+    //     },
+    //   },
+    // },
   });
   const resp = await fetch('/graphql', {
     method: 'POST',
@@ -27,7 +39,7 @@ async function action({ fetch }) {
 
   const filters = Object.keys(data).map((key) => {
     const filter = {};
-    filter[key] = data[key].nodes.map(node => ({ name: node.name, value: node.name }));
+    filter[key] = data[key].nodes.map(node => ({ name: node.name, value: node.id }));
     filter[key].unshift({ name: 'Any', value: null });
     return filter;
   });
