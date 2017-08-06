@@ -17,41 +17,30 @@ class Listings extends React.Component {
     listings: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
     })).isRequired,
+    params: PropTypes.object.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       view: 'tiles',
-      filters: {
-        name: '',
-      },
+      params: props.params,
     };
-    this.updateFilters = this.updateFilters.bind(this);
+    console.log(this.state);
   }
 
   changeView(newView) {
     this.setState({ view: newView });
   }
 
-  updateFilters(event) {
-    this.setState({
-      filters: {
-        name: event.target.value,
-      },
-    });
-  }
-
   render() {
-    const filteredListings = this.props.listings.filter(
-      listing => listing.name.toLowerCase().indexOf(this.state.filters.name.toLowerCase()) !== -1,
-    );
-    let view = <Tiles listings={filteredListings} />;
+    const listings = this.props.listings;
+    let view = <Tiles listings={listings} />;
     if (this.state.view === 'thumbnails') {
-      view = <Thumbnails listings={filteredListings} />;
+      view = <Thumbnails listings={listings} />;
     }
     else if (this.state.view === 'list') {
-      view = <List listings={filteredListings} />;
+      view = <List listings={listings} />;
     }
     return (
       <div className={s.wrap}>
@@ -74,7 +63,6 @@ class Listings extends React.Component {
                 <span>More filters</span>
                 <span className={s.chevron}><svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false"><path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z"></path></svg></span>
               </button>
-              <input type="text" value={this.state.filters.name} onChange={this.updateFilters} />
             </div>
             <div className={s.views}>
               <button id="tiles-view" onClick={() => this.changeView('tiles')}><TilesIcon /></button>
