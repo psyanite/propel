@@ -10,7 +10,7 @@ class Filter extends React.Component {
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
-      value: PropTypes.string,
+      value: PropTypes.number,
     })).isRequired,
     currentValue: PropTypes.string.isRequired,
     onSelectChange: PropTypes.func.isRequired,
@@ -18,7 +18,7 @@ class Filter extends React.Component {
 
   onSelectChange = (type) => (e) => {
     const value = e.target.value;
-    this.props.onSelectChange(value, type);
+    this.props.onSelectChange(type, value);
   };
 
   render() {
