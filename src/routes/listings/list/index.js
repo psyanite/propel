@@ -37,9 +37,16 @@ export default {
               name: {},
             },
           },
+          propertyType: {
+            fields: {
+              name: {},
+            },
+          },
           price: {},
           guestCount: {},
           bedroomCount: {},
+          bedCount: {},
+          link: {},
           image: {},
           description: {},
         },
