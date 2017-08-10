@@ -17,7 +17,11 @@ export default {
           description: {},
           link: {},
           area: {
-            field: 'areaByAreaId',
+            fields: {
+              name: {},
+            },
+          },
+          propertyKind: {
             fields: {
               name: {},
             },
@@ -36,11 +40,12 @@ export default {
       headers: new Headers(),
     });
     const { data } = await resp.json();
-    if (!data.listingById) {
+    const listing = data.listingById.pop();
+    if (!listing) {
       throw new Error('Meow');
     }
     return {
-      component: <Meowout><Listing listing={data.listingById} /></Meowout>,
+      component: <Meowout><Listing listing={listing} /></Meowout>,
     };
   },
 

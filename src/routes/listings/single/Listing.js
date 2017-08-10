@@ -15,6 +15,9 @@ class Listing extends React.Component {
       area: PropTypes.shape({
         name: PropTypes.string.isRequired,
       }).isRequired,
+      propertyKind: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      }).isRequired,
       price: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
       guestCount: PropTypes.number.isRequired,

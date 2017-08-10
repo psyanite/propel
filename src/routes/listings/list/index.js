@@ -60,13 +60,12 @@ export default {
     });
 
     const { data } = await resp.json();
-
-    console.log(data);
-    if (!data) {
+    const listings = data.listings;
+    if (!listings) {
       throw new Error('Meow');
     }
     return {
-      component: <Meowout><Listings listings={data.listings} params={params} /></Meowout>,
+      component: <Meowout><Listings listings={listings} params={params} /></Meowout>,
     };
   },
 
