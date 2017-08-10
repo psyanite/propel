@@ -43,7 +43,6 @@
     "prop-types": "^15.5.8",
     "qs": "^6.5.0",
     "react": "^15.5.4",
-    "react-autocomplete": "^1.5.10",
     "react-dom": "^15.5.4",
     "react-render-html": "^0.2.0",
     "react-select": "^1.0.0-rc.5",

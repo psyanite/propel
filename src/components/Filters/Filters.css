@@ -1,0 +1,35 @@
+@import '../../components/variables.css';
+
+.root {
+  display: inline-block;
+  color: black;
+}
+
+.root div input {
+  width: 500px;
+  border: none;
+  vertical-align: center;
+  margin: 20px;
+  font-family: var(--font-family-fancy);
+  font-size: 26px;
+  font-weight: 800;
+  color: #8599ad;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+.root div input::-webkit-input-placeholder {
+  color: #aebdcc;
+  font-size: 26px;
+}
+
+.root div input::-webkit-search-decoration,
+.root div input::-webkit-search-cancel-button,
+.root div input::-webkit-search-results-button,
+.root div input::-webkit-search-results-decoration {
+  display: none;
+}
+
+.root div input:focus {
+  outline-width: 0;
+}

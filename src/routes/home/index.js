@@ -30,8 +30,8 @@ export default {
 
     const filters = Object.keys(data).map((key) => {
       const filter = {};
-      filter[key] = data[key].map(option => ({ name: option.name, value: option.id }));
-      filter[key].unshift({ name: 'Any', value: null });
+      filter[key] = data[key].map(option => ({ kind: key, name: option.name, value: option.id }));
+      filter[key].unshift({ kind: key, name: '', value: null });
       return filter;
     });
 
