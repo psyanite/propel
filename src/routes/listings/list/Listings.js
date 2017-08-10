@@ -36,13 +36,13 @@ class Listings extends React.Component {
 
   render() {
     const listings = this.props.listings;
-    // let view = <Tiles listings={listings} />;
-    // if (this.state.view === 'thumbnails') {
-    //   view = <Thumbnails listings={listings} />;
-    // }
-    // else if (this.state.view === 'list') {
-    //   view = <List listings={listings} />;
-    // }
+    let view = <Tiles listings={listings} />;
+    if (this.state.view === 'thumbnails') {
+      view = <Thumbnails listings={listings} />;
+    }
+    else if (this.state.view === 'list') {
+      view = <List listings={listings} />;
+    }
     return (
       <div className={s.wrap}>
         <div className={s.floor}>
@@ -71,7 +71,7 @@ class Listings extends React.Component {
               <button id="list-view" onClick={() => this.changeView('list')}><ListIcon /></button>
             </div>
           </div>
-          {/*{view}*/}
+          {view}
         </div>
       </div>
     );
