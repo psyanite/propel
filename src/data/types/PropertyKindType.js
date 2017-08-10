@@ -6,12 +6,12 @@ import {
 } from 'graphql';
 
 // todo: add comments and descriptions
-const PropertyTypeType = new ObjectType({
-  name: 'PropertyType',
+const PropertyKindType = new ObjectType({
+  name: 'PropertyKind',
   fields: {
     id: { type: new NonNull(Int) },
     name: { type: String },
   },
 });
 
-export default PropertyTypeType;
+export default PropertyKindType;

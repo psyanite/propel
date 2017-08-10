@@ -1,7 +1,7 @@
 import DataType from 'sequelize';
 import Model from '../sequelize';
 
-const PropertyType = Model.define('propertyTypes', {
+const PropertyKind = Model.define('propertyKinds', {
 
   id: {
     type: DataType.INTEGER,
@@ -21,4 +21,4 @@ const PropertyType = Model.define('propertyTypes', {
 
 });
 
-export default PropertyType;
+export default PropertyKind;

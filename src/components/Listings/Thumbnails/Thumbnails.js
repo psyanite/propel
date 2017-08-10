@@ -19,13 +19,14 @@ class Thumbnails extends React.Component {
   }
 
   render() {
+    console.log(this.props.listings);
     return (
       <div className={c.thumbnails}>
         {this.props.listings.map(listing => (
           <a className={c.row} key={listing.id} href={this.buildUri(listing)}>
             <img className={s.picture} src={listing.image} alt={listing.name} />
             <span className={s.name}>{listing.name}</span>
-            <span className={s.area}>{listing.area}</span>
+            <span className={s.area}>{listing.area.name}</span>
             <span className={s.price}><sup className={c.priceSign}>$</sup><span className={c.priceValue}>{listing.price}</span><span className={c.priceUnit}>AUD/night</span></span>
             <span className={s.other}><span>{listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span></span>
             <hr />

@@ -22,12 +22,10 @@ class Listings extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(this.props.listings);
     this.state = {
       view: 'tiles',
       params: props.params,
     };
-    console.log(this.state);
   }
 
   changeView(newView) {
@@ -36,12 +34,17 @@ class Listings extends React.Component {
 
   render() {
     const listings = this.props.listings;
-    let view = <Tiles listings={listings} />;
-    if (this.state.view === 'thumbnails') {
-      view = <Thumbnails listings={listings} />;
-    }
-    else if (this.state.view === 'list') {
-      view = <List listings={listings} />;
+    let view = <List listings={listings} />;
+    switch (this.state.view) {
+      case 'tiles':
+        view = <Tiles listings={listings} />;
+        break;
+      case 'thumbnails':
+        view = <Thumbnails listings={listings} />;
+        break;
+      default:
+        view = <List listings={listings} />;
+        break;
     }
     return (
       <div className={s.wrap}>

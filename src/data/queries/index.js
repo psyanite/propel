@@ -3,13 +3,13 @@ import {
 } from 'graphql';
 import Listings from './Listings';
 import Areas from './Areas';
-import PropertyTypes from './PropertyTypes';
+import PropertyKinds from './PropertyKinds';
 
 const fields = Object.assign(
   {},
   Listings,
   Areas,
-  PropertyTypes,
+  PropertyKinds,
 );
 
 const Query = new ObjectType({

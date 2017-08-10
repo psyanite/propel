@@ -5,6 +5,7 @@ import c from '../Common.css';
 import s from './Tiles.css';
 
 // todo: update propTypes
+// todo: rework buildUri
 
 class Tiles extends React.Component {
   static propTypes = {
@@ -32,7 +33,7 @@ class Tiles extends React.Component {
               <img className={s.picture} src={listing.image} alt={listing.name} />
             </div>
             <h1 className={s.title}>{listing.name}</h1>
-            <span>{listing.propertyType.name} · {listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span>
+            <span>{listing.propertyKind.name} · {listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span>
           </a>
         ))}
       </div>

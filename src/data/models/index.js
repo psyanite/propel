@@ -5,7 +5,7 @@ import UserClaim from './UserClaim';
 import UserProfile from './UserProfile';
 import Listing from './Listing';
 import Area from './Area';
-import PropertyType from './PropertyType';
+import PropertyKind from './PropertyKind';
 
 User.Logins = User.hasMany(UserLogin, {
   foreignKey: 'userId',
@@ -40,5 +40,5 @@ export {
   UserProfile,
   Listing,
   Area,
-  PropertyType,
+  PropertyKind,
 };

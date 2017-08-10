@@ -31,7 +31,7 @@ class List extends React.Component {
         {this.props.listings.map(listing => (
           <a className={s.row} key={listing.id} href={this.buildUri(listing)}>
             <span>{listing.name}</span>
-            <span>{listing.area}</span>
+            <span>{listing.area.name}</span>
             <span><sup className={s.priceSign}>$</sup><span className={s.priceValue}>{listing.price}</span><span className={s.priceUnit}>AUD/night</span></span>
             <span className={s.other}><span>{listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span></span>
             <hr />

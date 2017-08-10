@@ -37,7 +37,7 @@ export default {
               name: {},
             },
           },
-          propertyType: {
+          propertyKind: {
             fields: {
               name: {},
             },
@@ -52,14 +52,16 @@ export default {
         },
       },
     });
-    // TODO: create Type for PropertyType
 
     const resp = await fetch('/graphql', {
       method: 'POST',
       body: JSON.stringify({ query: meow }),
       headers: new Headers(),
     });
+
     const { data } = await resp.json();
+
+    console.log(data);
     if (!data) {
       throw new Error('Meow');
     }

@@ -10,7 +10,7 @@ export default {
   async action({ params, fetch }) {
     const listingQuery = graphqlify({
       listingById: {
-        params: { id: parseInt(params.id) },
+        params: { id: Number(params.id) },
         fields: {
           id: {},
           name: {},
