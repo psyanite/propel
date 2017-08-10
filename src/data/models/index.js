@@ -5,6 +5,7 @@ import UserClaim from './UserClaim';
 import UserProfile from './UserProfile';
 import Listing from './Listing';
 import Area from './Area';
+import PropertyType from './PropertyType';
 
 User.Logins = User.hasMany(UserLogin, {
   foreignKey: 'userId',
@@ -27,8 +28,6 @@ User.Profile = User.hasOne(UserProfile, {
   onDelete: 'cascade',
 });
 
-Listing.Area = Listing.belongsTo(Area);
-
 function sync(...args) {
   return sequelize.sync(...args);
 }
@@ -41,4 +40,5 @@ export {
   UserProfile,
   Listing,
   Area,
+  PropertyType,
 };

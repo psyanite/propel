@@ -1,18 +1,17 @@
 import {
   GraphQLList as List,
 } from 'graphql';
+import PropertyTypeType from '../types/PropertyTypeType';
+import PropertyType from '../models/PropertyType';
 
-import ListingType from '../types/ListingType';
-import Listing from '../models/Listing';
-
-const listings = {
-  allListings: {
-    type: new List(ListingType),
+const propertyTypes = {
+  allPropertyTypes: {
+    type: new List(PropertyTypeType),
     resolve() {
-      return Listing.findAll({})
+      return PropertyType.findAll({})
         .then(data => data);
     },
   },
 };
 
-export default listings;
+export default propertyTypes;

@@ -1,7 +1,7 @@
 import DataType from 'sequelize';
 import Model from '../sequelize';
 
-const Area = Model.define('areas', {
+const PropertyType = Model.define('propertyTypes', {
 
   id: {
     type: DataType.INTEGER,
@@ -21,4 +21,4 @@ const Area = Model.define('areas', {
 
 });
 
-export default Area;
+export default PropertyType;
