@@ -27,28 +27,30 @@ async function action({ fetch }) {
     //   },
     // },
   });
-  const resp = await fetch('/graphql', {
-    method: 'POST',
-    body: JSON.stringify({ query: filterOptionsQuery }),
-    headers: new Headers(),
-  });
-  const { data } = await resp.json();
-  if (!data) {
-    throw new Error('Meow');
-  }
+  // const resp = await fetch('/graphql', {
+  //   method: 'POST',
+  //   body: JSON.stringify({ query: filterOptionsQuery })
+  // });
+  // const { data } = await resp.json();
+  // if (!data) {
+  //   throw new Error('Meow');
+  // }
 
-  const filters = Object.keys(data).map((key) => {
-    const filter = {};
-    filter[key] = data[key].nodes.map(node => ({ name: node.name, value: node.id }));
-    filter[key].unshift({ name: 'Any', value: null });
-    return filter;
-  });
+  // const filters = Object.keys(data).map((key) => {
+  //   const filter = {};
+  //   filter[key] = data[key].nodes.map(node => ({ name: node.name, value: node.id }));
+  //   filter[key].unshift({ name: 'Any', value: null });
+  //   return filter;
+  // });
 
+  const title = 'Meow';
+
+  // {/*<Layout><Home filterOptions={filters} /></Layout>*/}
   return {
     chunks: ['home'],
     title: 'Meow',
     component: (
-      <Layout><Home filterOptions={filters} /></Layout>
+      <Layout><Home title={title} /></Layout>
     ),
   };
 }

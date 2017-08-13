@@ -27,6 +27,9 @@ yarn-error.log*
 
 # Misc
 .DS_Store
+
+# Meow
 yarn.lock
 .yarnclean
-package-lock.json
+.jshintignore
+.jshintrc
