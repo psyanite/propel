@@ -15,7 +15,7 @@ class Filter extends React.Component {
       options: PropTypes.arrayOf(
         PropTypes.shape({
           label: PropTypes.string.isRequired,
-          value: PropTypes.number,
+          value: PropTypes.any.isRequired,
         }),
       ).isRequired,
     }).isRequired,
@@ -28,8 +28,25 @@ class Filter extends React.Component {
   }
 
   onChange = items => {
-    this.setState({ selectedValues: items });
+    let selectedValues = items;
+    const any = items.find(item => item.value == '');
+    if (any) {
+      selectedValues = any;
+      this.setOptionsDisabled(true);
+    }
+    else if (items.length == 0) {
+      this.setOptionsDisabled(false);
+    }
+    this.setState({ selectedValues });
     this.props.onChange(this.props.filter.id, items);
+  };
+
+  setOptionsDisabled = isDisabled => {
+    this.props.filter.options = this.props.filter.options.map(option => {
+      const item = option;
+      item.disabled = isDisabled;
+      return item;
+    });
   };
 
   render() {
