@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import {
   GraphQLList as List,
   GraphQLNonNull as NonNull,
@@ -11,10 +12,10 @@ const listings = {
   allListings: {
     type: new List(ListingType),
     resolve() {
-      return Listing.findAll({})
-        .then(data => data);
+      return Listing.findAll({}).then(data => data);
     },
   },
+
   listingById: {
     type: new List(ListingType),
     args: {
@@ -23,6 +24,32 @@ const listings = {
       },
     },
     resolve: resolver(Listing),
+  },
+
+  listingSearch: {
+    type: new List(ListingType),
+    args: {
+      areaId: {
+        description: 'Set of areas to include in the result',
+        type: new List(Int),
+      },
+    },
+    resolve: resolver(Listing, {
+      before: (findOptions, args) => {
+        if (args.areaId.length > 0) {
+          findOptions.where = {
+            areaId: { $in: args.areaId },
+          };
+        }
+        else {
+          findOptions.where = {
+            areaId: { $ne: null },
+          };
+        }
+        findOptions.order = [['name', 'ASC']];
+        return findOptions;
+      },
+    }),
   },
 };
 

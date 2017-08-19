@@ -1,5 +1,4 @@
 import React from 'react';
-import queryString from 'query-string';
 import graphqlify, { Enum } from 'graphqlify';
 import Meowout from '../../../components/Meowout/Meowout';
 import Listings from './Listings';
@@ -23,11 +22,11 @@ async function action({ query, fetch }) {
       queryParams[key] = values.map(value => Number(value));
     }
   });
-  console.log(queryParams);
 
   const meow = graphqlify({
     listings: {
-      field: 'allListings',
+      field: 'listingSearch',
+      params: { areaId: queryParams.areaId },
       fields: {
         id: {},
         name: {},
@@ -51,6 +50,7 @@ async function action({ query, fetch }) {
       },
     },
   });
+
 
   const resp = await fetch('/graphql', {
     method: 'POST',
