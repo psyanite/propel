@@ -15,9 +15,7 @@ class List extends React.Component {
     ).isRequired,
   };
 
-  buildUri(listing) {
-    return `/listings/${listing.id}`;
-  }
+  buildUri = listing => `/listings/${listing.id}`;
 
   render() {
     return (
