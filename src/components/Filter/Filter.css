@@ -1,0 +1,33 @@
+@import '../../components/variables.css';
+
+.root {
+  display: inline-block;
+}
+
+.searchie {
+  display: inline-block;
+  width: 480px;
+  margin: 20px;
+  font-family: var(--font-family-fancy);
+  font-size: 26px;
+  font-weight: 800;
+  color: #8599ad;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+.searchie div {
+  border: none;
+  color: #aebdcc;
+}
+
+.searchie input::-webkit-search-decoration,
+.searchie div input::-webkit-search-cancel-button,
+.searchie div input::-webkit-search-results-button,
+.searchie div input::-webkit-search-results-decoration {
+  display: none;
+}
+
+.searchie div input:focus {
+  outline-width: 0;
+}

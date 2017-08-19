@@ -39,6 +39,7 @@
     "query-string": "^4.3.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-select": "^1.0.0-rc.5",
     "sequelize": "^4.2.1",
     "serialize-javascript": "^1.3.0",
     "source-map-support": "^0.4.15",

@@ -15,11 +15,10 @@
 }
 
 .search {
-
+  /*width: 500px;*/
 }
 
 .bar {
-  width: 500px;
   border: none;
   vertical-align: center;
   margin: 20px;
