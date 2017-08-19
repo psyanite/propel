@@ -2,6 +2,7 @@
 
 .root {
   display: inline-block;
+  line-height: 1px;
 }
 
 .searchie {
@@ -12,13 +13,10 @@
   font-size: 26px;
   font-weight: 800;
   color: #8599ad;
-  -moz-appearance: textfield;
-  -webkit-appearance: textfield;
 }
 
-.searchie div {
-  border: none;
-  color: #aebdcc;
+.searchie div:hover {
+  box-shadow: none;
 }
 
 .searchie input::-webkit-search-decoration,

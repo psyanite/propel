@@ -60,17 +60,17 @@
 }
 
 .search {
-  display: inline-block;
-  background-color: #fff;
+  display: flex;
+  align-items: center;
+  line-height: 1px;
   border-radius: 3px 10px 10px 10px;
+  background-color: #fff;
   box-shadow: 0 3px 6px rgba(0,0,0,0.01), 0 3px 20px rgba(0,0,0,0.06);
 }
 
 .go {
   display: inline-block;
-  vertical-align: top;
-  border-radius: 0 10px 10px 0;
-  padding: 28px 20px 26px 0;
+  margin-right: 17px;
 }
 
 .go svg {

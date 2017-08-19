@@ -1,0 +1,45 @@
+.Select--multi .Select-value {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.Select:focus {
+  outline-width: 0;
+}
+
+.is-focused:not(.is-open) > .Select-control {
+  box-shadow: none;
+}
+
+.Select-control {
+  border: none;
+  height: 1.75em;
+}
+
+.Select-placeholder {
+  margin: 5px 0;
+  line-height: 1.3em;
+}
+
+.Select-input > input {
+  margin-top: 5px;
+  padding: 0;
+}
+
+.Select-menu-outer {
+  line-height: 1em !important;
+}
+
+
+.Select-option {
+  color: #aaa;
+}
+
+.Select-option.is-focused {
+  background-color: #ebf5ff;
+  /* Fallback color for IE 8 */
+  background-color: rgba(0, 126, 255, 0.08);
+  color: #32344c;
+}
+
+

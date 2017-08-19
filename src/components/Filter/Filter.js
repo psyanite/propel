@@ -1,8 +1,10 @@
+/* eslint-disable css-modules/no-unused-class */
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import selectStyles from 'react-select/dist/react-select.css';
 import Select from 'react-select';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import rSelectStyles from 'react-select/dist/react-select.css';
+import customRSelectStyles from '../../../customStyles/rSelect.css';
 import s from './Filter.css';
 
 class Filter extends React.Component {
@@ -49,4 +51,4 @@ class Filter extends React.Component {
   }
 }
 
-export default withStyles(s, selectStyles)(Filter);
+export default withStyles(rSelectStyles, customRSelectStyles, s)(Filter);
