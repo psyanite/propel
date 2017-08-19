@@ -3,14 +3,16 @@ import graphqlify from 'graphqlify';
 import Layout from '../../components/Home/Layout';
 import Home from './Home';
 
-const buildFilters = data => {
-  const filters = Object.keys(data).map(key => {
+const buildFilters = data =>
+  Object.keys(data).map(key => {
     const filter = {};
     filter.id = key;
     filter.options = data[key].map(option => ({
       label: option.name,
       value: option.id,
     }));
+    filter.options.unshift({ label: 'Any', value: '' });
+
     switch (key) {
       case 'areaId':
         filter.placeholder = 'Search by suburb';
@@ -20,8 +22,6 @@ const buildFilters = data => {
     }
     return filter;
   });
-  return filters;
-};
 
 async function action({ fetch }) {
   const filtersQuery = graphqlify({

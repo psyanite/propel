@@ -14,10 +14,10 @@ const routes = {
       path: '/listings',
       load: () => import(/* webpackChunkName: 'listings-list' */ './listings/list'),
     },
-    // {
-    //   path: '/listings/:id',
-    //   load: () => import(/* webpackChunkName: 'listings-single' */ './listings/single'),
-    // },
+    {
+      path: '/listings/:id',
+      load: () => import(/* webpackChunkName: 'listings-single' */ './listings/single'),
+    },
     {
       path: '/',
       load: () => import(/* webpackChunkName: 'home' */ './home'),
