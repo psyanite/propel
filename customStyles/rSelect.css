@@ -32,14 +32,12 @@
 
 
 .Select-option {
-  color: #aaa;
+  color: #99c5f4;
 }
 
 .Select-option.is-focused {
   background-color: #ebf5ff;
   /* Fallback color for IE 8 */
   background-color: rgba(0, 126, 255, 0.08);
-  color: #32344c;
+  color: #1c7cf1;
 }
-
-
