@@ -40,9 +40,7 @@ async function action({ fetch }) {
   });
   const { data } = await resp.json();
   if (!data) throw new Error('Meow');
-  console.log(data);
   const filters = buildFilters(data);
-  console.log(filters);
 
   return {
     chunks: ['home'],

@@ -8,9 +8,11 @@ import s from '../Common.css';
 
 class List extends React.Component {
   static propTypes = {
-    listings: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    })).isRequired,
+    listings: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+      }),
+    ).isRequired,
   };
 
   buildUri(listing) {
@@ -28,15 +30,30 @@ class List extends React.Component {
           <hr />
         </div>
 
-        {this.props.listings.map(listing => (
+        {this.props.listings.map(listing =>
           <a className={s.row} key={listing.id} href={this.buildUri(listing)}>
-            <span>{listing.name}</span>
-            <span>{listing.area.name}</span>
-            <span><sup className={s.priceSign}>$</sup><span className={s.priceValue}>{listing.price}</span><span className={s.priceUnit}>AUD/night</span></span>
-            <span className={s.other}><span>{listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span></span>
+            <span>
+              {listing.name}
+            </span>
+            <span>
+              {listing.area.name}
+            </span>
+            <span>
+              <sup className={s.priceSign}>$</sup>
+              <span className={s.priceValue}>
+                {listing.price}
+              </span>
+              <span className={s.priceUnit}>AUD/night</span>
+            </span>
+            <span className={s.other}>
+              <span>
+                {listing.guestCount} Guests · {listing.bedroomCount} Bedrooms ·{' '}
+                {listing.bedCount} Beds
+              </span>
+            </span>
             <hr />
-          </a>
-        ))}
+          </a>,
+        )}
       </div>
     );
   }

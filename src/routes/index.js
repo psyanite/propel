@@ -11,6 +11,18 @@ const routes = {
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
+      path: '/listings',
+      load: () => import(/* webpackChunkName: 'listings-list' */ './listings/list'),
+    },
+    // {
+    //   path: '/listings/:id',
+    //   load: () => import(/* webpackChunkName: 'listings-single' */ './listings/single'),
+    // },
+    {
+      path: '/',
+      load: () => import(/* webpackChunkName: 'home' */ './home'),
+    },
+    {
       path: '/contact',
       load: () => import(/* webpackChunkName: 'contact' */ './contact'),
     },
