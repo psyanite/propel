@@ -13,20 +13,14 @@ async function action({ query, fetch }) {
     if (params[key].length > 0 && !Array.isArray(params[key])) {
       params[key] = [query[key]];
     }
+    params[key] = params[key].map(value => Number(value));
   });
 
-  const queryParams = { orderBy: Enum('ID_ASC') };
-  Object.keys(params).forEach(key => {
-    const values = params[key];
-    if (values) {
-      queryParams[key] = values.map(value => Number(value));
-    }
-  });
 
   const meow = graphqlify({
     listings: {
       field: 'listingSearch',
-      params: { areaId: queryParams.areaId },
+      params: { areaId: params.areaId },
       fields: {
         id: {},
         name: {},

@@ -7,11 +7,20 @@ import logoUrl from './logo.png';
 import history from '../../history';
 import Filter from '../../components/Filter/';
 
-// todo: update propTypes
-
 class Home extends React.Component {
   static propTypes = {
-    filters: PropTypes.arrayOf(PropTypes.object).isRequired,
+    filters: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        placeholder: PropTypes.string.isRequired,
+        options: PropTypes.arrayOf(
+          PropTypes.shape({
+            label: PropTypes.string.isRequired,
+            value: PropTypes.any.isRequired,
+          }),
+        ).isRequired,
+      }),
+    ).isRequired,
   };
 
   constructor(props) {
@@ -29,15 +38,17 @@ class Home extends React.Component {
 
   updateParams = (id, items) => {
     const params = this.state.params;
-    params[id] = items.map(item => item.value);
+    params[id] = [];
+    if (items.length > 0 && items[0].value != '') {
+      params[id] = items.map(item => item.value);
+    }
     this.setState({ params });
   };
 
   search = e => {
     e.preventDefault();
-    if (this.state.params.areaId.length > 0) {
-      history.push(`/listings?${queryString.stringify(this.state.params)}`);
-    }
+    // todo: some arbitrary check here which should be improved
+    history.push(`/listings?${queryString.stringify(this.state.params)}`);
   };
 
   render() {
