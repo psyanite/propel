@@ -56,6 +56,18 @@ module.exports = {
     // https://github.com/kriasoft/react-starter-kit/pull/961
     'react/prefer-stateless-function': 'off',
 
+    // Max-length
+    'max-len': [1, 1500, 4],
+
+    // Brace-style
+    'brace-style': [
+      'error',
+      'stroustrup',
+      {
+        'allowSingleLine': true
+      }
+    ],
+
     // ESLint plugin for prettier formatting
     // https://github.com/prettier/eslint-plugin-prettier
     'prettier/prettier': [
@@ -76,14 +88,5 @@ module.exports = {
         moduleDirectory: ['node_modules', 'src'],
       },
     },
-
-    // Maximum length for file  'max-len': [1, 1500, 4],
-
-    'brace-style': [
-      "error",
-      "stroustrup",
-      {
-        allowSingleLine: true
-      }
-    ],
-  },};
+  },
+};
