@@ -4,14 +4,16 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import rSelectStyles from 'react-select/dist/react-select.css';
-import customRSelectStyles from '../../../customStyles/rSelect.css';
+import customRSelectStyles from '../../../../../customStyles/rSelect.css';
 import s from './Filter.css';
 
+// todo: this is an abomination
 class Filter extends React.Component {
   static propTypes = {
     filter: PropTypes.shape({
       id: PropTypes.string.isRequired,
       placeholder: PropTypes.string.isRequired,
+      isMulti: PropTypes.bool.isRequired,
       options: PropTypes.arrayOf(
         PropTypes.shape({
           label: PropTypes.string.isRequired,
@@ -22,23 +24,12 @@ class Filter extends React.Component {
     onChange: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = { selectedValues: [] };
-  }
-
-  onChange = items => {
-    let selectedValues = items;
-    const any = items.find(item => item.value == '');
-    if (any) {
-      selectedValues = any;
-      this.setOptionsDisabled(true);
+  onChange = incoming => {
+    let selectedValues = incoming;
+    if (Array.isArray(incoming)) {
+      selectedValues = this.processIncoming(incoming);
     }
-    else if (items.length == 0) {
-      this.setOptionsDisabled(false);
-    }
-    this.setState({ selectedValues });
-    this.props.onChange(this.props.filter.id, items);
+    this.props.onChange(this.props.filter.id, selectedValues);
   };
 
   setOptionsDisabled = isDisabled => {
@@ -49,6 +40,19 @@ class Filter extends React.Component {
     });
   };
 
+  processIncoming = items => {
+    let selectedValues = items;
+    const any = items.find(item => item.value === '');
+    if (any) {
+      selectedValues = any;
+      this.setOptionsDisabled(true);
+    }
+    else if (items.length === 0) {
+      this.setOptionsDisabled(false);
+    }
+    return selectedValues;
+  };
+
   render() {
     const filter = this.props.filter;
     return (
@@ -56,12 +60,12 @@ class Filter extends React.Component {
         <Select
           key={filter.id}
           name={filter.id}
-          multi
-          value={this.state.selectedValues}
+          multi={filter.isMulti}
+          value={this.props.selectedValues}
           options={filter.options}
           onChange={this.onChange}
           placeholder={filter.placeholder}
-          className={s.searchie}
+          className={filter.styleName}
         />
       </div>
     );

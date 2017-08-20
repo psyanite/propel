@@ -5,28 +5,28 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Home.css';
 import logoUrl from './logo.png';
 import history from '../../history';
-import Filter from '../../components/Filter/';
+import Filters from '../../components/Home/Filters';
 
 class Home extends React.Component {
   static propTypes = {
-    filters: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        placeholder: PropTypes.string.isRequired,
-        options: PropTypes.arrayOf(
-          PropTypes.shape({
-            label: PropTypes.string.isRequired,
-            value: PropTypes.any.isRequired,
-          }),
-        ).isRequired,
-      }),
-    ).isRequired,
+    // filters: PropTypes.arrayOf(
+    //   PropTypes.shape({
+    //     id: PropTypes.string.isRequired,
+    //     placeholder: PropTypes.string.isRequired,
+    //     options: PropTypes.arrayOf(
+    //       PropTypes.shape({
+    //         label: PropTypes.string.isRequired,
+    //         value: PropTypes.any.isRequired,
+    //       }),
+    //     ).isRequired,
+    //   }),
+    // ).isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = this.buildParams(this.props.filters);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = this.buildParams(this.props.filters);
+  // }
 
   buildParams = filters => {
     const params = {};
@@ -56,13 +56,7 @@ class Home extends React.Component {
         <div className={s.meow}>
           <img className={s.bro} src={logoUrl} alt="Bro, can you not." />
           <form className={s.search} onSubmit={this.search}>
-            {this.props.filters.map(filter =>
-              <Filter
-                key={filter.id}
-                filter={filter}
-                onChange={this.updateParams}
-              />,
-            )}
+            <Filters data={this.props.data} />
             <button className={s.go} type="submit">
               <svg
                 viewBox="0 0 444.819 444.819"
