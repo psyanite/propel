@@ -9,33 +9,45 @@ import s from './Tiles.css';
 
 class Tiles extends React.Component {
   static propTypes = {
-    listings: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    })).isRequired,
+    listings: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+      }),
+    ).isRequired,
   };
 
-  buildUri(listing) {
-    return `/listings/${listing.id}`;
-  }
+  buildUri = listing => `/listings/${listing.id}`;
 
   render() {
     return (
       <div>
-        {this.props.listings.map(listing => (
+        {this.props.listings.map(listing =>
           <a key={listing.id} className={s.tile} href={this.buildUri(listing)}>
             <div className={s.carousel}>
               <div className={s.priceContainer}>
                 <div className={s.priceContent}>
                   <sup className={c.priceSign}>$</sup>
-                  <span className={c.priceValue}>{listing.price}</span><span className={c.priceUnit}>AUD/night</span>
+                  <span className={c.priceValue}>
+                    {listing.price}
+                  </span>
+                  <span className={c.priceUnit}>AUD/night</span>
                 </div>
               </div>
-              <img className={s.picture} src={listing.image} alt={listing.name} />
+              <img
+                className={s.picture}
+                src={listing.image}
+                alt={listing.name}
+              />
             </div>
-            <h1 className={s.title}>{listing.name}</h1>
-            <span>{listing.propertyKind.name} · {listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span>
-          </a>
-        ))}
+            <h1 className={s.title}>
+              {listing.name}
+            </h1>
+            <span>
+              {listing.propertyKind.name} · {listing.guestCount} Guests ·{' '}
+              {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds
+            </span>
+          </a>,
+        )}
       </div>
     );
   }

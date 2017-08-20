@@ -5,11 +5,10 @@ import {
   GraphQLString as String,
 } from 'graphql';
 import { resolver } from 'graphql-sequelize';
-import { Listing, Area, PropertyKind } from '../models';
-import AreaType from './AreaType';
-import PropertyKindType from './PropertyKindType';
+import { Listing, Suburb, PropertyKind } from '../models';
+import { SuburbType, PropertyKindType } from '.';
 
-Listing.Area = Listing.belongsTo(Area);
+Listing.Suburb = Listing.belongsTo(Suburb);
 Listing.PropertyKind = Listing.belongsTo(PropertyKind);
 
 // todo: add comments and descriptions
@@ -18,9 +17,9 @@ const ListingType = new ObjectType({
   fields: {
     id: { type: new NonNull(Int) },
     name: { type: String },
-    area: {
-      type: AreaType,
-      resolve: resolver(Listing.Area),
+    suburb: {
+      type: SuburbType,
+      resolve: resolver(Listing.Suburb),
     },
     propertyKind: {
       type: PropertyKindType,

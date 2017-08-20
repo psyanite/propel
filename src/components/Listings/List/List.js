@@ -22,7 +22,7 @@ class List extends React.Component {
       <div className={s.list}>
         <div className={s.header}>
           <span>Listing name</span>
-          <span>Area</span>
+          <span>Suburb</span>
           <span>Price</span>
           <span className={s.other}>Other</span>
           <hr />
@@ -34,7 +34,7 @@ class List extends React.Component {
               {listing.name}
             </span>
             <span>
-              {listing.area.name}
+              {listing.suburb.name}
             </span>
             <span>
               <sup className={s.priceSign}>$</sup>

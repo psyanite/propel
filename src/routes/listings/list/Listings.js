@@ -56,7 +56,7 @@ class Listings extends React.Component {
           <div className={s.navvi}>
             <div className={s.filters}>
               <button className={s.filter}>
-                <span>Location</span>
+                <span>Suburb</span>
                 <span className={s.chevron}>
                   <svg
                     viewBox="0 0 18 18"

@@ -14,7 +14,7 @@ const buildFilters = data =>
     filter.options.unshift({ label: 'Any', value: '' });
 
     switch (key) {
-      case 'areaId':
+      case 'suburbId':
         filter.placeholder = 'Search by suburb';
         break;
       default:
@@ -25,8 +25,8 @@ const buildFilters = data =>
 
 async function action({ fetch }) {
   const filtersQuery = graphqlify({
-    areaId: {
-      field: 'allAreas',
+    suburbId: {
+      field: 'allSuburbs',
       fields: {
         id: {},
         name: {},

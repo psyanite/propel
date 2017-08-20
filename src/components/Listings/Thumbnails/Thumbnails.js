@@ -9,29 +9,43 @@ import s from './Thumbnails.css';
 
 class Thumbnails extends React.Component {
   static propTypes = {
-    listings: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    })).isRequired,
+    listings: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+      }),
+    ).isRequired,
   };
 
-  buildUri(listing) {
-    return `/listings/${listing.id}`;
-  }
+  buildUri = listing => `/listings/${listing.id}`;
 
   render() {
-    console.log(this.props.listings);
     return (
       <div className={c.thumbnails}>
-        {this.props.listings.map(listing => (
+        {this.props.listings.map(listing =>
           <a className={c.row} key={listing.id} href={this.buildUri(listing)}>
             <img className={s.picture} src={listing.image} alt={listing.name} />
-            <span className={s.name}>{listing.name}</span>
-            <span className={s.area}>{listing.area.name}</span>
-            <span className={s.price}><sup className={c.priceSign}>$</sup><span className={c.priceValue}>{listing.price}</span><span className={c.priceUnit}>AUD/night</span></span>
-            <span className={s.other}><span>{listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span></span>
+            <span className={s.name}>
+              {listing.name}
+            </span>
+            <span className={s.suburb}>
+              {listing.suburb.name}
+            </span>
+            <span className={s.price}>
+              <sup className={c.priceSign}>$</sup>
+              <span className={c.priceValue}>
+                {listing.price}
+              </span>
+              <span className={c.priceUnit}>AUD/night</span>
+            </span>
+            <span className={s.other}>
+              <span>
+                {listing.guestCount} Guests · {listing.bedroomCount} Bedrooms ·{' '}
+                {listing.bedCount} Beds
+              </span>
+            </span>
             <hr />
-          </a>
-        ))}
+          </a>,
+        )}
       </div>
     );
   }

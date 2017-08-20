@@ -16,15 +16,14 @@ async function action({ query, fetch }) {
     params[key] = params[key].map(value => Number(value));
   });
 
-
   const meow = graphqlify({
     listings: {
       field: 'listingSearch',
-      params: { areaId: params.areaId },
+      params: { suburbId: params.suburbId },
       fields: {
         id: {},
         name: {},
-        area: {
+        suburb: {
           fields: {
             name: {},
           },
@@ -44,7 +43,6 @@ async function action({ query, fetch }) {
       },
     },
   });
-
 
   const resp = await fetch('/graphql', {
     method: 'POST',

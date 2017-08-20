@@ -4,7 +4,9 @@ import UserLogin from './UserLogin';
 import UserClaim from './UserClaim';
 import UserProfile from './UserProfile';
 import Listing from './Listing';
-import Area from './Area';
+import Suburb from './Location/Suburb';
+import Region from './Location/Region';
+import District from './Location/District';
 import PropertyKind from './PropertyKind';
 
 User.Logins = User.hasMany(UserLogin, {
@@ -33,4 +35,14 @@ function sync(...args) {
 }
 
 export default { sync };
-export { User, UserLogin, UserClaim, UserProfile, Listing, Area, PropertyKind };
+export {
+  User,
+  UserLogin,
+  UserClaim,
+  UserProfile,
+  Listing,
+  Region,
+  District,
+  Suburb,
+  PropertyKind,
+};

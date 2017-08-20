@@ -47,7 +47,6 @@ class Home extends React.Component {
 
   search = e => {
     e.preventDefault();
-    // todo: some arbitrary check here which should be improved
     history.push(`/listings?${queryString.stringify(this.state.params)}`);
   };
 

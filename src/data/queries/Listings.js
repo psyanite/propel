@@ -5,8 +5,8 @@ import {
   GraphQLInt as Int,
 } from 'graphql';
 import { resolver } from 'graphql-sequelize';
-import ListingType from '../types/ListingType';
-import Listing from '../models/Listing';
+import { ListingType } from '../types';
+import { Listing } from '../models';
 
 const listings = {
   allListings: {
@@ -29,21 +29,21 @@ const listings = {
   listingSearch: {
     type: new List(ListingType),
     args: {
-      areaId: {
-        description: 'Set of areas to include in the result',
+      suburbId: {
+        description: 'Set of suburb to include in the result',
         type: new List(Int),
       },
     },
     resolve: resolver(Listing, {
       before: (findOptions, args) => {
-        if (args.areaId.length > 0) {
+        if (args.suburbId.length > 0) {
           findOptions.where = {
-            areaId: { $in: args.areaId },
+            suburbId: { $in: args.suburbId },
           };
         }
         else {
           findOptions.where = {
-            areaId: { $ne: null },
+            suburbId: { $ne: null },
           };
         }
         findOptions.order = [['name', 'ASC']];

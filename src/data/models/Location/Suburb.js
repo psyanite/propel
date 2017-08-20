@@ -1,8 +1,8 @@
 import DataType from 'sequelize';
-import Model from '../sequelize';
+import Model from '../../sequelize';
 
-const Area = Model.define(
-  'areas',
+const Suburb = Model.define(
+  'suburbs',
   {
     id: {
       type: DataType.INTEGER,
@@ -19,4 +19,4 @@ const Area = Model.define(
   },
 );
 
-export default Area;
+export default Suburb;
