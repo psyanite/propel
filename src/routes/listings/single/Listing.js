@@ -12,7 +12,7 @@ class Listing extends React.Component {
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       link: PropTypes.string.isRequired,
-      area: PropTypes.shape({
+      suburb: PropTypes.shape({
         name: PropTypes.string.isRequired,
       }).isRequired,
       propertyKind: PropTypes.shape({
@@ -35,7 +35,7 @@ class Listing extends React.Component {
           <span className={s.price}><sup className={s.priceSign}>$</sup><span className={s.priceValue}>{listing.price}</span><span className={s.priceUnit}>AUD/night</span></span>
           <span>Listed Fri 16 June, 10:05 am</span>
           <br />
-          <span>{listing.area.name}</span> <span><span>{listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span></span>
+          <span>{listing.suburb.name}</span> <span><span>{listing.guestCount} Guests · {listing.bedroomCount} Bedrooms · {listing.bedCount} Beds</span></span>
           <a className={s.linky} href={listing.link} target="_blank" rel="noopener noreferrer">View listing &#8250;</a>
         </div>
         <div className={s.other}>

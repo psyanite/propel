@@ -1,26 +1,27 @@
 import {
   GraphQLInt as Int,
+  GraphQLList as List,
   GraphQLNonNull as NonNull,
   GraphQLObjectType as ObjectType,
   GraphQLString as String,
 } from 'graphql';
 import { resolver } from 'graphql-sequelize';
-import { Suburb, District } from '../../models';
+import { District, Region } from '../../models';
 import DistrictType from './DistrictType';
 
-Suburb.District = Suburb.belongsTo(District);
+Region.Districts = Region.hasMany(District);
 
 // todo: add comments and descriptions
-const SuburbType = new ObjectType({
-  name: 'Suburb',
+const RegionType = new ObjectType({
+  name: 'Region',
   fields: () => ({
     id: { type: new NonNull(Int) },
     name: { type: String },
-    district: {
-      type: DistrictType,
-      resolve: resolver(Suburb.District),
+    districts: {
+      type: new List(DistrictType),
+      resolve: resolver(Region.Districts),
     },
   }),
 });
 
-export default SuburbType;
+export default RegionType;

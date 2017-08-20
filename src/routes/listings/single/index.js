@@ -12,7 +12,7 @@ async function action({ params, fetch }) {
         name: {},
         description: {},
         link: {},
-        area: {
+        suburb: {
           fields: {
             name: {},
           },

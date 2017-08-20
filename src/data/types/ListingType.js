@@ -6,7 +6,8 @@ import {
 } from 'graphql';
 import { resolver } from 'graphql-sequelize';
 import { Listing, Suburb, PropertyKind } from '../models';
-import { SuburbType, PropertyKindType } from '.';
+import SuburbType from './Location/SuburbType';
+import PropertyKindType from './PropertyKindType';
 
 Listing.Suburb = Listing.belongsTo(Suburb);
 Listing.PropertyKind = Listing.belongsTo(PropertyKind);
