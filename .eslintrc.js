@@ -60,13 +60,13 @@ module.exports = {
     'max-len': [1, 1500, 4],
 
     // Brace-style
-    'brace-style': [
-      'error',
-      'stroustrup',
-      {
-        'allowSingleLine': true
-      }
-    ],
+    // 'brace-style': [
+    //   'error',
+    //   'stroustrup',
+    //   {
+    //     'allowSingleLine': true
+    //   }
+    // ],
 
     // ESLint plugin for prettier formatting
     // https://github.com/prettier/eslint-plugin-prettier
