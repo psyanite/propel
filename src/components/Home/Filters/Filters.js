@@ -68,7 +68,7 @@ const buildSelectedValues = filters => {
   selectedValues.districtId = filters.district.options.find(
     option => option.value === defaultDistrictId,
   );
-  selectedValues.suburbId = [];
+  selectedValues.suburbId = null;
   return selectedValues;
 };
 
@@ -88,6 +88,7 @@ class Filters extends React.Component {
         }).isRequired,
       ).isRequired,
     }).isRequired,
+    onUpdateSelectedValues: PropTypes.func.isRequired,
   };
 
   // todo: absolute abomination
@@ -97,6 +98,7 @@ class Filters extends React.Component {
     const districtFilters = buildDistrictFilters(data.districts);
     const filters = buildFilters(data, districtFilters);
     const selectedValues = buildSelectedValues(filters);
+    this.props.onUpdateSelectedValues(selectedValues);
     this.state = { selectedValues, filters, districtFilters };
   }
 
@@ -111,19 +113,17 @@ class Filters extends React.Component {
   };
 
   onChange = (kind, item) => {
-    console.log('Filters.onChange');
-    console.log(kind);
-    console.log(item);
-
     const selectedValues = this.state.selectedValues;
-
     if (kind === 'districtId' && selectedValues[kind] !== item) {
-      console.log('District has been changed');
       this.onDistrictChange(kind, item);
     }
-
     selectedValues[kind] = item;
+    this.updateSelectedValues(selectedValues);
+  };
+
+  updateSelectedValues = selectedValues => {
     this.setState({ selectedValues });
+    this.props.onUpdateSelectedValues(selectedValues);
   };
 
   render() {

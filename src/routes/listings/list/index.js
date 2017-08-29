@@ -1,12 +1,15 @@
 import React from 'react';
-import graphqlify, { Enum } from 'graphqlify';
+import graphqlify from 'graphqlify';
 import Meowout from '../../../components/Meowout/Meowout';
 import Listings from './Listings';
 
 async function action({ query, fetch }) {
   const paramsTemplate = {
-    areaId: [],
+    districtId: [],
+    suburbId: [],
   };
+
+  console.log(query);
 
   const params = Object.assign(paramsTemplate, query);
   Object.keys(params).forEach(key => {

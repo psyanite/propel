@@ -21,7 +21,10 @@ class Listings extends React.Component {
         id: PropTypes.number.isRequired,
       }),
     ).isRequired,
-    params: PropTypes.object.isRequired,
+    params: PropTypes.shape({
+      districtId: PropTypes.array.isRequired,
+      suburbId: PropTypes.array.isRequired,
+    }).isRequired,
   };
 
   constructor(props) {
@@ -61,7 +64,6 @@ class Listings extends React.Component {
                   <svg
                     viewBox="0 0 18 18"
                     role="presentation"
-                    aria-hidden="true"
                     focusable="false"
                   >
                     <path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z" />
@@ -74,7 +76,6 @@ class Listings extends React.Component {
                   <svg
                     viewBox="0 0 18 18"
                     role="presentation"
-                    aria-hidden="true"
                     focusable="false"
                   >
                     <path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z" />
@@ -87,7 +88,6 @@ class Listings extends React.Component {
                   <svg
                     viewBox="0 0 18 18"
                     role="presentation"
-                    aria-hidden="true"
                     focusable="false"
                   >
                     <path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z" />
@@ -100,7 +100,6 @@ class Listings extends React.Component {
                   <svg
                     viewBox="0 0 18 18"
                     role="presentation"
-                    aria-hidden="true"
                     focusable="false"
                   >
                     <path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z" />
@@ -116,7 +115,7 @@ class Listings extends React.Component {
                 id="thumbnails-view"
                 onClick={() => this.changeView('thumbnails')}
               >
-                <ThumbnailsIcon />
+              <ThumbnailsIcon />
               </button>
               <button id="list-view" onClick={() => this.changeView('list')}>
                 <ListIcon />

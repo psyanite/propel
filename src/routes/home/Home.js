@@ -9,7 +9,7 @@ import Filters from '../../components/Home/Filters';
 
 class Home extends React.Component {
   static propTypes = {
-    // filters: PropTypes.arrayOf(
+    // data: PropTypes.arrayOf(
     //   PropTypes.shape({
     //     id: PropTypes.string.isRequired,
     //     placeholder: PropTypes.string.isRequired,
@@ -23,31 +23,50 @@ class Home extends React.Component {
     // ).isRequired,
   };
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = this.buildParams(this.props.filters);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      params: {
+        districtId: null,
+        suburbId: null,
+      },
+    };
+  }
 
-  buildParams = filters => {
-    const params = {};
-    filters.forEach(filter => {
-      params[filter.id] = [];
-    });
-    return { params };
-  };
-
-  updateParams = (id, items) => {
-    const params = this.state.params;
-    params[id] = [];
-    if (items.length > 0 && items[0].value != '') {
-      params[id] = items.map(item => item.value);
+  updateParams = selectedValues => {
+    const params = {
+      districtId: selectedValues.districtId.value,
+      suburbId: null,
+    };
+    const selectedSuburbs = selectedValues.suburbId;
+    if (selectedSuburbs !== null) {
+      if (Array.isArray(selectedSuburbs) && selectedSuburbs.length > 0) {
+        params.suburbId = selectedValues.suburbId.map(value => value.value);
+      } else if (selectedSuburbs.value !== undefined) {
+        params.suburbId = selectedValues.suburbId.value;
+      }
     }
     this.setState({ params });
   };
 
   search = e => {
     e.preventDefault();
-    history.push(`/listings?${queryString.stringify(this.state.params)}`);
+    const params = this.state.params;
+    if (params.districtId !== null && params.suburbId !== null) {
+      const queryParams = this.buildQueryParams();
+      history.push(`/listings?${queryString.stringify(queryParams)}`);
+    }
+  };
+
+  buildQueryParams = () => {
+    const params = this.state.params;
+    const queryParams = {};
+    Object.keys(params).forEach(key => {
+      if (params[key] !== null && params[key] !== '') {
+        queryParams[key] = params[key];
+      }
+    });
+    return queryParams;
   };
 
   render() {
@@ -56,7 +75,10 @@ class Home extends React.Component {
         <div className={s.meow}>
           <img className={s.bro} src={logoUrl} alt="Bro, can you not." />
           <form className={s.search} onSubmit={this.search}>
-            <Filters data={this.props.data} />
+            <Filters
+              data={this.props.data}
+              onUpdateSelectedValues={this.updateParams}
+            />
             <button className={s.go} type="submit">
               <svg
                 viewBox="0 0 444.819 444.819"
