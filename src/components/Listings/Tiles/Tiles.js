@@ -20,7 +20,7 @@ class Tiles extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={c.wrap}>
         {this.props.listings.map(listing =>
           <a key={listing.id} className={s.tile} href={this.buildUri(listing)}>
             <div className={s.carousel}>

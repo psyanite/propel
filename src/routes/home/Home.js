@@ -9,18 +9,20 @@ import Filters from '../../components/Home/Filters';
 
 class Home extends React.Component {
   static propTypes = {
-    // data: PropTypes.arrayOf(
-    //   PropTypes.shape({
-    //     id: PropTypes.string.isRequired,
-    //     placeholder: PropTypes.string.isRequired,
-    //     options: PropTypes.arrayOf(
-    //       PropTypes.shape({
-    //         label: PropTypes.string.isRequired,
-    //         value: PropTypes.any.isRequired,
-    //       }),
-    //     ).isRequired,
-    //   }),
-    // ).isRequired,
+    filters: PropTypes.shape({
+      districts: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          suburbs: PropTypes.arrayOf(
+            PropTypes.shape({
+              id: PropTypes.number.isRequired,
+              name: PropTypes.string.isRequired,
+            }).isRequired,
+          ).isRequired,
+        }).isRequired,
+      ).isRequired,
+    }).isRequired,
   };
 
   constructor(props) {
@@ -76,7 +78,7 @@ class Home extends React.Component {
           <img className={s.bro} src={logoUrl} alt="Bro, can you not." />
           <form className={s.search} onSubmit={this.search}>
             <Filters
-              data={this.props.data}
+              data={this.props.filters}
               onUpdateSelectedValues={this.updateParams}
             />
             <button className={s.go} type="submit">

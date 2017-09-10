@@ -1,6 +1,12 @@
 /* todo: not sure how to write re-usable that can be used across two components :S */
 @import '../../components/variables.css';
 
+.wrap {
+  display: table;
+  clear: both;
+  content: '';
+}
+
 .list,
 .thumbnails {
   width: 62%;

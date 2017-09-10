@@ -1,0 +1,74 @@
+@import '../../../components/variables.css';
+
+.root {
+  color: #8599ad;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: var(--font-family-fancy);
+}
+
+.views {
+  display: inline-block;
+  float: right;
+}
+
+.views button svg {
+  width: 13px;
+  fill: #8599ad;
+}
+
+.views button:hover svg {
+  fill: var(--color-aqua);
+}
+
+
+
+.filters {
+}
+
+.filter {
+  padding: 15px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.filter:first-child {
+  padding: 0 0 15px 0;
+}
+
+.filter:last-child {
+  border-bottom: none;
+}
+
+.filter h1 {
+  font-size: 20px;
+  margin: 0 0 3px 0;
+}
+
+
+
+.refine {
+  float: right;
+  padding: 7px 7px 7px 10px;
+  border-radius: 3px;
+  background-color: var(--button-background-color);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: var(--font-family-fancy);
+}
+
+.refine:hover {
+  background-color: var(--color-aqua);
+}
+
+.refine svg {
+  fill: var(--color-aqua);
+  width: 15px;
+  vertical-align: top;
+  margin-top: 3px;
+  margin-left: 3px;
+}
+
+.refine:hover svg {
+  fill: #fff;
+}

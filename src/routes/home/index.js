@@ -3,7 +3,6 @@ import graphqlify from 'graphqlify';
 import Layout from '../../components/Home/Layout';
 import Home from './Home';
 
-
 async function action({ fetch }) {
   const filtersQuery = graphqlify({
     districts: {
@@ -33,7 +32,7 @@ async function action({ fetch }) {
     title: 'Meow',
     component: (
       <Layout>
-        <Home data={data} />
+        <Home filters={data} />
       </Layout>
     ),
   };

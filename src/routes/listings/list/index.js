@@ -9,8 +9,6 @@ async function action({ query, fetch }) {
     suburbId: [],
   };
 
-  console.log(query);
-
   const params = Object.assign(paramsTemplate, query);
   Object.keys(params).forEach(key => {
     if (params[key].length > 0 && !Array.isArray(params[key])) {
@@ -45,6 +43,26 @@ async function action({ query, fetch }) {
         description: {},
       },
     },
+    filtersDistrict: {
+      field: 'allDistricts',
+      fields: {
+        id: {},
+        name: {},
+        suburbs: {
+          fields: {
+            id: {},
+            name: {},
+          },
+        },
+      },
+    },
+    filtersPropTypes: {
+      field: 'allPropertyTypes',
+      fields: {
+        id: {},
+        name: {},
+      },
+    },
   });
 
   const resp = await fetch('/graphql', {
@@ -53,17 +71,20 @@ async function action({ query, fetch }) {
   });
 
   const { data } = await resp.json();
+  if (!data) throw new Error('Meow');
+
   const listings = data.listings;
-  if (!listings) {
-    throw new Error('Meow');
-  }
+  const filters = {
+    districts: data.filtersDistrict,
+    propTypes: data.filtersPropTypes,
+  };
 
   return {
     chunks: ['listings-list'],
     title: 'Meow',
     component: (
       <Meowout>
-        <Listings listings={listings} params={params} />
+        <Listings filters={filters} listings={listings} params={params} />
       </Meowout>
     ),
   };

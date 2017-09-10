@@ -5,17 +5,14 @@ import s from './Listings.css';
 import List from '../../../components/Listings/List';
 import Thumbnails from '../../../components/Listings/Thumbnails';
 import Tiles from '../../../components/Listings/Tiles';
-import {
-  Tiles as TilesIcon,
-  List as ListIcon,
-  Thumbnails as ThumbnailsIcon,
-} from '../../../components/Icons/Icons';
+import Filters from '../../../components/Listings/Filters';
 
 // todo: update propTypes
 // todo: refactor nav into nav component
 
 class Listings extends React.Component {
   static propTypes = {
+    filters: PropTypes.shape().isRequired,
     listings: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -39,6 +36,22 @@ class Listings extends React.Component {
     this.setState({ view: newView });
   }
 
+  updateParams = selectedValues => {
+    const params = {
+      districtId: selectedValues.districtId.value,
+      suburbId: null,
+    };
+    const selectedSuburbs = selectedValues.suburbId;
+    if (selectedSuburbs !== null) {
+      if (Array.isArray(selectedSuburbs) && selectedSuburbs.length > 0) {
+        params.suburbId = selectedValues.suburbId.map(value => value.value);
+      } else if (selectedSuburbs.value !== undefined) {
+        params.suburbId = selectedValues.suburbId.value;
+      }
+    }
+    this.setState({ params });
+  };
+
   render() {
     const listings = this.props.listings;
     let view = <List listings={listings} />;
@@ -54,74 +67,14 @@ class Listings extends React.Component {
         break;
     }
     return (
-      <div className={s.wrap}>
+      <div className={s.root}>
+        <div className={s.filters}>
+          <Filters
+            data={this.props.filters}
+            onUpdateSelectedValues={this.updateParams}
+          />
+        </div>
         <div className={s.floor}>
-          <div className={s.navvi}>
-            <div className={s.filters}>
-              <button className={s.filter}>
-                <span>Suburb</span>
-                <span className={s.chevron}>
-                  <svg
-                    viewBox="0 0 18 18"
-                    role="presentation"
-                    focusable="false"
-                  >
-                    <path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z" />
-                  </svg>
-                </span>
-              </button>
-              <button className={s.filter}>
-                <span>Property type</span>
-                <span className={s.chevron}>
-                  <svg
-                    viewBox="0 0 18 18"
-                    role="presentation"
-                    focusable="false"
-                  >
-                    <path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z" />
-                  </svg>
-                </span>
-              </button>
-              <button className={s.filter}>
-                <span>Price range</span>
-                <span className={s.chevron}>
-                  <svg
-                    viewBox="0 0 18 18"
-                    role="presentation"
-                    focusable="false"
-                  >
-                    <path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z" />
-                  </svg>
-                </span>
-              </button>
-              <button className={s.filter}>
-                <span>More filters</span>
-                <span className={s.chevron}>
-                  <svg
-                    viewBox="0 0 18 18"
-                    role="presentation"
-                    focusable="false"
-                  >
-                    <path d="M16.291 4.295a1 1 0 1 1 1.414 1.415l-8 7.995a1 1 0 0 1-1.414 0l-8-7.995a1 1 0 1 1 1.414-1.415l7.293 7.29 7.293-7.29z" />
-                  </svg>
-                </span>
-              </button>
-            </div>
-            <div className={s.views}>
-              <button id="tiles-view" onClick={() => this.changeView('tiles')}>
-                <TilesIcon />
-              </button>
-              <button
-                id="thumbnails-view"
-                onClick={() => this.changeView('thumbnails')}
-              >
-              <ThumbnailsIcon />
-              </button>
-              <button id="list-view" onClick={() => this.changeView('list')}>
-                <ListIcon />
-              </button>
-            </div>
-          </div>
           {view}
         </div>
       </div>

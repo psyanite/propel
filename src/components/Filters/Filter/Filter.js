@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import rSelectStyles from 'react-select/dist/react-select.css';
-import customRSelectStyles from '../../../../../customStyles/rSelect.css';
+import customRSelectStyles from '../../../../customStyles/rSelect.css';
 import s from './Filter.css';
 
 // todo: this is an abomination
+
 class Filter extends React.Component {
   static propTypes = {
     filter: PropTypes.shape({

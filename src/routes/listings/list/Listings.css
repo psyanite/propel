@@ -1,84 +1,23 @@
 @import '../../../components/variables.css';
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-.wrap {
-  /*max-width: 1140px;*/
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.floor:after {
-  display: table;
-  clear: both;
-  content: '';
-}
-
-
-
-/* Filters */
-/* todo: rename these classes better */
-/* todo: refactor into separate component */
-.navvi {
-  margin: 20px var(--page-margin);
-}
-
-.navvi:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0;
+.root {
+  display: flex;
 }
 
 .filters {
-  display: inline-block;
-  float: left;
+  flex: 0 0 300px;
+  order: 0;
+  padding: var(--page-margin);
 }
 
-.filter {
-  background: none;
-  cursor: pointer !important;
-  border: none;
-  -webkit-appearance: none !important;
-  margin-right: 10px;
-  padding: 5px 5px 5px 0;
-  color: #8599ad;
-  font-size: 18px;
-  font-weight: 800;
-  font-family: var(--font-family-fancy);
-}
-
-.filter:hover {
-  color: var(--color-aqua);
-}
-
-.chevron {
-  display: inline-block;
-  margin-left: 5px;
-  width: 10px;
-  fill: #8599ad;
-}
-
-.filter:hover .chevron {
-  fill: var(--color-aqua);
-}
-
-.views {
-  display: inline-block;
-  float: right;
-}
-
-.views button svg {
-  width: 13px;
-  fill: #8599ad;
-}
-
-.views button:hover svg {
-  fill: var(--color-aqua);
+/* todo: use webkit box-shadow */
+.floor {
+  flex: 1;
+  order: 1;
+  padding: 20px 0 20px var(--page-margin);
+  overflow: auto;
+  background-color: #fefefe;
+  -webkit-box-shadow: 1px 0 5px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 1px 0 5px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 0 5px 1px rgba(0, 0, 0, 0.1);
 }
