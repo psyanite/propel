@@ -39,9 +39,8 @@ class List extends React.Component {
             <span>
               <sup className={s.priceSign}>$</sup>
               <span className={s.priceValue}>
-                {listing.price}
+                {listing.price.toLocaleString('en-US')}
               </span>
-              <span className={s.priceUnit}>AUD/night</span>
             </span>
             <span className={s.other}>
               <span>

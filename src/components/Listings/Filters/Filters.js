@@ -61,12 +61,12 @@ const buildPriceFilters = () => {
     isMulti: false,
     options: [
       { label: 'Any', value: '' },
-      { label: '$50,000', value: '50' },
-      { label: '$100,000', value: '100' },
-      { label: '$150,000', value: '150' },
-      { label: '$200,000', value: '200' },
-      { label: '$250,000', value: '250' },
-      { label: '$300,000', value: '300' },
+      { label: '$50,000', value: '50000' },
+      { label: '$100,000', value: '100000' },
+      { label: '$150,000', value: '150000' },
+      { label: '$200,000', value: '200000' },
+      { label: '$250,000', value: '250000' },
+      { label: '$300,000', value: '300000' },
     ],
     placeholder: 'Minimum value',
     styleName: 'priceMin',
@@ -76,15 +76,15 @@ const buildPriceFilters = () => {
     isMulti: false,
     options: [
       { label: 'Any', value: '' },
-      { label: '$50,000', value: '50' },
-      { label: '$100,000', value: '100' },
-      { label: '$150,000', value: '150' },
-      { label: '$200,000', value: '200' },
-      { label: '$250,000', value: '250' },
-      { label: '$300,000', value: '300' },
-      { label: '$400,000', value: '400' },
-      { label: '$500,000', value: '500' },
-      { label: '$600,000', value: '600' },
+      { label: '$50,000', value: '50000' },
+      { label: '$100,000', value: '100000' },
+      { label: '$150,000', value: '150000' },
+      { label: '$200,000', value: '200000' },
+      { label: '$250,000', value: '250000' },
+      { label: '$300,000', value: '300000' },
+      { label: '$400,000', value: '400000' },
+      { label: '$500,000', value: '500000' },
+      { label: '$600,000', value: '600000' },
     ],
     placeholder: 'Maximum value',
     styleName: 'priceMax',
@@ -121,10 +121,10 @@ const buildFilters = (data, districtFilters, priceFilters, propTypeFilters) => {
   filters.district = buildDistrictsFilter(data.districts);
   filters.suburb = getDefaultSuburbFilter(districtFilters);
   filters = Object.assign({}, filters, priceFilters, propTypeFilters);
-  console.log('buildFilters() meow');
+  // console.log('buildFilters() meow');
   // console.log(priceFilters);
   // console.log(propTypeFilters);
-  console.log(filters);
+  // console.log(filters);
   return filters;
 };
 
@@ -178,8 +178,8 @@ class Filters extends React.Component {
     const selectedValues = buildSelectedValues(filters);
     this.props.onUpdateSelectedValues(selectedValues);
     this.state = { selectedValues, filters, districtFilters };
-    console.log('constructor meow filters:');
-    console.log(filters);
+    // console.log('constructor meow filters:');
+    // console.log(filters);
   }
 
   onDistrictChange = (kind, item) => {
@@ -193,6 +193,8 @@ class Filters extends React.Component {
   };
 
   onChange = (kind, item) => {
+    console.log(kind);
+    console.log(item);
     const selectedValues = this.state.selectedValues;
     if (kind === 'districtId' && selectedValues[kind] !== item) {
       this.onDistrictChange(kind, item);

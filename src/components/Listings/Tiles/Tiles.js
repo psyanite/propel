@@ -28,9 +28,8 @@ class Tiles extends React.Component {
                 <div className={s.priceContent}>
                   <sup className={c.priceSign}>$</sup>
                   <span className={c.priceValue}>
-                    {listing.price}
+                    {listing.price.toLocaleString('en-US')}
                   </span>
-                  <span className={c.priceUnit}>AUD/night</span>
                 </div>
               </div>
               <img

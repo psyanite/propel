@@ -33,9 +33,8 @@ class Thumbnails extends React.Component {
             <span className={s.price}>
               <sup className={c.priceSign}>$</sup>
               <span className={c.priceValue}>
-                {listing.price}
+                {listing.price.toLocaleString('en-US')}
               </span>
-              <span className={c.priceUnit}>AUD/night</span>
             </span>
             <span className={s.other}>
               <span>
