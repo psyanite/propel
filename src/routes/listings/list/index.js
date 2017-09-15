@@ -20,7 +20,6 @@ async function action({ query, fetch }) {
   const meow = graphqlify({
     listings: {
       field: 'listingSearch',
-      params: { suburbId: params.suburbId },
       fields: {
         id: {},
         name: {},

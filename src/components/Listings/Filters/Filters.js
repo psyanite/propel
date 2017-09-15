@@ -61,12 +61,12 @@ const buildPriceFilters = () => {
     isMulti: false,
     options: [
       { label: 'Any', value: '' },
-      { label: '$50,000', value: '50000' },
-      { label: '$100,000', value: '100000' },
-      { label: '$150,000', value: '150000' },
-      { label: '$200,000', value: '200000' },
-      { label: '$250,000', value: '250000' },
-      { label: '$300,000', value: '300000' },
+      { label: '$50,000', value: 50000 },
+      { label: '$100,000', value: 100000 },
+      { label: '$150,000', value: 150000 },
+      { label: '$200,000', value: 200000 },
+      { label: '$250,000', value: 250000 },
+      { label: '$300,000', value: 300000 },
     ],
     placeholder: 'Minimum value',
     styleName: 'priceMin',
@@ -76,15 +76,15 @@ const buildPriceFilters = () => {
     isMulti: false,
     options: [
       { label: 'Any', value: '' },
-      { label: '$50,000', value: '50000' },
-      { label: '$100,000', value: '100000' },
-      { label: '$150,000', value: '150000' },
-      { label: '$200,000', value: '200000' },
-      { label: '$250,000', value: '250000' },
-      { label: '$300,000', value: '300000' },
-      { label: '$400,000', value: '400000' },
-      { label: '$500,000', value: '500000' },
-      { label: '$600,000', value: '600000' },
+      { label: '$50,000', value: 50000 },
+      { label: '$100,000', value: 100000 },
+      { label: '$150,000', value: 150000 },
+      { label: '$200,000', value: 200000 },
+      { label: '$250,000', value: 250000 },
+      { label: '$300,000', value: 300000 },
+      { label: '$400,000', value: 400000 },
+      { label: '$500,000', value: 500000 },
+      { label: '$600,000', value: 600000 },
     ],
     placeholder: 'Maximum value',
     styleName: 'priceMax',
@@ -92,22 +92,25 @@ const buildPriceFilters = () => {
   return filters;
 };
 
-const buildPropTypeFilter = propTypes => {
+const buildPropTypeFilter = propertyKindIds => {
   const filter = {};
-  filter.propType = {
-    id: 'propType',
+  filter.propertyKindId = {
+    id: 'propertyKindId',
     isMulti: true,
     options: [],
     placeholder: 'All property types',
-    styleName: 'propType',
+    styleName: 'propertyKindId',
   };
-  propTypes.forEach(propType => {
-    filter.propType.options.push({
-      label: propType.name,
-      value: propType.id,
+  propertyKindIds.forEach(propertyKindId => {
+    filter.propertyKindId.options.push({
+      label: propertyKindId.name,
+      value: propertyKindId.id,
     });
   });
-  filter.propType.options.unshift({ label: 'All property types', value: '' });
+  filter.propertyKindId.options.unshift({
+    label: 'All property types',
+    value: '',
+  });
   return filter;
 };
 
@@ -116,15 +119,16 @@ const defaultDistrictId = 4;
 const getDefaultSuburbFilter = districtFilters =>
   districtFilters[defaultDistrictId];
 
-const buildFilters = (data, districtFilters, priceFilters, propTypeFilters) => {
+const buildFilters = (
+  data,
+  districtFilters,
+  priceFilters,
+  propertyKindIdFilters,
+) => {
   let filters = {};
   filters.district = buildDistrictsFilter(data.districts);
   filters.suburb = getDefaultSuburbFilter(districtFilters);
-  filters = Object.assign({}, filters, priceFilters, propTypeFilters);
-  // console.log('buildFilters() meow');
-  // console.log(priceFilters);
-  // console.log(propTypeFilters);
-  // console.log(filters);
+  filters = Object.assign({}, filters, priceFilters, propertyKindIdFilters);
   return filters;
 };
 
@@ -133,7 +137,10 @@ const buildSelectedValues = filters => {
   selectedValues.districtId = filters.district.options.find(
     option => option.value === defaultDistrictId,
   );
-  selectedValues.suburbId = null;
+  selectedValues.suburbId = [];
+  selectedValues.priceMin = null;
+  selectedValues.priceMax = null;
+  selectedValues.propertyKindId = [];
   return selectedValues;
 };
 
@@ -152,14 +159,14 @@ class Filters extends React.Component {
           ).isRequired,
         }).isRequired,
       ).isRequired,
-      propTypes: PropTypes.arrayOf(
+      propertyKindIds: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.number.isRequired,
           name: PropTypes.string.isRequired,
         }).isRequired,
       ).isRequired,
     }).isRequired,
-    onUpdateSelectedValues: PropTypes.func.isRequired,
+    handleRefine: PropTypes.func.isRequired,
   };
 
   // todo: absolute abomination
@@ -176,13 +183,22 @@ class Filters extends React.Component {
       propTypeFilters,
     );
     const selectedValues = buildSelectedValues(filters);
-    this.props.onUpdateSelectedValues(selectedValues);
     this.state = { selectedValues, filters, districtFilters };
-    // console.log('constructor meow filters:');
-    // console.log(filters);
   }
 
-  onDistrictChange = (kind, item) => {
+  handleRefine = () => this.props.handleRefine(this.state.selectedValues);
+
+  handleChange = (kind, item) => {
+    const selectedValues = this.state.selectedValues;
+    if (kind === 'districtId' && selectedValues[kind] !== item) {
+      this.updateDistrict(kind, item);
+    }
+    selectedValues[kind] = item;
+    this.updateSelectedValues(selectedValues);
+  };
+
+  // todo: i haf no idea wat dis does lol
+  updateDistrict = (kind, item) => {
     const filters = this.state.filters;
     filters.suburb = this.state.districtFilters[item.value];
     this.setState({ filters });
@@ -192,20 +208,8 @@ class Filters extends React.Component {
     this.setState({ selectedValues });
   };
 
-  onChange = (kind, item) => {
-    console.log(kind);
-    console.log(item);
-    const selectedValues = this.state.selectedValues;
-    if (kind === 'districtId' && selectedValues[kind] !== item) {
-      this.onDistrictChange(kind, item);
-    }
-    selectedValues[kind] = item;
-    this.updateSelectedValues(selectedValues);
-  };
-
   updateSelectedValues = selectedValues => {
     this.setState({ selectedValues });
-    this.props.onUpdateSelectedValues(selectedValues);
   };
 
   render() {
@@ -233,7 +237,7 @@ class Filters extends React.Component {
             <Filter
               key={filters.district.id}
               filter={filters.district}
-              onChange={this.onChange}
+              onChange={this.handleChange}
               selectedValues={this.state.selectedValues[filters.district.id]}
             />
           </div>
@@ -242,7 +246,7 @@ class Filters extends React.Component {
             <Filter
               key={filters.suburb.id}
               filter={filters.suburb}
-              onChange={this.onChange}
+              onChange={this.handleChange}
               selectedValues={this.state.selectedValues[filters.suburb.id]}
             />
           </div>
@@ -251,28 +255,30 @@ class Filters extends React.Component {
             <Filter
               key={filters.priceMin.id}
               filter={filters.priceMin}
-              onChange={this.onChange}
+              onChange={this.handleChange}
               selectedValues={this.state.selectedValues[filters.priceMin.id]}
             />
             <Filter
               key={filters.priceMax.id}
               filter={filters.priceMax}
-              onChange={this.onChange}
+              onChange={this.handleChange}
               selectedValues={this.state.selectedValues[filters.priceMax.id]}
             />
           </div>
           <div className={s.filter}>
             <h1>Property type</h1>
             <Filter
-              key={filters.propType.id}
-              filter={filters.propType}
-              onChange={this.onChange}
-              selectedValues={this.state.selectedValues[filters.propType.id]}
+              key={filters.propertyKindId.id}
+              filter={filters.propertyKindId}
+              onChange={this.handleChange}
+              selectedValues={
+                this.state.selectedValues[filters.propertyKindId.id]
+              }
             />
           </div>
         </div>
 
-        <button className={s.refine}>
+        <button className={s.refine} onClick={this.handleRefine}>
           Refine
           <svg
             viewBox="0 0 444.819 444.819"
