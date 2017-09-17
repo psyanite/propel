@@ -4,7 +4,7 @@
    * ======================================================================== */
 
   --font-family-base: 'Source Sans Pro', 'HelveticaNeue-Light', sans-serif;
-  --font-family-fancy: 'Dosis', sans-serif;
+  --font-family-fancy: 'Dosis', 'Source Sans Pro', 'HelveticaNeue-Light', sans-serif;
 
   /*
    * Layout

@@ -6,7 +6,7 @@ import {
 } from 'graphql';
 import { resolver } from 'graphql-sequelize';
 import { ListingType } from '../types';
-import { Listing } from '../models';
+import { Listing, Suburb } from '../models';
 
 const isUndefined = item => typeof item === 'undefined';
 
@@ -22,6 +22,27 @@ const buildMinMaxCriteria = (min, max) => {
     return { $lte: max };
   }
   return null;
+};
+
+const buildWhere = args => {
+  const where = {};
+  if ('suburbId' in args) {
+    where.suburbId = args.suburbId;
+  }
+  if ('priceMin' in args || 'priceMax' in args) {
+    where.price = buildMinMaxCriteria(args.priceMin, args.priceMax);
+  }
+  return where;
+};
+
+const buildInclude = args => {
+  const suburbModel = {
+    model: Suburb,
+  };
+  if ('districtId' in args) {
+    suburbModel.where = { districtId: args.districtId };
+  }
+  return [suburbModel];
 };
 
 const listings = {
@@ -42,6 +63,7 @@ const listings = {
     resolve: resolver(Listing),
   },
 
+  // todo: maybe this needs to be refactored out
   listingSearch: {
     type: new List(ListingType),
     args: {
@@ -68,22 +90,9 @@ const listings = {
     },
     resolve: resolver(Listing, {
       before: (findOptions, args) => {
-        // todo: this can only be implemented if you do a left join to other tables
-        // todo: http://docs.sequelizejs.com/manual/tutorial/associations.html#one-to-one-associations
-        // todo: control-f 'include: ' on that page to get what you want
-        // if (isEmptyArray(args.districtId)) {
-        //   findOptions.where.districtId = { $in: args.districtId };
-        // }
-
-        if ('priceMin' in args || 'priceMax' in args) {
-          findOptions.where.price = buildMinMaxCriteria(
-            args.priceMin,
-            args.priceMax,
-          );
-        }
-
+        findOptions.where = buildWhere(args);
         findOptions.order = [['name', 'ASC']];
-
+        findOptions.include = buildInclude(args);
         return findOptions;
       },
     }),

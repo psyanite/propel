@@ -22,8 +22,8 @@ class Listings extends React.Component {
       }),
     ).isRequired,
     params: PropTypes.shape({
-      districtId: PropTypes.array.isRequired,
-      suburbId: PropTypes.array.isRequired,
+      districtId: PropTypes.any,
+      suburbId: PropTypes.any,
     }).isRequired,
   };
 
@@ -106,6 +106,7 @@ class Listings extends React.Component {
       <div className={s.root}>
         <div className={s.filters}>
           <Filters
+            initSelected={this.props.params}
             data={this.props.filters}
             handleRefine={this.handleFilterRefine}
           />

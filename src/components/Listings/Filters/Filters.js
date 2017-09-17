@@ -10,12 +10,15 @@ import {
 import Filter from '../../Filters/Filter';
 import s from './Filters.css';
 
+const isNonEmptyArray = item =>
+  typeof item !== 'undefined' && Array.isArray(item) && item.length > 0;
+
 const buildDistrictsFilter = districts => {
   const filter = {
     id: 'districtId',
     placeholder: 'Select district',
     options: [],
-    isMulti: false,
+    isMulti: true,
     styleName: 'district',
   };
   districts.forEach(district => {
@@ -25,33 +28,19 @@ const buildDistrictsFilter = districts => {
     });
   });
   filter.options.unshift({ label: 'All districts', value: '' });
-  return filter;
+  return { district: filter };
 };
 
-const buildSuburbFilter = suburbs => {
-  const filter = {
-    id: 'suburbId',
-    placeholder: 'Search by suburb',
-    options: [],
-    isMulti: true,
-    styleName: 'suburb',
-  };
-  suburbs.forEach(suburb => {
-    filter.options.push({
+const buildDistrictSuburbOptions = districts => {
+  const options = {};
+  districts.forEach(district => {
+    options[district.id] = district.suburbs.map(suburb => ({
       label: suburb.name,
       value: suburb.id,
-    });
+      districtId: district.id,
+    }));
   });
-  filter.options.unshift({ label: 'All suburbs', value: '' });
-  return filter;
-};
-
-const buildDistrictFilters = districts => {
-  const filters = {};
-  districts.forEach(district => {
-    filters[district.id] = buildSuburbFilter(district.suburbs);
-  });
-  return filters;
+  return options;
 };
 
 const buildPriceFilters = () => {
@@ -92,7 +81,7 @@ const buildPriceFilters = () => {
   return filters;
 };
 
-const buildPropTypeFilter = propertyKindIds => {
+const buildPropertyKindIdFilter = propertyKindIds => {
   const filter = {};
   filter.propertyKindId = {
     id: 'propertyKindId',
@@ -114,35 +103,67 @@ const buildPropTypeFilter = propertyKindIds => {
   return filter;
 };
 
-const defaultDistrictId = 4;
-
-const getDefaultSuburbFilter = districtFilters =>
-  districtFilters[defaultDistrictId];
-
-const buildFilters = (
-  data,
-  districtFilters,
-  priceFilters,
-  propertyKindIdFilters,
-) => {
-  let filters = {};
-  filters.district = buildDistrictsFilter(data.districts);
-  filters.suburb = getDefaultSuburbFilter(districtFilters);
-  filters = Object.assign({}, filters, priceFilters, propertyKindIdFilters);
-  return filters;
+const getTargetedDistrictIds = initSelected => {
+  if ('districtId' in initSelected) {
+    if (Array.isArray(initSelected.districtId)) {
+      return initSelected.districtId;
+    }
+    return [initSelected.districtId];
+  }
+  return null;
 };
 
-const buildSelectedValues = filters => {
+const buildSelectedValues = (initSelected, filters) => {
   const selectedValues = {};
-  selectedValues.districtId = filters.district.options.find(
-    option => option.value === defaultDistrictId,
+
+  const targetedDistrictIds = getTargetedDistrictIds(initSelected);
+  selectedValues.districtId = filters.district.options.filter(option =>
+    targetedDistrictIds.includes(option.value),
   );
+
   selectedValues.suburbId = [];
+  if ('suburbId' in initSelected && isNonEmptyArray(initSelected.suburbId)) {
+    initSelected.suburbId.forEach(id => {
+      const newOption = filters.suburb.options.find(
+        option => option.value === id,
+      );
+      if (typeof newOption !== 'undefined') {
+        selectedValues.suburbId.push(newOption);
+      }
+    });
+  }
+
+  // todo: these other values could possibly also be initialized
   selectedValues.priceMin = null;
   selectedValues.priceMax = null;
   selectedValues.propertyKindId = [];
+
   return selectedValues;
 };
+
+const buildSuburbFilter = (targetedDistrictIds, districtSuburbs) => {
+  const filter = {
+    id: 'suburbId',
+    placeholder: 'Search by suburb',
+    options: [],
+    isMulti: true,
+    styleName: 'suburb',
+  };
+  targetedDistrictIds.forEach(districtId => {
+    filter.options = Object.assign(filter.options, districtSuburbs[districtId]);
+  });
+  filter.options.unshift({ label: 'All suburbs', value: '' });
+  return { suburb: filter };
+};
+
+const buildFilters = (data, districtSuburbs, initSelected) =>
+  Object.assign(
+    {},
+    buildDistrictsFilter(data.districts),
+    buildSuburbFilter(getTargetedDistrictIds(initSelected), districtSuburbs),
+    buildPriceFilters(),
+    buildPropertyKindIdFilter(data.propertyTypes),
+  );
 
 class Filters extends React.Component {
   static propTypes = {
@@ -159,7 +180,7 @@ class Filters extends React.Component {
           ).isRequired,
         }).isRequired,
       ).isRequired,
-      propertyKindIds: PropTypes.arrayOf(
+      propertyTypes: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.number.isRequired,
           name: PropTypes.string.isRequired,
@@ -167,45 +188,56 @@ class Filters extends React.Component {
       ).isRequired,
     }).isRequired,
     handleRefine: PropTypes.func.isRequired,
+    initSelected: PropTypes.shape().isRequired,
   };
 
   // todo: absolute abomination
   constructor(props) {
     super(props);
-    const data = this.props.data;
-    const districtFilters = buildDistrictFilters(data.districts);
-    const priceFilters = buildPriceFilters();
-    const propTypeFilters = buildPropTypeFilter(data.propTypes);
+    this.districtSuburbs = buildDistrictSuburbOptions(props.data.districts);
     const filters = buildFilters(
-      data,
-      districtFilters,
-      priceFilters,
-      propTypeFilters,
+      props.data,
+      this.districtSuburbs,
+      props.initSelected,
     );
-    const selectedValues = buildSelectedValues(filters);
-    this.state = { selectedValues, filters, districtFilters };
+    const selectedValues = buildSelectedValues(props.initSelected, filters);
+    this.state = { selectedValues, filters };
   }
+
+  districtSuburbs = null;
 
   handleRefine = () => this.props.handleRefine(this.state.selectedValues);
 
-  handleChange = (kind, item) => {
+  handleChange = (kind, newItems) => {
     const selectedValues = this.state.selectedValues;
-    if (kind === 'districtId' && selectedValues[kind] !== item) {
-      this.updateDistrict(kind, item);
+    if (kind === 'districtId' && selectedValues[kind] !== newItems) {
+      this.updateDistrict(kind, newItems);
     }
-    selectedValues[kind] = item;
+    selectedValues[kind] = newItems;
     this.updateSelectedValues(selectedValues);
   };
 
   // todo: i haf no idea wat dis does lol
-  updateDistrict = (kind, item) => {
-    const filters = this.state.filters;
-    filters.suburb = this.state.districtFilters[item.value];
-    this.setState({ filters });
+  updateDistrict = (kind, newDistricts) => {
+    if (Array.isArray(newDistricts)) {
+      const selectedValues = this.state.selectedValues;
+      const newDistrictsIds = newDistricts.map(district => district.value);
+      selectedValues.suburbId = selectedValues.suburbId.filter(suburb =>
+        newDistrictsIds.includes(suburb.districtId),
+      );
 
-    const selectedValues = this.state.selectedValues;
-    selectedValues.suburbId = [];
-    this.setState({ selectedValues });
+      const filters = this.state.filters;
+      let suburbOptions = [];
+      newDistricts.forEach(district => {
+        suburbOptions = suburbOptions.concat(
+          this.districtSuburbs[district.value],
+        );
+      });
+      filters.suburb.options = suburbOptions;
+    } else {
+      this.state.filters.suburb.options = [];
+      this.state.selectedValues.suburbId = [];
+    }
   };
 
   updateSelectedValues = selectedValues => {

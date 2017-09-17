@@ -3,45 +3,70 @@ import graphqlify from 'graphqlify';
 import Meowout from '../../../components/Meowout/Meowout';
 import Listings from './Listings';
 
-async function action({ query, fetch }) {
-  const paramsTemplate = {
-    districtId: [],
-    suburbId: [],
-  };
+const isUndefined = item => typeof item === 'undefined';
+const isNonEmptyArray = item =>
+  !isUndefined(item) && Array.isArray(item) && item.length > 0;
 
-  const params = Object.assign(paramsTemplate, query);
-  Object.keys(params).forEach(key => {
-    if (params[key].length > 0 && !Array.isArray(params[key])) {
-      params[key] = [query[key]];
+const convertToNumStuff = item => {
+  if (isNonEmptyArray(item)) {
+    return item.map(value => Number(value));
+  }
+  return Number(item);
+};
+
+const buildParams = queryParams => {
+  const params = {};
+  Object.keys(queryParams).forEach(key => {
+    const queryItem = queryParams[key];
+    switch (key) {
+      case 'districtId':
+        params.districtId = convertToNumStuff(queryItem);
+        break;
+      case 'suburbId':
+        params.suburbId = convertToNumStuff(queryItem);
+        break;
+      default:
     }
-    params[key] = params[key].map(value => Number(value));
   });
+  return params;
+};
 
-  const meow = graphqlify({
-    listings: {
-      field: 'listingSearch',
-      fields: {
-        id: {},
-        name: {},
-        suburb: {
-          fields: {
-            name: {},
-          },
+const buildListingsQuery = params => {
+  const query = {
+    field: 'listingSearch',
+    fields: {
+      id: {},
+      name: {},
+      suburb: {
+        fields: {
+          name: {},
         },
-        propertyKind: {
-          fields: {
-            name: {},
-          },
-        },
-        price: {},
-        guestCount: {},
-        bedroomCount: {},
-        bedCount: {},
-        link: {},
-        image: {},
-        description: {},
       },
+      propertyKind: {
+        fields: {
+          name: {},
+        },
+      },
+      price: {},
+      guestCount: {},
+      bedroomCount: {},
+      bedCount: {},
+      link: {},
+      image: {},
+      description: {},
     },
+  };
+  if (typeof params !== 'undefined' && params !== null) {
+    query.params = params;
+  }
+  return query;
+};
+
+async function action({ query, fetch }) {
+  const params = buildParams(query);
+
+  const graphqlQuery = graphqlify({
+    listings: buildListingsQuery(params),
     filtersDistrict: {
       field: 'allDistricts',
       fields: {
@@ -55,7 +80,7 @@ async function action({ query, fetch }) {
         },
       },
     },
-    filtersPropTypes: {
+    filtersPropertyTypes: {
       field: 'allPropertyTypes',
       fields: {
         id: {},
@@ -66,7 +91,7 @@ async function action({ query, fetch }) {
 
   const resp = await fetch('/graphql', {
     method: 'POST',
-    body: JSON.stringify({ query: meow }),
+    body: JSON.stringify({ query: graphqlQuery }),
   });
 
   const { data } = await resp.json();
@@ -75,7 +100,7 @@ async function action({ query, fetch }) {
   const listings = data.listings;
   const filters = {
     districts: data.filtersDistrict,
-    propTypes: data.filtersPropTypes,
+    propertyTypes: data.filtersPropertyTypes,
   };
 
   return {
