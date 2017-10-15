@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.2
--- Dumped by pg_dump version 9.6.2
+-- Dumped from database version 10.0
+-- Dumped by pg_dump version 10.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -14,153 +14,167 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
-SET search_path = public, pg_catalog;
+DROP DATABASE IF EXISTS propel;
+--
+-- Name: propel; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE propel WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'English_United States.1252' LC_CTYPE = 'English_United States.1252';
+
+
+ALTER DATABASE propel OWNER TO postgres;
+
+\connect propel
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = propel, pg_catalog;
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- Name: listings; Type: TABLE; Schema: public; Owner: postgres
+-- Name: cities; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE listings (
-    id integer NOT NULL,
-    name character varying(255),
-    "suburbId" integer,
-    price integer,
-    "bedroomCount" integer,
-    "guestCount" integer,
-    "bedCount" integer,
-    image character varying(255),
-    description text,
-    link character varying(255),
-    "propertyKindId" integer
+CREATE TABLE cities (
+  id integer NOT NULL,
+  name character varying(255) NOT NULL,
+  district_id integer NOT NULL
 );
 
 
-ALTER TABLE listings OWNER TO postgres;
+ALTER TABLE cities OWNER TO postgres;
 
 --
--- Name: search_listings(integer[]); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: city; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE FUNCTION search_listings(area_id integer[]) RETURNS SETOF listings
-    LANGUAGE sql IMMUTABLE
-    AS $$
-  select * from listings
-  where
-    "areaId" = any (area_id)
-$$;
-
-
-ALTER FUNCTION public.search_listings(area_id integer[]) OWNER TO postgres;
-
---
--- Name: User; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "User" (
-    id uuid NOT NULL,
-    email character varying(255),
-    "emailConfirmed" boolean DEFAULT false,
-    "createdAt" timestamp with time zone NOT NULL,
-    "updatedAt" timestamp with time zone NOT NULL
+CREATE TABLE city (
+  id integer NOT NULL,
+  name character varying(255)
 );
 
 
-ALTER TABLE "User" OWNER TO postgres;
+ALTER TABLE city OWNER TO postgres;
 
 --
--- Name: UserClaim; Type: TABLE; Schema: public; Owner: postgres
+-- Name: city_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "UserClaim" (
-    id integer NOT NULL,
-    type character varying(255),
-    value character varying(255),
-    "createdAt" timestamp with time zone NOT NULL,
-    "updatedAt" timestamp with time zone NOT NULL,
-    "userId" uuid
+CREATE SEQUENCE city_id_seq
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
+
+
+ALTER TABLE city_id_seq OWNER TO postgres;
+
+--
+-- Name: city_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE city_id_seq OWNED BY city.id;
+
+
+--
+-- Name: country; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE country (
+  id integer NOT NULL,
+  name character varying(255)
 );
 
 
-ALTER TABLE "UserClaim" OWNER TO postgres;
+ALTER TABLE country OWNER TO postgres;
 
 --
--- Name: UserClaim_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: country_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE "UserClaim_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+CREATE SEQUENCE country_id_seq
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
 
 
-ALTER TABLE "UserClaim_id_seq" OWNER TO postgres;
-
---
--- Name: UserClaim_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "UserClaim_id_seq" OWNED BY "UserClaim".id;
-
+ALTER TABLE country_id_seq OWNER TO postgres;
 
 --
--- Name: UserLogin; Type: TABLE; Schema: public; Owner: postgres
+-- Name: country_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "UserLogin" (
-    name character varying(50) NOT NULL,
-    key character varying(100) NOT NULL,
-    "createdAt" timestamp with time zone NOT NULL,
-    "updatedAt" timestamp with time zone NOT NULL,
-    "userId" uuid
-);
+ALTER SEQUENCE country_id_seq OWNED BY country.id;
 
-
-ALTER TABLE "UserLogin" OWNER TO postgres;
-
---
--- Name: UserProfile; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "UserProfile" (
-    "userId" uuid NOT NULL,
-    "displayName" character varying(100),
-    picture character varying(255),
-    gender character varying(50),
-    location character varying(100),
-    website character varying(255),
-    "createdAt" timestamp with time zone NOT NULL,
-    "updatedAt" timestamp with time zone NOT NULL
-);
-
-
-ALTER TABLE "UserProfile" OWNER TO postgres;
 
 --
 -- Name: districts; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE districts (
-    id integer NOT NULL,
-    name character varying(255),
-    "regionId" integer
+  id integer NOT NULL,
+  name character varying(255),
+  "regionId" integer
 );
 
 
 ALTER TABLE districts OWNER TO postgres;
 
 --
+-- Name: listings; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE listings (
+  id integer NOT NULL,
+  name character varying(255),
+  "suburbId" integer,
+  price integer,
+  "bedroomCount" integer,
+  "guestCount" integer,
+  "bedCount" integer,
+  image character varying(255),
+  description text,
+  link character varying(255),
+  "propertyKindId" integer
+);
+
+
+ALTER TABLE listings OWNER TO postgres;
+
+--
 -- Name: propertyKinds; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE "propertyKinds" (
-    id integer NOT NULL,
-    name character varying(255) NOT NULL
+  id integer NOT NULL,
+  name character varying(255) NOT NULL
 );
 
 
@@ -171,69 +185,125 @@ ALTER TABLE "propertyKinds" OWNER TO postgres;
 --
 
 CREATE TABLE regions (
-    id integer NOT NULL,
-    name character varying(255)
+  id integer NOT NULL,
+  name character varying(255)
 );
 
 
 ALTER TABLE regions OWNER TO postgres;
 
 --
+-- Name: store; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE store (
+  id integer NOT NULL,
+  name character varying(50),
+  phone_number character varying(20),
+  address_first_line character varying(100),
+  address_second_line character varying(100),
+  address_street_number character varying(20),
+  address_street_name character varying(50),
+  "districtId" integer
+);
+
+
+ALTER TABLE store OWNER TO postgres;
+
+--
+-- Name: store_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE store_id_seq
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
+
+
+ALTER TABLE store_id_seq OWNER TO postgres;
+
+--
+-- Name: store_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE store_id_seq OWNED BY store.id;
+
+
+--
+-- Name: stores; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE stores (
+  id integer NOT NULL,
+  name character varying(50),
+  phone_number character varying(20),
+  address_first_line character varying(100),
+  address_second_line character varying(100),
+  address_street_number character varying(20),
+  address_street_name character varying(50),
+  "districtId" integer
+);
+
+
+ALTER TABLE stores OWNER TO postgres;
+
+--
+-- Name: stores_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE stores_id_seq
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
+
+
+ALTER TABLE stores_id_seq OWNER TO postgres;
+
+--
+-- Name: stores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE stores_id_seq OWNED BY stores.id;
+
+
+--
 -- Name: suburbs; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE suburbs (
-    id integer NOT NULL,
-    name character varying(255) NOT NULL,
-    "districtId" integer
+  id integer NOT NULL,
+  name character varying(255) NOT NULL,
+  "districtId" integer
 );
 
 
 ALTER TABLE suburbs OWNER TO postgres;
 
 --
--- Name: UserClaim id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Data for Name: cities; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "UserClaim" ALTER COLUMN id SET DEFAULT nextval('"UserClaim_id_seq"'::regclass);
-
-
---
--- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY "User" (id, email, "emailConfirmed", "createdAt", "updatedAt") FROM stdin;
+COPY cities (id, name, district_id) FROM stdin;
 \.
 
 
 --
--- Data for Name: UserClaim; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: city; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "UserClaim" (id, type, value, "createdAt", "updatedAt", "userId") FROM stdin;
+COPY city (id, name) FROM stdin;
 \.
 
 
 --
--- Name: UserClaim_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Data for Name: country; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"UserClaim_id_seq"', 1, false);
-
-
---
--- Data for Name: UserLogin; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY "UserLogin" (name, key, "createdAt", "updatedAt", "userId") FROM stdin;
-\.
-
-
---
--- Data for Name: UserProfile; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY "UserProfile" ("userId", "displayName", picture, gender, location, website, "createdAt", "updatedAt") FROM stdin;
+COPY country (id, name) FROM stdin;
 \.
 
 
@@ -270,7 +340,7 @@ COPY listings (id, name, "suburbId", price, "bedroomCount", "guestCount", "bedCo
 17	Fluff-a-luff	9	444000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
 29	Tennis Ball Home	13	520000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
 23	Borkity Apartment	11	520000	2	3	2	https://a0.muscache.com/im/pictures/a67d6a4b-169f-49b3-9387-00010494ef12.jpg?aki_policy=large	Hi, this is Hide. Welcome to our new home & share house for Art of Living. Designed and built by leading artist and enviroment designer in June, 2015. Located in west Tokyo leafy area, Kyodo station(15-20 min train to Shinjuku & Harajuku).	https://www.airbnb.com.au/rooms/1298200	4
-1	Doggo Dream House	5	29000	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Auction: at 34 Shortland Street, City on Wednesday 26 July 2017 at 1:30PM  (unless sold prior) <br> <br>This exquisite townhouse provides a life of luxury, with a sensational sea view. Infused with light and a superbly spacious feel, this 4 bedroom home is the epitome of entertaining. The upstairs open plan lounge and kitchen where you´ll enjoy a vibrant vista of sparkling water and passing yachts. Whether you have a book or a glass of champers in your hands, this is a magical spot to relax and revive. Downstairs features an additional leisure area with a lounge leading out to a private courtyard perfectly positioned for summer BBQs and laughter. The piece de resistance is the master bedroom, with its chic ensuite and designer bath. Recently refurbished to an impeccable standard, this isn´t just a home, it´s a haven. <br> <br>PROPERTY FILES AVAILABLE <br>To access and download property files, please use the following link: <br>http://www.propertyfiles.co.nz/property/599771<br><br>Agency reference #: 599771	https://www.airbnb.com.au/rooms/1298200	1
+1	Doggo Dream House	5	29000	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Auction: at 34 Shortland Street, City on Wednesday 26 July 2017 at 1:30PM  (unless sold prior) <br> <br>This exquisite townhouse provides a life of luxury, with a sensational sea view. Infused with light and a superbly spacious feel, this 4 bedroom home is the epitome of entertaining. The upstairs open plan lounge and kitchen where youÂ´ll enjoy a vibrant vista of sparkling water and passing yachts. Whether you have a book or a glass of champers in your hands, this is a magical spot to relax and revive. Downstairs features an additional leisure area with a lounge leading out to a private courtyard perfectly positioned for summer BBQs and laughter. The piece de resistance is the master bedroom, with its chic ensuite and designer bath. Recently refurbished to an impeccable standard, this isnÂ´t just a home, itÂ´s a haven. <br> <br>PROPERTY FILES AVAILABLE <br>To access and download property files, please use the following link: <br>http://www.propertyfiles.co.nz/property/599771<br><br>Agency reference #: 599771	https://www.airbnb.com.au/rooms/1298200	1
 8	Not A Weed House	2	50000	1	2	2	https://a0.muscache.com/im/pictures/24565969/182070f0_original.jpg?aki_policy=xx_large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	2
 27	Ball Views	13	230000	1	2	2	https://a0.muscache.com/im/pictures/24565969/182070f0_original.jpg?aki_policy=xx_large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	2
 22	Borkensville Home	11	124000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
@@ -313,6 +383,22 @@ COPY regions (id, name) FROM stdin;
 
 
 --
+-- Data for Name: store; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY store (id, name, phone_number, address_first_line, address_second_line, address_street_number, address_street_name, "districtId") FROM stdin;
+\.
+
+
+--
+-- Data for Name: stores; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY stores (id, name, phone_number, address_first_line, address_second_line, address_street_number, address_street_name, "districtId") FROM stdin;
+\.
+
+
+--
 -- Data for Name: suburbs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -334,35 +420,47 @@ COPY suburbs (id, name, "districtId") FROM stdin;
 
 
 --
--- Name: UserClaim UserClaim_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: city_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "UserClaim"
-    ADD CONSTRAINT "UserClaim_pkey" PRIMARY KEY (id);
-
-
---
--- Name: UserLogin UserLogin_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "UserLogin"
-    ADD CONSTRAINT "UserLogin_pkey" PRIMARY KEY (name, key);
+SELECT pg_catalog.setval('city_id_seq', 1, false);
 
 
 --
--- Name: UserProfile UserProfile_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "UserProfile"
-    ADD CONSTRAINT "UserProfile_pkey" PRIMARY KEY ("userId");
+SELECT pg_catalog.setval('country_id_seq', 1, false);
 
 
 --
--- Name: User User_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: store_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "User"
-    ADD CONSTRAINT "User_pkey" PRIMARY KEY (id);
+SELECT pg_catalog.setval('store_id_seq', 1, false);
+
+
+--
+-- Name: stores_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('stores_id_seq', 1, false);
+
+
+--
+-- Name: city city_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY city
+  ADD CONSTRAINT city_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: country country_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY country
+  ADD CONSTRAINT country_pkey PRIMARY KEY (id);
 
 
 --
@@ -370,7 +468,7 @@ ALTER TABLE ONLY "User"
 --
 
 ALTER TABLE ONLY districts
-    ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
+  ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
 
 
 --
@@ -378,7 +476,7 @@ ALTER TABLE ONLY districts
 --
 
 ALTER TABLE ONLY listings
-    ADD CONSTRAINT listings_pkey PRIMARY KEY (id);
+  ADD CONSTRAINT listings_pkey PRIMARY KEY (id);
 
 
 --
@@ -386,7 +484,7 @@ ALTER TABLE ONLY listings
 --
 
 ALTER TABLE ONLY "propertyKinds"
-    ADD CONSTRAINT "propertyTypes_pkey" PRIMARY KEY (id);
+  ADD CONSTRAINT "propertyTypes_pkey" PRIMARY KEY (id);
 
 
 --
@@ -394,7 +492,23 @@ ALTER TABLE ONLY "propertyKinds"
 --
 
 ALTER TABLE ONLY regions
-    ADD CONSTRAINT regions_pkey PRIMARY KEY (id);
+  ADD CONSTRAINT regions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: store store_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY store
+  ADD CONSTRAINT store_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stores stores_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY stores
+  ADD CONSTRAINT stores_pkey PRIMARY KEY (id);
 
 
 --
@@ -402,7 +516,21 @@ ALTER TABLE ONLY regions
 --
 
 ALTER TABLE ONLY suburbs
-    ADD CONSTRAINT suburbs_pkey PRIMARY KEY (id);
+  ADD CONSTRAINT suburbs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: city_name; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX city_name ON city USING btree (name);
+
+
+--
+-- Name: country_name; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX country_name ON country USING btree (name);
 
 
 --
@@ -448,6 +576,20 @@ CREATE INDEX regions_name ON regions USING btree (name);
 
 
 --
+-- Name: store_name; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX store_name ON store USING btree (name);
+
+
+--
+-- Name: stores_name; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX stores_name ON stores USING btree (name);
+
+
+--
 -- Name: suburbs_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -455,42 +597,11 @@ CREATE INDEX suburbs_name ON suburbs USING btree (name);
 
 
 --
--- Name: user_email; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX user_email ON "User" USING btree (email);
-
-
---
--- Name: UserClaim UserClaim_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "UserClaim"
-    ADD CONSTRAINT "UserClaim_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: UserLogin UserLogin_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "UserLogin"
-    ADD CONSTRAINT "UserLogin_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: UserProfile UserProfile_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "UserProfile"
-    ADD CONSTRAINT "UserProfile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
 -- Name: districts districts_regionId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY districts
-    ADD CONSTRAINT "districts_regionId_fkey" FOREIGN KEY ("regionId") REFERENCES regions(id);
+  ADD CONSTRAINT "districts_regionId_fkey" FOREIGN KEY ("regionId") REFERENCES regions(id);
 
 
 --
@@ -498,7 +609,7 @@ ALTER TABLE ONLY districts
 --
 
 ALTER TABLE ONLY listings
-    ADD CONSTRAINT fk_area FOREIGN KEY ("suburbId") REFERENCES suburbs(id);
+  ADD CONSTRAINT fk_area FOREIGN KEY ("suburbId") REFERENCES suburbs(id);
 
 
 --
@@ -506,7 +617,23 @@ ALTER TABLE ONLY listings
 --
 
 ALTER TABLE ONLY listings
-    ADD CONSTRAINT "fk_propertyType" FOREIGN KEY ("propertyKindId") REFERENCES "propertyKinds"(id);
+  ADD CONSTRAINT "fk_propertyType" FOREIGN KEY ("propertyKindId") REFERENCES "propertyKinds"(id);
+
+
+--
+-- Name: store store_districtId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY store
+  ADD CONSTRAINT "store_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES districts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- Name: stores stores_districtId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY stores
+  ADD CONSTRAINT "stores_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES districts(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
@@ -514,7 +641,14 @@ ALTER TABLE ONLY listings
 --
 
 ALTER TABLE ONLY suburbs
-    ADD CONSTRAINT "suburbs_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES districts(id);
+  ADD CONSTRAINT "suburbs_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES districts(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
