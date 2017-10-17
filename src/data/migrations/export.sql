@@ -27,7 +27,7 @@ SET default_with_oids = false;
 CREATE TABLE listings (
     id integer NOT NULL,
     name character varying(255),
-    "areaId" integer,
+    "suburbId" integer,
     price integer,
     "bedroomCount" integer,
     "guestCount" integer,
@@ -242,11 +242,12 @@ COPY "UserProfile" ("userId", "displayName", picture, gender, location, website,
 --
 
 COPY districts (id, name, "regionId") FROM stdin;
-1	Kaipara	\N
-2	Auckland City	\N
-3	Manukau City	\N
-4	Doggo Hills	\N
-5	Potatoville	\N
+2	Auckland City	1
+3	Manukau City	1
+5	Potatoville	4
+1	Kaipara	2
+4	Doggo Hills	3
+6	Nekoton	3
 \.
 
 
@@ -254,20 +255,36 @@ COPY districts (id, name, "regionId") FROM stdin;
 -- Data for Name: listings; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY listings (id, name, "areaId", price, "bedroomCount", "guestCount", "bedCount", image, description, link, "propertyKindId") FROM stdin;
-3	Urban Tokyo House	1	124	1	2	2	https://a0.muscache.com/im/pictures/24565969/182070f0_original.jpg?aki_policy=xx_large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	2
-4	Lovely APT in Shibuya	5	134	3	3	2	https://a0.muscache.com/im/pictures/61519212/b4c15ded_original.jpg?aki_policy=xx_large	Our caravan is the first 100% Japanese-made of its kind, custom-built by local craftspeople. Inside is a double bed, dining nook, storage shelves, wi-fi, air conditioning and ensuite bathroom with modern toilet, shower and plenty of hot water.<br />Outside the caravan is a secluded deck with handcrafted wooden lounge, perfect for drinks on warm nights. This is a space where you can escape the hustle and bustle after a day of exploring Tokyo.<br />Our caravan is parked inside a secure mixed-use complex that includes a shared office (which you will have access to), a gallery, cafes and food vendors selling from vegetarian to classic Japanese foods and some of the best coffee in Tokyo.<br />If you are looking for another location to experience a different part of the city check on our other location, an apartment in the vibrant Nakameguro.	https://www.airbnb.com.au/rooms/4905030	2
-11	Js Apartment	6	80	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	4
-7	KYODO HOUSE for Art of Living	1	185	2	3	2	https://a0.muscache.com/im/pictures/b8d2c410-84f9-439c-9eba-6d4bb337bedb.jpg?aki_policy=large	Hi, this is Hide. Welcome to our new home & share house for Art of Living. Designed and built by leading artist and enviroment designer in June, 2015. Located in west Tokyo leafy area, Kyodo station(15-20 min train to Shinjuku & Harajuku).	https://www.airbnb.com.au/rooms/1298200	4
-8	Urban Tokyo House	2	124	1	2	2	https://a0.muscache.com/im/pictures/24565969/182070f0_original.jpg?aki_policy=xx_large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	2
-1	Js Apartment	5	80	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Auction: at 34 Shortland Street, City on Wednesday 26 July 2017 at 1:30PM  (unless sold prior) <br> <br>This exquisite townhouse provides a life of luxury, with a sensational sea view. Infused with light and a superbly spacious feel, this 4 bedroom home is the epitome of entertaining. The upstairs open plan lounge and kitchen where you´ll enjoy a vibrant vista of sparkling water and passing yachts. Whether you have a book or a glass of champers in your hands, this is a magical spot to relax and revive. Downstairs features an additional leisure area with a lounge leading out to a private courtyard perfectly positioned for summer BBQs and laughter. The piece de resistance is the master bedroom, with its chic ensuite and designer bath. Recently refurbished to an impeccable standard, this isn´t just a home, it´s a haven. <br> <br>PROPERTY FILES AVAILABLE <br>To access and download property files, please use the following link: <br>http://www.propertyfiles.co.nz/property/599771<br><br>Agency reference #: 599771	https://www.airbnb.com.au/rooms/1298200	1
-12	KYODO HOUSE for Art of Living	3	185	2	3	2	https://a0.muscache.com/im/pictures/a67d6a4b-169f-49b3-9387-00010494ef12.jpg?aki_policy=large	Hi, this is Hide. Welcome to our new home & share house for Art of Living. Designed and built by leading artist and enviroment designer in June, 2015. Located in west Tokyo leafy area, Kyodo station(15-20 min train to Shinjuku & Harajuku).	https://www.airbnb.com.au/rooms/1298200	4
-13	Urban Tokyo House	2	124	1	2	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	4
-10	Js Apartment	1	80	1	1	1	https://a0.muscache.com/im/pictures/b8d2c410-84f9-439c-9eba-6d4bb337bedb.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	1
-2	KYODO HOUSE for Art of Living	4	185	2	3	2	https://a0.muscache.com/im/pictures/61519212/b4c15ded_original.jpg?aki_policy=xx_large	Our caravan is the first 100% Japanese-made of its kind, custom-built by local craftspeople. Inside is a double bed, dining nook, storage shelves, wi-fi, air conditioning and ensuite bathroom with modern toilet, shower and plenty of hot water.<br />Outside the caravan is a secluded deck with handcrafted wooden lounge, perfect for drinks on warm nights. This is a space where you can escape the hustle and bustle after a day of exploring Tokyo.<br />Our caravan is parked inside a secure mixed-use complex that includes a shared office (which you will have access to), a gallery, cafes and food vendors selling from vegetarian to classic Japanese foods and some of the best coffee in Tokyo.<br />If you are looking for another location to experience a different part of the city check on our other location, an apartment in the vibrant Nakameguro.	https://www.airbnb.com.au/rooms/4905030	2
-9	Lovely APT in Shibuya	3	134	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
-6	Js Apartment	6	80	1	1	1	https://a0.muscache.com/im/pictures/61519212/b4c15ded_original.jpg?aki_policy=xx_large	Our caravan is the first 100% Japanese-made of its kind, custom-built by local craftspeople. Inside is a double bed, dining nook, storage shelves, wi-fi, air conditioning and ensuite bathroom with modern toilet, shower and plenty of hot water.<br />Outside the caravan is a secluded deck with handcrafted wooden lounge, perfect for drinks on warm nights. This is a space where you can escape the hustle and bustle after a day of exploring Tokyo.<br />Our caravan is parked inside a secure mixed-use complex that includes a shared office (which you will have access to), a gallery, cafes and food vendors selling from vegetarian to classic Japanese foods and some of the best coffee in Tokyo.<br />If you are looking for another location to experience a different part of the city check on our other location, an apartment in the vibrant Nakameguro.	https://www.airbnb.com.au/rooms/4905030	4
-5	Js Apartment	2	80	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	3
+COPY listings (id, name, "suburbId", price, "bedroomCount", "guestCount", "bedCount", image, description, link, "propertyKindId") FROM stdin;
+3	Urban Cape Reinga	1	124000	1	2	2	https://a0.muscache.com/im/pictures/24565969/182070f0_original.jpg?aki_policy=xx_large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	2
+24	Rocky BalWoofa	12	210000	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	4
+18	Meowzees	9	344000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
+19	Kitty Bronx	10	444000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
+26	Pupper Sweet Home	12	124000	1	2	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	4
+28	Squirrel Not Squirrel	13	344000	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	3
+11	Purple Potato Sweet Home	6	444000	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	4
+12	Mary Jane Is Not My Lover	3	29000	2	3	2	https://a0.muscache.com/im/pictures/a67d6a4b-169f-49b3-9387-00010494ef12.jpg?aki_policy=large	Hi, this is Hide. Welcome to our new home & share house for Art of Living. Designed and built by leading artist and enviroment designer in June, 2015. Located in west Tokyo leafy area, Kyodo station(15-20 min train to Shinjuku & Harajuku).	https://www.airbnb.com.au/rooms/1298200	4
+9	Hot Box 303	3	444000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
+13	Urban Tokyo House	2	124000	1	2	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	4
+16	Pawtato Points	8	520000	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	4
+17	Fluff-a-luff	9	444000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
+29	Tennis Ball Home	13	520000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
+23	Borkity Apartment	11	520000	2	3	2	https://a0.muscache.com/im/pictures/a67d6a4b-169f-49b3-9387-00010494ef12.jpg?aki_policy=large	Hi, this is Hide. Welcome to our new home & share house for Art of Living. Designed and built by leading artist and enviroment designer in June, 2015. Located in west Tokyo leafy area, Kyodo station(15-20 min train to Shinjuku & Harajuku).	https://www.airbnb.com.au/rooms/1298200	4
+1	Doggo Dream House	5	29000	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Auction: at 34 Shortland Street, City on Wednesday 26 July 2017 at 1:30PM  (unless sold prior) <br> <br>This exquisite townhouse provides a life of luxury, with a sensational sea view. Infused with light and a superbly spacious feel, this 4 bedroom home is the epitome of entertaining. The upstairs open plan lounge and kitchen where you´ll enjoy a vibrant vista of sparkling water and passing yachts. Whether you have a book or a glass of champers in your hands, this is a magical spot to relax and revive. Downstairs features an additional leisure area with a lounge leading out to a private courtyard perfectly positioned for summer BBQs and laughter. The piece de resistance is the master bedroom, with its chic ensuite and designer bath. Recently refurbished to an impeccable standard, this isn´t just a home, it´s a haven. <br> <br>PROPERTY FILES AVAILABLE <br>To access and download property files, please use the following link: <br>http://www.propertyfiles.co.nz/property/599771<br><br>Agency reference #: 599771	https://www.airbnb.com.au/rooms/1298200	1
+8	Not A Weed House	2	50000	1	2	2	https://a0.muscache.com/im/pictures/24565969/182070f0_original.jpg?aki_policy=xx_large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	2
+27	Ball Views	13	230000	1	2	2	https://a0.muscache.com/im/pictures/24565969/182070f0_original.jpg?aki_policy=xx_large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	2
+22	Borkensville Home	11	124000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
+2	420 247 The Bronx	4	29000	2	3	2	https://a0.muscache.com/im/pictures/61519212/b4c15ded_original.jpg?aki_policy=xx_large	Our caravan is the first 100% Japanese-made of its kind, custom-built by local craftspeople. Inside is a double bed, dining nook, storage shelves, wi-fi, air conditioning and ensuite bathroom with modern toilet, shower and plenty of hot water.<br />Outside the caravan is a secluded deck with handcrafted wooden lounge, perfect for drinks on warm nights. This is a space where you can escape the hustle and bustle after a day of exploring Tokyo.<br />Our caravan is parked inside a secure mixed-use complex that includes a shared office (which you will have access to), a gallery, cafes and food vendors selling from vegetarian to classic Japanese foods and some of the best coffee in Tokyo.<br />If you are looking for another location to experience a different part of the city check on our other location, an apartment in the vibrant Nakameguro.	https://www.airbnb.com.au/rooms/4905030	2
+6	The Projexx 2	6	80000	1	1	1	https://a0.muscache.com/im/pictures/61519212/b4c15ded_original.jpg?aki_policy=xx_large	Our caravan is the first 100% Japanese-made of its kind, custom-built by local craftspeople. Inside is a double bed, dining nook, storage shelves, wi-fi, air conditioning and ensuite bathroom with modern toilet, shower and plenty of hot water.<br />Outside the caravan is a secluded deck with handcrafted wooden lounge, perfect for drinks on warm nights. This is a space where you can escape the hustle and bustle after a day of exploring Tokyo.<br />Our caravan is parked inside a secure mixed-use complex that includes a shared office (which you will have access to), a gallery, cafes and food vendors selling from vegetarian to classic Japanese foods and some of the best coffee in Tokyo.<br />If you are looking for another location to experience a different part of the city check on our other location, an apartment in the vibrant Nakameguro.	https://www.airbnb.com.au/rooms/4905030	4
+7	Beauty and a Beeach	1	444000	2	3	2	https://a0.muscache.com/im/pictures/b8d2c410-84f9-439c-9eba-6d4bb337bedb.jpg?aki_policy=large	Hi, this is Hide. Welcome to our new home & share house for Art of Living. Designed and built by leading artist and enviroment designer in June, 2015. Located in west Tokyo leafy area, Kyodo station(15-20 min train to Shinjuku & Harajuku).	https://www.airbnb.com.au/rooms/1298200	4
+14	Fluffles Dream House	7	520000	1	2	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	4
+4	Lovely Doggo Apartment	5	344000	3	3	2	https://a0.muscache.com/im/pictures/61519212/b4c15ded_original.jpg?aki_policy=xx_large	Our caravan is the first 100% Japanese-made of its kind, custom-built by local craftspeople. Inside is a double bed, dining nook, storage shelves, wi-fi, air conditioning and ensuite bathroom with modern toilet, shower and plenty of hot water.<br />Outside the caravan is a secluded deck with handcrafted wooden lounge, perfect for drinks on warm nights. This is a space where you can escape the hustle and bustle after a day of exploring Tokyo.<br />Our caravan is parked inside a secure mixed-use complex that includes a shared office (which you will have access to), a gallery, cafes and food vendors selling from vegetarian to classic Japanese foods and some of the best coffee in Tokyo.<br />If you are looking for another location to experience a different part of the city check on our other location, an apartment in the vibrant Nakameguro.	https://www.airbnb.com.au/rooms/4905030	2
+21	Not so sweet home for a paw or two	10	132000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
+10	Reinga is wea itz at	1	80000	1	1	1	https://a0.muscache.com/im/pictures/b8d2c410-84f9-439c-9eba-6d4bb337bedb.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	1
+25	Small Doggo Home	12	344000	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	3
+20	Sweet Little Home for a Paw or Two	10	210000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
+15	Apartment of Wool Balls	7	344000	2	3	2	https://a0.muscache.com/im/pictures/a67d6a4b-169f-49b3-9387-00010494ef12.jpg?aki_policy=large	Hi, this is Hide. Welcome to our new home & share house for Art of Living. Designed and built by leading artist and enviroment designer in June, 2015. Located in west Tokyo leafy area, Kyodo station(15-20 min train to Shinjuku & Harajuku).	https://www.airbnb.com.au/rooms/1298200	4
+5	The Projexx 1	2	444000	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	3
 \.
 
 
@@ -290,8 +307,8 @@ COPY "propertyKinds" (id, name) FROM stdin;
 COPY regions (id, name) FROM stdin;
 1	Auckland
 2	Wellington
-3	Northland
-4	Waikato
+4	Potatoland
+3	Pawsiton
 \.
 
 
@@ -300,12 +317,19 @@ COPY regions (id, name) FROM stdin;
 --
 
 COPY suburbs (id, name, "districtId") FROM stdin;
-1	Neko-ku	\N
-2	Toshima-ku	\N
-3	Katsuhika	\N
-4	Setagayu-ku	\N
-5	Shibuya-ku	\N
-6	Shinjuku-ku	\N
+5	Doggo-ku	4
+4	GI	2
+6	Potatotown	5
+3	Otatwohu	3
+1	Cape Reinga	1
+2	Papatwotoe	3
+7	Neko-ku	6
+8	Pawtato	6
+9	Fluffville	6
+10	Deadmaus	6
+11	Borkville	4
+12	Pupper's Rock	4
+13	Ballballball	4
 \.
 
 
@@ -474,7 +498,7 @@ ALTER TABLE ONLY districts
 --
 
 ALTER TABLE ONLY listings
-    ADD CONSTRAINT fk_area FOREIGN KEY ("areaId") REFERENCES suburbs(id);
+    ADD CONSTRAINT fk_area FOREIGN KEY ("suburbId") REFERENCES suburbs(id);
 
 
 --
