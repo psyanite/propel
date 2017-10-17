@@ -78,6 +78,9 @@ module.exports = {
         trailingComma: 'all',
       },
     ],
+
+    // No semi-colons
+    "semi": ["error", "never"],
   },
 
   settings: {

@@ -19,7 +19,7 @@ import router from './router';
 import models from './data/models';
 import schema from './data/schema';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
-import config from './config';
+import config from '../config/config';
 
 const app = express();
 
@@ -57,7 +57,7 @@ app.use((err, req, res, next) => {
     res.clearCookie('id_token');
   }
   next(err);
-});
+})
 
 app.use(passport.initialize());
 
@@ -134,9 +134,7 @@ app.get('*', async (req, res, next) => {
 
     const data = { ...route };
     data.children = ReactDOM.renderToString(
-      <App context={context}>
-        {route.component}
-      </App>,
+      <App context={context}>{route.component}</App>,
     );
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
     data.scripts = [assets.vendor.js];
@@ -172,12 +170,12 @@ app.use((err, req, res, next) => {
       description={err.message}
       styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
     >
-    {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
+      {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
     </Html>,
   );
   res.status(err.status || 500);
   res.send(`<!doctype html>${html}`);
-});
+})
 
 //
 // Launch the server
@@ -187,7 +185,7 @@ if (!module.hot) {
   promise.then(() => {
     app.listen(config.port, () => {
       console.info(`The server is running at http://localhost:${config.port}/`);
-    });
+    })
   });
 }
 

@@ -1,20 +1,24 @@
-import Sequelize from 'sequelize';
-import config from '../config';
+import Sequelize from 'sequelize'
+import config from '../../config/config'
 
-// const sequelize = new Sequelize('postgres://postgres:meow@localhost:5432/react-meow', {
-//   define: {
-//     freezeTableName: true,
-//     timestamps: false,
-//   },
-// });
+// https://github.com/sequelize/sequelize/issues/8417
 
-const sequelize = new Sequelize('react-meow', 'postgres', 'meow', {
-  host: 'localhost',
-  dialect: 'postgres',
-  define: {
-    freezeTableName: true,
-    timestamps: false,
+const sequelize = new Sequelize(
+  config.database.name,
+  config.database.username,
+  config.database.password,
+  {
+    host: config.database.host,
+    port: config.database.port,
+    dialect: config.database.dialect,
+    operatorsAliases: Sequelize.Op,
+    define: {
+      underscored: false,
+      underscoredAll: true,
+      freezeTableName: true,
+      timestamps: false,
+    },
   },
-});
+)
 
-export default sequelize;
+export default sequelize
