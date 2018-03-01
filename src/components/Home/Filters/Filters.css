@@ -1,0 +1,34 @@
+@import '../../../components/variables.css';
+
+.root {
+  display: flex;
+}
+
+.districtFilter .Select {
+  display: inline-block;
+  width: 100px;
+  margin: 20px;
+  font-family: var(--font-family-fancy);
+  font-size: 26px;
+  font-weight: 800;
+  color: #8599ad;
+}
+
+.suburbFilter .Select {
+  display: inline-block;
+  width: 480px;
+  margin: 20px;
+  font-family: var(--font-family-fancy);
+  font-size: 26px;
+  font-weight: 800;
+  color: #8599ad;
+}
+
+.searchie {
+  color: red !important ;
+}
+
+
+
+
+

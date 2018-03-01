@@ -1,29 +1,37 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
+import graphqlify from 'graphqlify';
+import Layout from '../../components/Home/Layout';
 import Home from './Home';
-import Layout from '../../components/Layout';
 
 async function action({ fetch }) {
+  const filtersQuery = graphqlify({
+    districts: {
+      field: 'allDistricts',
+      fields: {
+        id: {},
+        name: {},
+        suburbs: {
+          fields: {
+            id: {},
+            name: {},
+          },
+        },
+      },
+    },
+  });
+
   const resp = await fetch('/graphql', {
-    body: JSON.stringify({
-      query: '{news{title,link,content}}',
-    }),
+    method: 'POST',
+    body: JSON.stringify({ query: filtersQuery }),
   });
   const { data } = await resp.json();
-  if (!data || !data.news) throw new Error('Failed to load the news feed.');
+  if (!data) throw new Error('Meow');
+
   return {
-    title: 'React Starter Kit',
+    title: 'Meow',
     component: (
       <Layout>
-        <Home news={data.news} />
+        <Home filters={data} />
       </Layout>
     ),
   };

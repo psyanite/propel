@@ -1,0 +1,23 @@
+@import '../../../components/variables.css';
+
+.root {
+  display: flex;
+}
+
+.filters {
+  flex: 0 0 300px;
+  order: 0;
+  padding: var(--page-margin);
+}
+
+/* todo: use webkit box-shadow */
+.floor {
+  flex: 1;
+  order: 1;
+  padding: 20px 0 20px var(--page-margin);
+  overflow: auto;
+  background-color: #fefefe;
+  -webkit-box-shadow: 1px 0 5px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 1px 0 5px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 0 5px 1px rgba(0, 0, 0, 0.1);
+}

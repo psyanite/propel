@@ -27,3 +27,11 @@ yarn-error.log*
 
 # Misc
 .DS_Store
+
+# Meow
+.env
+yarn.lock
+.yarnclean
+.jshintignore
+.jshintrc
+.env

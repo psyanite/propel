@@ -1,18 +1,11 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
-/* eslint-disable max-len */
-
 if (process.env.BROWSER) {
   throw new Error(
     'Do not import `config.js` from inside the client-side code.',
   );
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
 }
 
 module.exports = {
@@ -33,7 +26,14 @@ module.exports = {
   },
 
   // Database
-  databaseUrl: process.env.DATABASE_URL || 'sqlite:database.sqlite',
+  database: {
+    name: process.env.DATABASE_NAME || 'public',
+    dialect: process.env.DATABASE_DIALECT || 'postgres',
+    host: process.env.DATABASE_HOST || 'localhost',
+    port: process.env.DATABASE_PORT || 5432,
+    username: process.env.DATABASE_USERNAME || 'username',
+    password: process.env.DATABASE_PASSWORD || 'password',
+  },
 
   // Web analytics
   analytics: {
@@ -43,7 +43,7 @@ module.exports = {
 
   // Authentication
   auth: {
-    jwt: { secret: process.env.JWT_SECRET || 'React Starter Kit' },
+    jwt: { secret: process.env.JWT_SECRET || 'Meow JWT Kit' },
 
     // https://developers.facebook.com/
     facebook: {

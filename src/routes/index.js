@@ -1,12 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 /* eslint-disable global-require */
 
 // The top-level (parent) route
@@ -20,6 +11,18 @@ const routes = {
     {
       path: '',
       load: () => import(/* webpackMode: 'eager' */ './home'),
+    },
+    {
+      path: '/listings',
+      load: () => import(/* webpackChunkName: 'listings-list' */ './listings/list'),
+    },
+    {
+      path: '/listings/:id',
+      load: () => import(/* webpackChunkName: 'listings-single' */ './listings/single'),
+    },
+    {
+      path: '/',
+      load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
       path: '/contact',

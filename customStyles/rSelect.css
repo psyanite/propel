@@ -1,0 +1,114 @@
+.Select:focus {
+  outline-width: 0;
+}
+
+.Select-control {
+  border: none;
+  height: 1.75em;
+  background-color: transparent !important;
+}
+
+.Select-control:hover {
+  box-shadow: none;
+}
+
+.is-focused:not(.is-open) > .Select-control {
+  box-shadow: none;
+}
+
+.Select-placeholder {
+  margin: 5px 0;
+  line-height: 1.3em;
+}
+
+.Select--multi .Select-value {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.Select-input > input {
+  margin-top: 5px;
+  padding: 0;
+}
+
+.Select-menu-outer {
+  line-height: 1em !important;
+}
+
+.Select-option {
+  color: #99c5f4;
+}
+
+.Select-option.is-focused {
+  background-color: #ebf5ff;
+
+  /* Fallback color for IE 8 */
+  background-color: rgba(0, 126, 255, 0.08);
+  color: #1c7cf1;
+}
+
+
+
+/* Home - Select District Styles */
+form[class^='Home-'] .Select.district {
+  display: flex;
+  align-items: center;
+  width: 250px;
+  padding: 20px;
+  border-radius: 3px 0 0 10px;
+  background-color: #40a0fa;
+  font-family: 'Dosis', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  height: 100%;
+  vertical-align: middle;
+}
+
+form[class^='Home-'] .Select.district .Select-value-label,
+form[class^='Home-'] .Select.district .Select-clear-zone,
+form[class^='Home-'] .Select.district .Select-arrow {
+  color: #fff !important;
+}
+
+form[class^='Home-'] .Select.district .Select-value {
+  margin: 5px 0;
+  line-height: 1.3em;
+}
+
+form[class^='Home-'] .Select.district .Select-arrow {
+  border-color: #fff transparent transparent;
+}
+
+/* Home - Select Suburb Styles */
+form[class^='Home-'] .Select.suburb {
+  display: inline-block;
+  align-items: stretch;
+  width: 400px;
+  padding: 20px;
+  font-family: 'Dosis', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #8599ad;
+}
+
+
+/* Listings */
+div[class^='Listings-filters'] .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label {
+  color: #52687f;
+}
+
+div[class^='Listings-filters'] .Select-arrow {
+  color: #8599ad !important;
+}
+
+div[class^='Listings-filters'] .Select.Select--multi .Select-value-label {
+  color: #4586ca;
+}
+
+div[class^='Listings-filters'] .Select .Select-placeholder {
+  color: #bfc8d2;
+}
+
+div[class^='Listings-filters'] .Select-multi-value-wrapper {
+  margin-top: 10px;
+}

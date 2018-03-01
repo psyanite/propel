@@ -1,49 +1,79 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 @import '../../components/variables.css';
 
+/* todo: use mixin */
 .root {
-  padding-left: 20px;
-  padding-right: 20px;
+  position: relative;
+  background: -moz-linear-gradient(315deg, #43dde0 0%, #4095ff 100%); /* ff3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #43dde0), color-stop(100%, #4095ff)); /* safari4+,chrome */
+  background: -webkit-linear-gradient(315deg, #43dde0 0%, #4095ff 100%); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(315deg, #43dde0 0%, #4095ff 100%); /* opera 11.10+ */
+  background: -ms-linear-gradient(315deg, #43dde0 0%, #4095ff 100%); /* ie10+ */
+  background: linear-gradient(135deg, #43dde0 0%, #4095ff 100%); /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#43DDE0', endColorstr='#4095FF',GradientType=1 ); /* ie6-9 */
+  color: #fff;
+  height: 100vh;
 }
 
-.container {
+.bar {
+  border: none;
+  vertical-align: center;
+  margin: 20px;
+  font-family: var(--font-family-fancy);
+  font-size: 26px;
+  font-weight: 800;
+  color: #8599ad;
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+
+.bar::-webkit-input-placeholder {
+  color: #aebdcc;
+  font-size: 26px;
+}
+
+.bar::-webkit-search-decoration,
+.bar::-webkit-search-cancel-button,
+.bar::-webkit-search-results-button,
+.bar::-webkit-search-results-decoration {
+  display: none;
+}
+
+.bar:focus {
+  outline-width: 0;
+}
+
+.meow {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  display: inline-block;
   margin: 0 auto;
-  padding: 0 0 40px;
-  max-width: var(--max-content-width);
 }
 
-.newsItem {
-  margin: 0 0 2rem;
+.bro {
+  display: block;
 }
 
-.newsTitle {
-  font-size: 1.5rem;
+.search {
+  display: flex;
+  align-items: center;
+  line-height: 1px;
+  border-radius: 3px 10px 10px 10px;
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.01), 0 3px 20px rgba(0,0,0,0.06);
 }
 
-.newsDesc {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: 1.125rem;
-  }
+.go {
+  display: inline-block;
+  margin-right: 17px;
+}
 
-  pre {
-    white-space: pre-wrap;
-    font-size: 0.875rem;
-  }
+.go svg {
+  fill: #4c96cc;
+  width: 20px;
+}
 
-  img {
-    max-width: 100%;
-  }
+.go:hover svg {
+  fill: var(--color-aqua);
 }

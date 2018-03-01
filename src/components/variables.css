@@ -1,24 +1,17 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 :root {
   /*
    * Typography
    * ======================================================================== */
 
-  --font-family-base: 'Segoe UI', 'HelveticaNeue-Light', sans-serif;
+  --font-family-base: 'Source Sans Pro', 'HelveticaNeue-Light', sans-serif;
+  --font-family-fancy: 'Dosis', 'Source Sans Pro', 'HelveticaNeue-Light', sans-serif;
 
   /*
    * Layout
    * ======================================================================== */
 
-  --max-content-width: 1000px;
+  --page-margin: 10px;
+  --max-content-width: 1400px;
 
   /*
    * Media queries breakpoints
@@ -28,4 +21,21 @@
   --screen-sm-min: 768px;  /* Small screen / tablet */
   --screen-md-min: 992px;  /* Medium screen / desktop */
   --screen-lg-min: 1200px; /* Large screen / wide desktop */
+
+  /*
+   * Colors
+   * ======================================================================== */
+
+  --color-text: #222;
+  --color-aqua: #43dde0;
+  --color-teal: #4095ff;
+  --color-link: #1c7cf1;
+
+  /*
+   * Buttons
+   * ======================================================================== */
+
+  --button-background-color: #40a0fa;
+
 }
+
