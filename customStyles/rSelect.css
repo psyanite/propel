@@ -3,9 +3,10 @@
 }
 
 .Select-control {
-  border: none;
   height: 1.75em;
+  border: none !important;
   background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 .Select-control:hover {
@@ -107,8 +108,4 @@ div[class^='Listings-filters'] .Select.Select--multi .Select-value-label {
 
 div[class^='Listings-filters'] .Select .Select-placeholder {
   color: #bfc8d2;
-}
-
-div[class^='Listings-filters'] .Select-multi-value-wrapper {
-  margin-top: 10px;
 }
