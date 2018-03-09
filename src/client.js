@@ -7,17 +7,17 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import 'whatwg-fetch';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import deepForceUpdate from 'react-deep-force-update';
-import queryString from 'query-string';
-import { createPath } from 'history/PathUtils';
-import App from './components/App';
-import createFetch from './createFetch';
-import history from './history';
-import { updateMeta } from './DOMUtils';
-import router from './router';
+import 'whatwg-fetch'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import deepForceUpdate from 'react-deep-force-update'
+import queryString from 'query-string'
+import { createPath } from 'history/PathUtils'
+import App from './components/App'
+import createFetch from './createFetch'
+import history from './history'
+import { updateMeta } from './DOMUtils'
+import router from './router'
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
@@ -26,22 +26,22 @@ const context = {
   // https://github.com/kriasoft/isomorphic-style-loader
   insertCss: (...styles) => {
     // eslint-disable-next-line no-underscore-dangle
-    const removeCss = styles.map(x => x._insertCss());
+    const removeCss = styles.map(x => x._insertCss())
     return () => {
-      removeCss.forEach(f => f());
-    };
+      removeCss.forEach(f => f())
+    }
   },
   // Universal HTTP client
   fetch: createFetch(fetch, {
     baseUrl: window.App.apiUrl,
   }),
-};
+}
 
-const container = document.getElementById('app');
-let currentLocation = history.location;
-let appInstance;
+const container = document.getElementById('app')
+let currentLocation = history.location
+let appInstance
 
-const scrollPositionsHistory = {};
+const scrollPositionsHistory = {}
 
 // Re-render the app when window.location changes
 async function onLocationChange(location, action) {
@@ -49,34 +49,34 @@ async function onLocationChange(location, action) {
   scrollPositionsHistory[currentLocation.key] = {
     scrollX: window.pageXOffset,
     scrollY: window.pageYOffset,
-  };
+  }
   // Delete stored scroll position for next page if any
   if (action === 'PUSH') {
-    delete scrollPositionsHistory[location.key];
+    delete scrollPositionsHistory[location.key]
   }
-  currentLocation = location;
+  currentLocation = location
 
-  const isInitialRender = !action;
+  const isInitialRender = !action
   try {
-    context.pathname = location.pathname;
-    context.query = queryString.parse(location.search);
+    context.pathname = location.pathname
+    context.query = queryString.parse(location.search)
 
     // Traverses the list of routes in the order they are defined until
     // it finds the first route that matches provided URL path string
     // and whose action method returns anything other than `undefined`.
-    const route = await router.resolve(context);
+    const route = await router.resolve(context)
 
     // Prevent multiple page renders during the routing process
     if (currentLocation.key !== location.key) {
-      return;
+      return
     }
 
     if (route.redirect) {
-      history.replace(route.redirect);
-      return;
+      history.replace(route.redirect)
+      return
     }
 
-    const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
+    const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render
     appInstance = renderReactApp(
       <App context={context}>{route.component}</App>,
       container,
@@ -85,17 +85,17 @@ async function onLocationChange(location, action) {
           // Switch off the native scroll restoration behavior and handle it manually
           // https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration
           if (window.history && 'scrollRestoration' in window.history) {
-            window.history.scrollRestoration = 'manual';
+            window.history.scrollRestoration = 'manual'
           }
 
-          const elem = document.getElementById('css');
-          if (elem) elem.parentNode.removeChild(elem);
-          return;
+          const elem = document.getElementById('css')
+          if (elem) elem.parentNode.removeChild(elem)
+          return
         }
 
-        document.title = route.title;
+        document.title = route.title
 
-        updateMeta('description', route.description);
+        updateMeta('description', route.description)
         // Update necessary tags in <head> at runtime here, ie:
         // updateMeta('keywords', route.keywords);
         // updateCustomMeta('og:url', route.canonicalUrl);
@@ -103,18 +103,18 @@ async function onLocationChange(location, action) {
         // updateLink('canonical', route.canonicalUrl);
         // etc.
 
-        let scrollX = 0;
-        let scrollY = 0;
-        const pos = scrollPositionsHistory[location.key];
+        let scrollX = 0
+        let scrollY = 0
+        const pos = scrollPositionsHistory[location.key]
         if (pos) {
-          scrollX = pos.scrollX;
-          scrollY = pos.scrollY;
+          scrollX = pos.scrollX
+          scrollY = pos.scrollY
         } else {
-          const targetHash = location.hash.substr(1);
+          const targetHash = location.hash.substr(1)
           if (targetHash) {
-            const target = document.getElementById(targetHash);
+            const target = document.getElementById(targetHash)
             if (target) {
-              scrollY = window.pageYOffset + target.getBoundingClientRect().top;
+              scrollY = window.pageYOffset + target.getBoundingClientRect().top
             }
           }
         }
@@ -122,43 +122,43 @@ async function onLocationChange(location, action) {
         // Restore the scroll position if it was saved into the state
         // or scroll to the given #hash anchor
         // or scroll to top of the page
-        window.scrollTo(scrollX, scrollY);
+        window.scrollTo(scrollX, scrollY)
 
         // Google Analytics tracking. Don't send 'pageview' event after
         // the initial rendering, as it was already sent
         if (window.ga) {
-          window.ga('send', 'pageview', createPath(location));
+          window.ga('send', 'pageview', createPath(location))
         }
       },
-    );
+    )
   } catch (error) {
     if (__DEV__) {
-      throw error;
+      throw error
     }
 
-    console.error(error);
+    console.error(error)
 
     // Do a full page reload if error occurs during client-side navigation
     if (!isInitialRender && currentLocation.key === location.key) {
-      console.error('RSK will reload your page after error');
-      window.location.reload();
+      console.error('RSK will reload your page after error')
+      window.location.reload()
     }
   }
 }
 
 // Handle client-side navigation by using HTML5 History API
 // For more information visit https://github.com/mjackson/history#readme
-history.listen(onLocationChange);
-onLocationChange(currentLocation);
+history.listen(onLocationChange)
+onLocationChange(currentLocation)
 
 // Enable Hot Module Replacement (HMR)
 if (module.hot) {
   module.hot.accept('./router', () => {
     if (appInstance && appInstance.updater.isMounted(appInstance)) {
       // Force-update the whole tree, including components that refuse to update
-      deepForceUpdate(appInstance);
+      deepForceUpdate(appInstance)
     }
 
-    onLocationChange(currentLocation);
-  });
+    onLocationChange(currentLocation)
+  })
 }

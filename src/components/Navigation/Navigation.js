@@ -7,11 +7,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import cx from 'classnames';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Navigation.css';
-import Link from '../Link';
+import React from 'react'
+import cx from 'classnames'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './Navigation.css'
+import Link from '../Link'
 
 class Navigation extends React.Component {
   render() {
@@ -32,8 +32,8 @@ class Navigation extends React.Component {
           Sign up
         </Link>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Navigation);
+export default withStyles(s)(Navigation)

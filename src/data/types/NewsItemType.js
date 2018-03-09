@@ -11,7 +11,7 @@ import {
   GraphQLObjectType as ObjectType,
   GraphQLString as StringType,
   GraphQLNonNull as NonNull,
-} from 'graphql';
+} from 'graphql'
 
 const NewsItemType = new ObjectType({
   name: 'NewsItem',
@@ -22,6 +22,6 @@ const NewsItemType = new ObjectType({
     pubDate: { type: new NonNull(StringType) },
     content: { type: StringType },
   },
-});
+})
 
-export default NewsItemType;
+export default NewsItemType

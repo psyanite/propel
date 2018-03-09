@@ -1,5 +1,5 @@
 /* eslint-disable react/no-multi-comp */
-import React from 'react';
+import React from 'react'
 
 class List extends React.Component {
   render() {
@@ -18,7 +18,7 @@ class List extends React.Component {
           />
         </g>
       </svg>
-    );
+    )
   }
 }
 
@@ -41,7 +41,7 @@ class Thumbnails extends React.Component {
           />
         </g>
       </svg>
-    );
+    )
   }
 }
 
@@ -61,7 +61,7 @@ class Tiles extends React.Component {
           />
         </g>
       </svg>
-    );
+    )
   }
 }
 
@@ -80,8 +80,8 @@ class Search extends React.Component {
           />
         </g>
       </svg>
-    );
+    )
   }
 }
 
-export { List, Thumbnails, Tiles, Search };
+export { List, Thumbnails, Tiles, Search }

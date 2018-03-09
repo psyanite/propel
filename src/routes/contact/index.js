@@ -7,11 +7,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import Layout from '../../components/Layout';
-import Contact from './Contact';
+import React from 'react'
+import Layout from '../../components/Layout'
+import Contact from './Contact'
 
-const title = 'Contact Us';
+const title = 'Contact Us'
 
 function action() {
   return {
@@ -22,7 +22,7 @@ function action() {
         <Contact title={title} />
       </Layout>
     ),
-  };
+  }
 }
 
-export default action;
+export default action

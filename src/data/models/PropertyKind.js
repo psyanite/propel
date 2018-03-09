@@ -1,5 +1,5 @@
-import DataType from 'sequelize';
-import Model from '../sequelize';
+import DataType from 'sequelize'
+import Model from '../sequelize'
 
 const PropertyKind = Model.define(
   'propertyKinds',
@@ -17,6 +17,6 @@ const PropertyKind = Model.define(
   {
     indexes: [{ fields: ['name'] }],
   },
-);
+)
 
-export default PropertyKind;
+export default PropertyKind

@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import renderHtml from 'react-render-html';
-import s from './Listing.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import renderHtml from 'react-render-html'
+import s from './Listing.css'
 
 // todo: update propTypes
 class Listing extends React.Component {
@@ -27,7 +27,7 @@ class Listing extends React.Component {
   };
 
   render() {
-    const listing = this.props.listing;
+    const listing = this.props.listing
     return (
       <div className={s.floor}>
         <div className={s.header}>
@@ -47,8 +47,8 @@ class Listing extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Listing);
+export default withStyles(s)(Listing)

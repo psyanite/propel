@@ -7,11 +7,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import Layout from '../../components/Layout';
-import Register from './Register';
+import React from 'react'
+import Layout from '../../components/Layout'
+import Register from './Register'
 
-const title = 'New User Registration';
+const title = 'New User Registration'
 
 function action() {
   return {
@@ -22,7 +22,7 @@ function action() {
         <Register title={title} />
       </Layout>
     ),
-  };
+  }
 }
 
-export default action;
+export default action

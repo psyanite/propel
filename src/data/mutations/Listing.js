@@ -1,10 +1,10 @@
 import {
   GraphQLNonNull as NonNull,
   GraphQLString as String
-} from "graphql";
+} from "graphql"
 
-import { Listing } from '../models';
-import ListingType from "../types/ListingType";
+import { Listing } from '../models'
+import ListingType from "../types/ListingType"
 
 const addListing = {
   type: ListingType,
@@ -15,10 +15,8 @@ const addListing = {
       type: new NonNull(String)
     }
   },
-  resolve: (value, {name}) => {
-    return Listing.create({name: name});
-  }
-};
+  resolve: (value, {name}) => Listing.create({name})
+}
 
 const updateListing = {
   type: ListingType,
@@ -29,14 +27,12 @@ const updateListing = {
       type: new NonNull(String)
     }
   },
-  resolve: (value, {name}) => {
-    return Listing.create({name: name});
-  }
-};
+  resolve: (value, {name}) => Listing.create({name})
+}
 
 const listing = {
-  addListing: addListing,
-  updateListing: updateListing
-};
+  addListing,
+  updateListing
+}
 
-export default listing;
+export default listing

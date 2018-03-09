@@ -1,9 +1,9 @@
-import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Meowder.css';
-import Link from '../Link';
-import Meowvigation from '../Meowvigation';
-import logoUrl from './logo.png';
+import React from 'react'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './Meowder.css'
+import Link from '../Link'
+import Meowvigation from '../Meowvigation'
+import logoUrl from './logo.png'
 
 class Meowder extends React.Component {
   render() {
@@ -17,8 +17,8 @@ class Meowder extends React.Component {
           </Link>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Meowder);
+export default withStyles(s)(Meowder)

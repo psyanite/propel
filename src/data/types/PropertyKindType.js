@@ -3,7 +3,7 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLObjectType as ObjectType,
   GraphQLString as String,
-} from 'graphql';
+} from 'graphql'
 
 // todo: add comments and descriptions
 const PropertyKindType = new ObjectType({
@@ -12,6 +12,6 @@ const PropertyKindType = new ObjectType({
     id: { type: new NonNull(Int) },
     name: { type: String },
   },
-});
+})
 
-export default PropertyKindType;
+export default PropertyKindType

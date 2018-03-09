@@ -3,53 +3,53 @@ import {
   GraphQLList as List,
   GraphQLNonNull as NonNull,
   GraphQLInt as Int,
-} from 'graphql';
-import { resolver } from 'graphql-sequelize';
-import { ListingType } from '../types';
-import { Listing, Suburb } from '../models';
+} from 'graphql'
+import { resolver } from 'graphql-sequelize'
+import { ListingType } from '../types'
+import { Listing, Suburb } from '../models'
 
-const isUndefined = item => typeof item === 'undefined';
+const isUndefined = item => typeof item === 'undefined'
 
 const isNonEmptyArray = item =>
-  !isUndefined(item) && Array.isArray(item) && item.length > 0;
+  !isUndefined(item) && Array.isArray(item) && item.length > 0
 
 const buildMinMaxCriteria = (min, max) => {
   if (min && max) {
-    return { $between: [min, max] };
+    return { $between: [min, max] }
   } else if (min) {
-    return { $gte: min };
+    return { $gte: min }
   } else if (max) {
-    return { $lte: max };
+    return { $lte: max }
   }
-  return null;
-};
+  return null
+}
 
 const buildWhere = args => {
-  const where = {};
+  const where = {}
   if ('suburbId' in args) {
-    where.suburbId = args.suburbId;
+    where.suburbId = args.suburbId
   }
   if ('priceMin' in args || 'priceMax' in args) {
-    where.price = buildMinMaxCriteria(args.priceMin, args.priceMax);
+    where.price = buildMinMaxCriteria(args.priceMin, args.priceMax)
   }
-  return where;
-};
+  return where
+}
 
 const buildInclude = args => {
   const suburbModel = {
     model: Suburb,
-  };
-  if ('districtId' in args) {
-    suburbModel.where = { districtId: args.districtId };
   }
-  return [suburbModel];
-};
+  if ('districtId' in args) {
+    suburbModel.where = { districtId: args.districtId }
+  }
+  return [suburbModel]
+}
 
 const listings = {
   allListings: {
     type: new List(ListingType),
     resolve() {
-      return Listing.findAll({}).then(data => data);
+      return Listing.findAll({}).then(data => data)
     },
   },
 
@@ -90,13 +90,13 @@ const listings = {
     },
     resolve: resolver(Listing, {
       before: (findOptions, args) => {
-        findOptions.where = buildWhere(args);
-        findOptions.order = [['name', 'ASC']];
-        findOptions.include = buildInclude(args);
-        return findOptions;
+        findOptions.where = buildWhere(args)
+        findOptions.order = [['name', 'ASC']]
+        findOptions.include = buildInclude(args)
+        return findOptions
       },
     }),
   },
-};
+}
 
-export default listings;
+export default listings

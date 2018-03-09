@@ -1,5 +1,5 @@
-import DataType from 'sequelize';
-import Model from '../../sequelize';
+import DataType from 'sequelize'
+import Model from '../../sequelize'
 
 const District = Model.define(
   'districts',
@@ -17,6 +17,6 @@ const District = Model.define(
   {
     indexes: [{ fields: ['name'] }],
   },
-);
+)
 
-export default District;
+export default District

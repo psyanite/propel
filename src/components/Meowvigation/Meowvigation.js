@@ -1,8 +1,8 @@
-import React from 'react';
-import cx from 'classnames';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Meowvigation.css';
-import Link from '../Link';
+import React from 'react'
+import cx from 'classnames'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './Meowvigation.css'
+import Link from '../Link'
 
 class Meowvigation extends React.Component {
   render() {
@@ -15,8 +15,8 @@ class Meowvigation extends React.Component {
         <span className={s.spacer}>or</span>
         <Link className={cx(s.link, s.highlight)} to="/register">Sign up</Link>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Meowvigation);
+export default withStyles(s)(Meowvigation)

@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import queryString from 'query-string';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Home.css';
-import logoUrl from './logo.png';
-import history from '../../history';
-import Filters from '../../components/Home/Filters';
+import React from 'react'
+import PropTypes from 'prop-types'
+import queryString from 'query-string'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './Home.css'
+import logoUrl from './logo.png'
+import history from '../../history'
+import Filters from '../../components/Home/Filters'
 
 class Home extends React.Component {
   static propTypes = {
@@ -26,49 +26,49 @@ class Home extends React.Component {
   };
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       params: {
         districtId: null,
         suburbId: null,
       },
-    };
+    }
   }
 
   updateParams = selectedValues => {
     const params = {
       districtId: selectedValues.districtId.value,
       suburbId: null,
-    };
-    const selectedSuburbs = selectedValues.suburbId;
+    }
+    const selectedSuburbs = selectedValues.suburbId
     if (selectedSuburbs !== null) {
       if (Array.isArray(selectedSuburbs) && selectedSuburbs.length > 0) {
-        params.suburbId = selectedValues.suburbId.map(value => value.value);
+        params.suburbId = selectedValues.suburbId.map(value => value.value)
       } else if (selectedSuburbs.value !== undefined) {
-        params.suburbId = selectedValues.suburbId.value;
+        params.suburbId = selectedValues.suburbId.value
       }
     }
-    this.setState({ params });
+    this.setState({ params })
   };
 
   search = e => {
-    e.preventDefault();
-    const params = this.state.params;
+    e.preventDefault()
+    const params = this.state.params
     if (params.districtId !== null && params.suburbId !== null) {
-      const queryParams = this.buildQueryParams();
-      history.push(`/listings?${queryString.stringify(queryParams)}`);
+      const queryParams = this.buildQueryParams()
+      history.push(`/listings?${queryString.stringify(queryParams)}`)
     }
   };
 
   buildQueryParams = () => {
-    const params = this.state.params;
-    const queryParams = {};
+    const params = this.state.params
+    const queryParams = {}
     Object.keys(params).forEach(key => {
       if (params[key] !== null && params[key] !== '') {
-        queryParams[key] = params[key];
+        queryParams[key] = params[key]
       }
-    });
-    return queryParams;
+    })
+    return queryParams
   };
 
   render() {
@@ -97,8 +97,8 @@ class Home extends React.Component {
           </form>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Home);
+export default withStyles(s)(Home)

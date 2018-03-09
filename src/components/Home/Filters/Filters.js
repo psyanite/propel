@@ -1,11 +1,11 @@
 /* eslint-disable css-modules/no-unused-class */
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import rSelectStyles from 'react-select/dist/react-select.css';
-import customRSelectStyles from '../../../../customStyles/rSelect.css';
-import Filter from '../../Filters/Filter';
-import s from './Filters.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import rSelectStyles from 'react-select/dist/react-select.css'
+import customRSelectStyles from '../../../../customStyles/rSelect.css'
+import Filter from '../../Filters/Filter'
+import s from './Filters.css'
 
 const buildDistrictsFilter = districts => {
   const filter = {
@@ -14,28 +14,28 @@ const buildDistrictsFilter = districts => {
     options: [],
     isMulti: false,
     styleName: 'district',
-  };
+  }
   districts.forEach(district => {
     filter.options.push({
       label: district.name,
       value: district.id,
-    });
-  });
-  filter.options.unshift({ label: 'All districts', value: '' });
-  return filter;
-};
+    })
+  })
+  filter.options.unshift({ label: 'All districts', value: '' })
+  return filter
+}
 
-const defaultDistrictId = 4;
+const defaultDistrictId = 4
 
 const getDefaultSuburbFilter = districtFilters =>
-  districtFilters[defaultDistrictId];
+  districtFilters[defaultDistrictId]
 
 const buildFilters = (data, districtFilters) => {
-  const filters = {};
-  filters.district = buildDistrictsFilter(data.districts);
-  filters.suburb = getDefaultSuburbFilter(districtFilters);
-  return filters;
-};
+  const filters = {}
+  filters.district = buildDistrictsFilter(data.districts)
+  filters.suburb = getDefaultSuburbFilter(districtFilters)
+  return filters
+}
 
 const buildSuburbFilter = suburbs => {
   const filter = {
@@ -44,33 +44,33 @@ const buildSuburbFilter = suburbs => {
     options: [],
     isMulti: true,
     styleName: 'suburb',
-  };
+  }
   suburbs.forEach(suburb => {
     filter.options.push({
       label: suburb.name,
       value: suburb.id,
-    });
-  });
-  filter.options.unshift({ label: 'All suburbs', value: '' });
-  return filter;
-};
+    })
+  })
+  filter.options.unshift({ label: 'All suburbs', value: '' })
+  return filter
+}
 
 const buildDistrictFilters = districts => {
-  const filters = {};
+  const filters = {}
   districts.forEach(district => {
-    filters[district.id] = buildSuburbFilter(district.suburbs);
-  });
-  return filters;
-};
+    filters[district.id] = buildSuburbFilter(district.suburbs)
+  })
+  return filters
+}
 
 const buildSelectedValues = filters => {
-  const selectedValues = {};
+  const selectedValues = {}
   selectedValues.districtId = filters.district.options.find(
     option => option.value === defaultDistrictId,
-  );
-  selectedValues.suburbId = null;
-  return selectedValues;
-};
+  )
+  selectedValues.suburbId = null
+  return selectedValues
+}
 
 class Filters extends React.Component {
   static propTypes = {
@@ -93,41 +93,41 @@ class Filters extends React.Component {
 
   // todo: absolute abomination
   constructor(props) {
-    super(props);
-    const data = this.props.data;
-    const districtFilters = buildDistrictFilters(data.districts);
-    const filters = buildFilters(data, districtFilters);
-    const selectedValues = buildSelectedValues(filters);
-    this.props.onUpdateSelectedValues(selectedValues);
-    this.state = { selectedValues, filters, districtFilters };
+    super(props)
+    const data = this.props.data
+    const districtFilters = buildDistrictFilters(data.districts)
+    const filters = buildFilters(data, districtFilters)
+    const selectedValues = buildSelectedValues(filters)
+    this.props.onUpdateSelectedValues(selectedValues)
+    this.state = { selectedValues, filters, districtFilters }
   }
 
   onDistrictChange = (kind, item) => {
-    const filters = this.state.filters;
-    filters.suburb = this.state.districtFilters[item.value];
-    this.setState({ filters });
+    const filters = this.state.filters
+    filters.suburb = this.state.districtFilters[item.value]
+    this.setState({ filters })
 
-    const selectedValues = this.state.selectedValues;
-    selectedValues.suburbId = [];
-    this.setState({ selectedValues });
+    const selectedValues = this.state.selectedValues
+    selectedValues.suburbId = []
+    this.setState({ selectedValues })
   };
 
   onChange = (kind, item) => {
-    const selectedValues = this.state.selectedValues;
+    const selectedValues = this.state.selectedValues
     if (kind === 'districtId' && selectedValues[kind] !== item) {
-      this.onDistrictChange(kind, item);
+      this.onDistrictChange(kind, item)
     }
-    selectedValues[kind] = item;
-    this.updateSelectedValues(selectedValues);
+    selectedValues[kind] = item
+    this.updateSelectedValues(selectedValues)
   };
 
   updateSelectedValues = selectedValues => {
-    this.setState({ selectedValues });
-    this.props.onUpdateSelectedValues(selectedValues);
+    this.setState({ selectedValues })
+    this.props.onUpdateSelectedValues(selectedValues)
   };
 
   render() {
-    const filters = this.state.filters;
+    const filters = this.state.filters
     return (
       <div className={s.root}>
         <Filter
@@ -143,8 +143,8 @@ class Filters extends React.Component {
           selectedValues={this.state.selectedValues[filters.suburb.id]}
         />
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(rSelectStyles, customRSelectStyles, s)(Filters);
+export default withStyles(rSelectStyles, customRSelectStyles, s)(Filters)

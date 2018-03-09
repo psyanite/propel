@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from '../Common.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from '../Common.css'
 
 // todo: update propTypes
 // todo: rework buildUri
@@ -52,8 +52,8 @@ class List extends React.Component {
           </a>,
         )}
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(List);
+export default withStyles(s)(List)

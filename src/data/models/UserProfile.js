@@ -7,8 +7,8 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import DataType from 'sequelize';
-import Model from '../sequelize';
+import DataType from 'sequelize'
+import Model from '../sequelize'
 
 const UserProfile = Model.define('UserProfile', {
   userId: {
@@ -35,6 +35,6 @@ const UserProfile = Model.define('UserProfile', {
   website: {
     type: DataType.STRING(255),
   },
-});
+})
 
-export default UserProfile;
+export default UserProfile

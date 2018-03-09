@@ -3,12 +3,12 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLObjectType as ObjectType,
   GraphQLString as String,
-} from 'graphql';
-import { resolver } from 'graphql-sequelize';
-import { Suburb, District } from '../../models';
-import DistrictType from './DistrictType';
+} from 'graphql'
+import { resolver } from 'graphql-sequelize'
+import { Suburb, District } from '../../models'
+import DistrictType from './DistrictType'
 
-Suburb.District = Suburb.belongsTo(District);
+Suburb.District = Suburb.belongsTo(District)
 
 // todo: add comments and descriptions
 const SuburbType = new ObjectType({
@@ -21,6 +21,6 @@ const SuburbType = new ObjectType({
       resolve: resolver(Suburb.District),
     },
   }),
-});
+})
 
-export default SuburbType;
+export default SuburbType

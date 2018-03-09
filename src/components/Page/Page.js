@@ -7,10 +7,10 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Page.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './Page.css'
 
 class Page extends React.Component {
   static propTypes = {
@@ -19,7 +19,7 @@ class Page extends React.Component {
   };
 
   render() {
-    const { title, html } = this.props;
+    const { title, html } = this.props
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -30,8 +30,8 @@ class Page extends React.Component {
           />
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Page);
+export default withStyles(s)(Page)

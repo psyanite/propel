@@ -7,10 +7,10 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import Layout from '../../components/Layout';
-import Page from '../../components/Page';
-import privacy from './privacy.md';
+import React from 'react'
+import Layout from '../../components/Layout'
+import Page from '../../components/Page'
+import privacy from './privacy.md'
 
 function action() {
   return {
@@ -21,7 +21,7 @@ function action() {
         <Page {...privacy} />
       </Layout>
     ),
-  };
+  }
 }
 
-export default action;
+export default action

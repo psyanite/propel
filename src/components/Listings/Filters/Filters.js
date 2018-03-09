@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import rSelectStyles from 'react-select/dist/react-select.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import rSelectStyles from 'react-select/dist/react-select.css'
 import {
   List as ListIcon,
   Thumbnails as ThumbnailsIcon,
   Tiles as TilesIcon,
-} from '../../../components/Icons';
-import Filter from '../../Filters/Filter';
-import s from './Filters.css';
+} from '../../../components/Icons'
+import Filter from '../../Filters/Filter'
+import s from './Filters.css'
 
 const isNonEmptyArray = item =>
-  typeof item !== 'undefined' && Array.isArray(item) && item.length > 0;
+  typeof item !== 'undefined' && Array.isArray(item) && item.length > 0
 
 const buildDistrictsFilter = districts => {
   const filter = {
@@ -20,31 +20,31 @@ const buildDistrictsFilter = districts => {
     options: [],
     isMulti: true,
     styleName: 'district',
-  };
+  }
   districts.forEach(district => {
     filter.options.push({
       label: district.name,
       value: district.id,
-    });
-  });
-  filter.options.unshift({ label: 'All districts', value: '' });
-  return { district: filter };
-};
+    })
+  })
+  filter.options.unshift({ label: 'All districts', value: '' })
+  return { district: filter }
+}
 
 const buildDistrictSuburbOptions = districts => {
-  const options = {};
+  const options = {}
   districts.forEach(district => {
     options[district.id] = district.suburbs.map(suburb => ({
       label: suburb.name,
       value: suburb.id,
       districtId: district.id,
-    }));
-  });
-  return options;
-};
+    }))
+  })
+  return options
+}
 
 const buildPriceFilters = () => {
-  const filters = {};
+  const filters = {}
   filters.priceMin = {
     id: 'priceMin',
     isMulti: false,
@@ -59,7 +59,7 @@ const buildPriceFilters = () => {
     ],
     placeholder: 'Minimum value',
     styleName: 'priceMin',
-  };
+  }
   filters.priceMax = {
     id: 'priceMax',
     isMulti: false,
@@ -77,69 +77,69 @@ const buildPriceFilters = () => {
     ],
     placeholder: 'Maximum value',
     styleName: 'priceMax',
-  };
-  return filters;
-};
+  }
+  return filters
+}
 
 const buildPropertyKindIdFilter = propertyKindIds => {
-  const filter = {};
+  const filter = {}
   filter.propertyKindId = {
     id: 'propertyKindId',
     isMulti: true,
     options: [],
     placeholder: 'All property types',
     styleName: 'propertyKindId',
-  };
+  }
   propertyKindIds.forEach(propertyKindId => {
     filter.propertyKindId.options.push({
       label: propertyKindId.name,
       value: propertyKindId.id,
-    });
-  });
+    })
+  })
   filter.propertyKindId.options.unshift({
     label: 'All property types',
     value: '',
-  });
-  return filter;
-};
+  })
+  return filter
+}
 
 const getTargetedDistrictIds = initSelected => {
   if ('districtId' in initSelected) {
     if (Array.isArray(initSelected.districtId)) {
-      return initSelected.districtId;
+      return initSelected.districtId
     }
-    return [initSelected.districtId];
+    return [initSelected.districtId]
   }
-  return null;
-};
+  return null
+}
 
 const buildSelectedValues = (initSelected, filters) => {
-  const selectedValues = {};
+  const selectedValues = {}
 
-  const targetedDistrictIds = getTargetedDistrictIds(initSelected);
+  const targetedDistrictIds = getTargetedDistrictIds(initSelected)
   selectedValues.districtId = filters.district.options.filter(option =>
     targetedDistrictIds.includes(option.value),
-  );
+  )
 
-  selectedValues.suburbId = [];
+  selectedValues.suburbId = []
   if ('suburbId' in initSelected && isNonEmptyArray(initSelected.suburbId)) {
     initSelected.suburbId.forEach(id => {
       const newOption = filters.suburb.options.find(
         option => option.value === id,
-      );
+      )
       if (typeof newOption !== 'undefined') {
-        selectedValues.suburbId.push(newOption);
+        selectedValues.suburbId.push(newOption)
       }
-    });
+    })
   }
 
   // todo: these other values could possibly also be initialized
-  selectedValues.priceMin = null;
-  selectedValues.priceMax = null;
-  selectedValues.propertyKindId = [];
+  selectedValues.priceMin = null
+  selectedValues.priceMax = null
+  selectedValues.propertyKindId = []
 
-  return selectedValues;
-};
+  return selectedValues
+}
 
 const buildSuburbFilter = (targetedDistrictIds, districtSuburbs) => {
   const filter = {
@@ -148,13 +148,13 @@ const buildSuburbFilter = (targetedDistrictIds, districtSuburbs) => {
     options: [],
     isMulti: true,
     styleName: 'suburb',
-  };
+  }
   targetedDistrictIds.forEach(districtId => {
-    filter.options = Object.assign(filter.options, districtSuburbs[districtId]);
-  });
-  filter.options.unshift({ label: 'All suburbs', value: '' });
-  return { suburb: filter };
-};
+    filter.options = Object.assign(filter.options, districtSuburbs[districtId])
+  })
+  filter.options.unshift({ label: 'All suburbs', value: '' })
+  return { suburb: filter }
+}
 
 const buildFilters = (data, districtSuburbs, initSelected) =>
   Object.assign(
@@ -163,7 +163,7 @@ const buildFilters = (data, districtSuburbs, initSelected) =>
     buildSuburbFilter(getTargetedDistrictIds(initSelected), districtSuburbs),
     buildPriceFilters(),
     buildPropertyKindIdFilter(data.propertyTypes),
-  );
+  )
 
 class Filters extends React.Component {
   static propTypes = {
@@ -193,15 +193,15 @@ class Filters extends React.Component {
 
   // todo: absolute abomination
   constructor(props) {
-    super(props);
-    this.districtSuburbs = buildDistrictSuburbOptions(props.data.districts);
+    super(props)
+    this.districtSuburbs = buildDistrictSuburbOptions(props.data.districts)
     const filters = buildFilters(
       props.data,
       this.districtSuburbs,
       props.initSelected,
-    );
-    const selectedValues = buildSelectedValues(props.initSelected, filters);
-    this.state = { selectedValues, filters };
+    )
+    const selectedValues = buildSelectedValues(props.initSelected, filters)
+    this.state = { selectedValues, filters }
   }
 
   districtSuburbs = null;
@@ -209,43 +209,43 @@ class Filters extends React.Component {
   handleRefine = () => this.props.handleRefine(this.state.selectedValues);
 
   handleChange = (kind, newItems) => {
-    const selectedValues = this.state.selectedValues;
+    const { selectedValues } = this.state
     if (kind === 'districtId' && selectedValues[kind] !== newItems) {
-      this.updateDistrict(kind, newItems);
+      this.updateDistrict(kind, newItems)
     }
-    selectedValues[kind] = newItems;
-    this.updateSelectedValues(selectedValues);
+    selectedValues[kind] = newItems
+    this.updateSelectedValues(selectedValues)
   };
 
   // todo: i haf no idea wat dis does lol
   updateDistrict = (kind, newDistricts) => {
     if (Array.isArray(newDistricts)) {
-      const selectedValues = this.state.selectedValues;
-      const newDistrictsIds = newDistricts.map(district => district.value);
+      const { selectedValules } = this.state
+      const newDistrictsIds = newDistricts.map(district => district.value)
       selectedValues.suburbId = selectedValues.suburbId.filter(suburb =>
         newDistrictsIds.includes(suburb.districtId),
-      );
+      )
 
-      const filters = this.state.filters;
-      let suburbOptions = [];
+      const { filters } = this.state
+      let suburbOptions = []
       newDistricts.forEach(district => {
         suburbOptions = suburbOptions.concat(
           this.districtSuburbs[district.value],
-        );
-      });
-      filters.suburb.options = suburbOptions;
+        )
+      })
+      filters.suburb.options = suburbOptions
     } else {
-      this.state.filters.suburb.options = [];
-      this.state.selectedValues.suburbId = [];
+      this.state.filters.suburb.options = []
+      this.state.selectedValues.suburbId = []
     }
   };
 
   updateSelectedValues = selectedValues => {
-    this.setState({ selectedValues });
+    this.setState({ selectedValues })
   };
 
   render() {
-    const filters = this.state.filters;
+    const { filters } = this.state
     return (
       <div className={s.root}>
         <div className={s.views}>
@@ -325,8 +325,8 @@ class Filters extends React.Component {
           </svg>
         </button>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(rSelectStyles, s)(Filters);
+export default withStyles(rSelectStyles, s)(Filters)

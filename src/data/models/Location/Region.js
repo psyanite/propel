@@ -1,5 +1,5 @@
-import DataType from 'sequelize';
-import Model from '../../sequelize';
+import DataType from 'sequelize'
+import Model from '../../sequelize'
 
 const Region = Model.define(
   'regions',
@@ -17,6 +17,6 @@ const Region = Model.define(
   {
     indexes: [{ fields: ['name'] }],
   },
-);
+)
 
-export default Region;
+export default Region
