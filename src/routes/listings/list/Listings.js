@@ -38,54 +38,15 @@ class Listings extends React.Component {
 
   changeView = newView => this.setState({ view: newView });
 
-  handleFilterRefine = async selectedValues => {
-    const body = graphqlify({
-      listings: {
-        field: 'listingSearch',
-        params: this.buildGraphqlParams(selectedValues),
-        fields: {
-          id: {},
-          name: {},
-          suburb: {
-            fields: {
-              name: {},
-            },
-          },
-          propertyKind: {
-            fields: {
-              name: {},
-            },
-          },
-          price: {},
-          guestCount: {},
-          bedroomCount: {},
-          bedCount: {},
-          link: {},
-          image: {},
-          description: {},
-        },
-      },
-    })
+  handleFilterRefine = async graphqlBody => {
+
     const resp = await fetch('/graphql ', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: body }),
+      body: JSON.stringify({ query: graphqlBody }),
     })
     const { data } = await resp.json()
     this.setState({ listings: data.listings })
-  };
-
-  buildGraphqlParams = selectedValues => {
-    const params = {}
-    Object.keys(selectedValues).forEach(key => {
-      const item = selectedValues[key]
-      if (isNonEmptyArray(item)) {
-        params[key] = item.map(value => value.value)
-      } else if (item && 'value' in item && item.value !== '') {
-        params[key] = item.value
-      }
-    })
-    return params
   };
 
   render() {

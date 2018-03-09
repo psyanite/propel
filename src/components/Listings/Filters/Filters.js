@@ -9,6 +9,7 @@ import {
 } from '../../../components/Icons'
 import Filter from '../../Filters/Filter'
 import s from './Filters.css'
+import graphqlify from "graphqlify"
 
 const isNonEmptyArray = item =>
   typeof item !== 'undefined' && Array.isArray(item) && item.length > 0
@@ -165,6 +166,63 @@ const buildFilters = (data, districtSuburbs, initSelected) =>
     buildPropertyKindIdFilter(data.propertyTypes),
   )
 
+const isBlank = selectedValues => Object.keys(selectedValues).every((key) => (!selectedValues[key] || !selectedValues[key].length))
+
+const buildGraphqlParams = selectedValues => {
+  const params = {}
+  Object.keys(selectedValues).forEach(key => {
+    const item = selectedValues[key]
+    if (isNonEmptyArray(item)) {
+      params[key] = item.map(value => value.value)
+    } else if (item && 'value' in item && item.value !== '') {
+      params[key] = item.value
+    }
+  })
+  return params
+}
+
+const buildGraphqlBody = selectedValues => {
+
+  const fields = {
+    id: {},
+    name: {},
+    suburb: {
+      fields: {
+        name: {},
+      },
+    },
+    propertyKind: {
+      fields: {
+        name: {},
+      },
+    },
+    price: {},
+    guestCount: {},
+    bedroomCount: {},
+    bedCount: {},
+    link: {},
+    image: {},
+    description: {},
+  }
+
+  if (isBlank(selectedValues)) {
+    return graphqlify({
+      listings: {
+        field: 'allListings',
+        fields
+      },
+    })
+  }
+
+  return graphqlify({
+    listings: {
+      field: 'listingSearch',
+      params: buildGraphqlParams(selectedValues),
+      fields
+    },
+  })
+}
+
 class Filters extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
@@ -206,7 +264,7 @@ class Filters extends React.Component {
 
   districtSuburbs = null;
 
-  handleRefine = () => this.props.handleRefine(this.state.selectedValues);
+  handleRefine = () => this.props.handleRefine(buildGraphqlBody(this.state.selectedValues));
 
   handleChange = (kind, newItems) => {
     const { selectedValues } = this.state
@@ -220,7 +278,7 @@ class Filters extends React.Component {
   // todo: i haf no idea wat dis does lol
   updateDistrict = (kind, newDistricts) => {
     if (Array.isArray(newDistricts)) {
-      const { selectedValules } = this.state
+      const { selectedValues } = this.state
       const newDistrictsIds = newDistricts.map(district => district.value)
       selectedValues.suburbId = selectedValues.suburbId.filter(suburb =>
         newDistrictsIds.includes(suburb.districtId),
