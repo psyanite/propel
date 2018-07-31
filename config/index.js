@@ -1,14 +1,26 @@
+const ENV = {
+  development: 'development',
+  stage: 'stage',
+  production: 'production',
+};
+
 if (process.env.BROWSER) {
   throw new Error(
     'Do not import `config.js` from inside the client-side code.',
   );
 }
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== ENV.production) {
   require('dotenv').config();
 }
 
 module.exports = {
+  // Environment constants
+  ENV,
+
+  // Environment
+  env: process.env.NODE_ENV || ENV.development,
+
   // Node.js app
   port: process.env.PORT || 3000,
 
@@ -27,6 +39,7 @@ module.exports = {
 
   // Database
   database: {
+    url: process.env.DATABASE_URL || 'postgres://localhost:5432/propel',
     name: process.env.DATABASE_NAME || 'public',
     dialect: process.env.DATABASE_DIALECT || 'postgres',
     host: process.env.DATABASE_HOST || 'localhost',

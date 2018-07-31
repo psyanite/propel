@@ -2,35 +2,15 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.0
--- Dumped by pg_dump version 10.0
+-- Dumped from database version 10.4 (Ubuntu 10.4-2.pgdg16.04+1)
+-- Dumped by pg_dump version 10.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
-DROP DATABASE IF EXISTS propel;
---
--- Name: propel; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE propel WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'English_United States.1252' LC_CTYPE = 'English_United States.1252';
-
-
-ALTER DATABASE propel OWNER TO postgres;
-
-\connect propel
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
@@ -49,8 +29,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
-SET search_path = propel, pg_catalog;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -59,235 +37,235 @@ SET default_with_oids = false;
 -- Name: cities; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE cities (
-  id integer NOT NULL,
-  name character varying(255) NOT NULL,
-  district_id integer NOT NULL
+CREATE TABLE public.cities (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    district_id integer NOT NULL
 );
 
 
-ALTER TABLE cities OWNER TO postgres;
+ALTER TABLE public.cities OWNER TO postgres;
 
 --
 -- Name: city; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE city (
-  id integer NOT NULL,
-  name character varying(255)
+CREATE TABLE public.city (
+    id integer NOT NULL,
+    name character varying(255)
 );
 
 
-ALTER TABLE city OWNER TO postgres;
+ALTER TABLE public.city OWNER TO postgres;
 
 --
 -- Name: city_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE city_id_seq
-  START WITH 1
-  INCREMENT BY 1
-  NO MINVALUE
-  NO MAXVALUE
-  CACHE 1;
+CREATE SEQUENCE public.city_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
-ALTER TABLE city_id_seq OWNER TO postgres;
+ALTER TABLE public.city_id_seq OWNER TO postgres;
 
 --
 -- Name: city_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE city_id_seq OWNED BY city.id;
+ALTER SEQUENCE public.city_id_seq OWNED BY public.city.id;
 
 
 --
 -- Name: country; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE country (
-  id integer NOT NULL,
-  name character varying(255)
+CREATE TABLE public.country (
+    id integer NOT NULL,
+    name character varying(255)
 );
 
 
-ALTER TABLE country OWNER TO postgres;
+ALTER TABLE public.country OWNER TO postgres;
 
 --
 -- Name: country_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE country_id_seq
-  START WITH 1
-  INCREMENT BY 1
-  NO MINVALUE
-  NO MAXVALUE
-  CACHE 1;
+CREATE SEQUENCE public.country_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
-ALTER TABLE country_id_seq OWNER TO postgres;
+ALTER TABLE public.country_id_seq OWNER TO postgres;
 
 --
 -- Name: country_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE country_id_seq OWNED BY country.id;
+ALTER SEQUENCE public.country_id_seq OWNED BY public.country.id;
 
 
 --
 -- Name: districts; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE districts (
-  id integer NOT NULL,
-  name character varying(255),
-  "regionId" integer
+CREATE TABLE public.districts (
+    id integer NOT NULL,
+    name character varying(255),
+    "regionId" integer
 );
 
 
-ALTER TABLE districts OWNER TO postgres;
+ALTER TABLE public.districts OWNER TO postgres;
 
 --
 -- Name: listings; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE listings (
-  id integer NOT NULL,
-  name character varying(255),
-  "suburbId" integer,
-  price integer,
-  "bedroomCount" integer,
-  "guestCount" integer,
-  "bedCount" integer,
-  image character varying(255),
-  description text,
-  link character varying(255),
-  "propertyKindId" integer
+CREATE TABLE public.listings (
+    id integer NOT NULL,
+    name character varying(255),
+    "suburbId" integer,
+    price integer,
+    "bedroomCount" integer,
+    "guestCount" integer,
+    "bedCount" integer,
+    image character varying(255),
+    description text,
+    link character varying(255),
+    "propertyKindId" integer
 );
 
 
-ALTER TABLE listings OWNER TO postgres;
+ALTER TABLE public.listings OWNER TO postgres;
 
 --
 -- Name: propertyKinds; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "propertyKinds" (
-  id integer NOT NULL,
-  name character varying(255) NOT NULL
+CREATE TABLE public."propertyKinds" (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL
 );
 
 
-ALTER TABLE "propertyKinds" OWNER TO postgres;
+ALTER TABLE public."propertyKinds" OWNER TO postgres;
 
 --
 -- Name: regions; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE regions (
-  id integer NOT NULL,
-  name character varying(255)
+CREATE TABLE public.regions (
+    id integer NOT NULL,
+    name character varying(255)
 );
 
 
-ALTER TABLE regions OWNER TO postgres;
+ALTER TABLE public.regions OWNER TO postgres;
 
 --
 -- Name: store; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE store (
-  id integer NOT NULL,
-  name character varying(50),
-  phone_number character varying(20),
-  address_first_line character varying(100),
-  address_second_line character varying(100),
-  address_street_number character varying(20),
-  address_street_name character varying(50),
-  "districtId" integer
+CREATE TABLE public.store (
+    id integer NOT NULL,
+    name character varying(50),
+    phone_number character varying(20),
+    address_first_line character varying(100),
+    address_second_line character varying(100),
+    address_street_number character varying(20),
+    address_street_name character varying(50),
+    "districtId" integer
 );
 
 
-ALTER TABLE store OWNER TO postgres;
+ALTER TABLE public.store OWNER TO postgres;
 
 --
 -- Name: store_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE store_id_seq
-  START WITH 1
-  INCREMENT BY 1
-  NO MINVALUE
-  NO MAXVALUE
-  CACHE 1;
+CREATE SEQUENCE public.store_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
-ALTER TABLE store_id_seq OWNER TO postgres;
+ALTER TABLE public.store_id_seq OWNER TO postgres;
 
 --
 -- Name: store_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE store_id_seq OWNED BY store.id;
+ALTER SEQUENCE public.store_id_seq OWNED BY public.store.id;
 
 
 --
 -- Name: stores; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE stores (
-  id integer NOT NULL,
-  name character varying(50),
-  phone_number character varying(20),
-  address_first_line character varying(100),
-  address_second_line character varying(100),
-  address_street_number character varying(20),
-  address_street_name character varying(50),
-  "districtId" integer
+CREATE TABLE public.stores (
+    id integer NOT NULL,
+    name character varying(50),
+    phone_number character varying(20),
+    address_first_line character varying(100),
+    address_second_line character varying(100),
+    address_street_number character varying(20),
+    address_street_name character varying(50),
+    "districtId" integer
 );
 
 
-ALTER TABLE stores OWNER TO postgres;
+ALTER TABLE public.stores OWNER TO postgres;
 
 --
 -- Name: stores_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE stores_id_seq
-  START WITH 1
-  INCREMENT BY 1
-  NO MINVALUE
-  NO MAXVALUE
-  CACHE 1;
+CREATE SEQUENCE public.stores_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
-ALTER TABLE stores_id_seq OWNER TO postgres;
+ALTER TABLE public.stores_id_seq OWNER TO postgres;
 
 --
 -- Name: stores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE stores_id_seq OWNED BY stores.id;
+ALTER SEQUENCE public.stores_id_seq OWNED BY public.stores.id;
 
 
 --
 -- Name: suburbs; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE suburbs (
-  id integer NOT NULL,
-  name character varying(255) NOT NULL,
-  "districtId" integer
+CREATE TABLE public.suburbs (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    "districtId" integer
 );
 
 
-ALTER TABLE suburbs OWNER TO postgres;
+ALTER TABLE public.suburbs OWNER TO postgres;
 
 --
 -- Data for Name: cities; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY cities (id, name, district_id) FROM stdin;
+COPY public.cities (id, name, district_id) FROM stdin;
 \.
 
 
@@ -295,7 +273,7 @@ COPY cities (id, name, district_id) FROM stdin;
 -- Data for Name: city; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY city (id, name) FROM stdin;
+COPY public.city (id, name) FROM stdin;
 \.
 
 
@@ -303,7 +281,7 @@ COPY city (id, name) FROM stdin;
 -- Data for Name: country; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY country (id, name) FROM stdin;
+COPY public.country (id, name) FROM stdin;
 \.
 
 
@@ -311,7 +289,7 @@ COPY country (id, name) FROM stdin;
 -- Data for Name: districts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY districts (id, name, "regionId") FROM stdin;
+COPY public.districts (id, name, "regionId") FROM stdin;
 2	Auckland City	1
 3	Manukau City	1
 5	Potatoville	4
@@ -325,7 +303,7 @@ COPY districts (id, name, "regionId") FROM stdin;
 -- Data for Name: listings; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY listings (id, name, "suburbId", price, "bedroomCount", "guestCount", "bedCount", image, description, link, "propertyKindId") FROM stdin;
+COPY public.listings (id, name, "suburbId", price, "bedroomCount", "guestCount", "bedCount", image, description, link, "propertyKindId") FROM stdin;
 3	Urban Cape Reinga	1	124000	1	2	2	https://a0.muscache.com/im/pictures/24565969/182070f0_original.jpg?aki_policy=xx_large	A very well-located, modern, spacious house with very easy access to the best places in Tokyo. Experience our version of the Japanese concept of hospitality (omotenashi) as you use our well-designed house as your home base for your Tokyo adventure!	https://www.airbnb.com.au/rooms/1298200	2
 24	Rocky BalWoofa	12	210000	1	1	1	https://a0.muscache.com/im/pictures/97555979/877f8f00_original.jpg?aki_policy=large	Tateishi Tokyo,Quaint Neighborhood around the Station.<br />Many Bars still exist since right after the World War near the station.<br />You can feel what Tokyo was like back in 1940s.<br />Good access to Major spot (15mins-50mins )	https://www.airbnb.com.au/rooms/1298200	4
 18	Meowzees	9	344000	3	3	2	https://a0.muscache.com/im/pictures/57587161/587b1ae7_original.jpg?aki_policy=large	shibuya is know as one of the mostfamous town of japan, particularly for young people, and as a major night life area. if you wanna explore tokyo till night, this is the place. you can enjoy most center area by walking distance.	https://www.airbnb.com.au/rooms/1298200	1
@@ -362,7 +340,7 @@ COPY listings (id, name, "suburbId", price, "bedroomCount", "guestCount", "bedCo
 -- Data for Name: propertyKinds; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "propertyKinds" (id, name) FROM stdin;
+COPY public."propertyKinds" (id, name) FROM stdin;
 1	Apartment
 2	House
 3	Townhouse
@@ -374,7 +352,7 @@ COPY "propertyKinds" (id, name) FROM stdin;
 -- Data for Name: regions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY regions (id, name) FROM stdin;
+COPY public.regions (id, name) FROM stdin;
 1	Auckland
 2	Wellington
 4	Potatoland
@@ -386,7 +364,7 @@ COPY regions (id, name) FROM stdin;
 -- Data for Name: store; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY store (id, name, phone_number, address_first_line, address_second_line, address_street_number, address_street_name, "districtId") FROM stdin;
+COPY public.store (id, name, phone_number, address_first_line, address_second_line, address_street_number, address_street_name, "districtId") FROM stdin;
 \.
 
 
@@ -394,7 +372,7 @@ COPY store (id, name, phone_number, address_first_line, address_second_line, add
 -- Data for Name: stores; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY stores (id, name, phone_number, address_first_line, address_second_line, address_street_number, address_street_name, "districtId") FROM stdin;
+COPY public.stores (id, name, phone_number, address_first_line, address_second_line, address_street_number, address_street_name, "districtId") FROM stdin;
 \.
 
 
@@ -402,7 +380,7 @@ COPY stores (id, name, phone_number, address_first_line, address_second_line, ad
 -- Data for Name: suburbs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY suburbs (id, name, "districtId") FROM stdin;
+COPY public.suburbs (id, name, "districtId") FROM stdin;
 5	Doggo-ku	4
 4	GI	2
 6	Potatotown	5
@@ -423,232 +401,239 @@ COPY suburbs (id, name, "districtId") FROM stdin;
 -- Name: city_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('city_id_seq', 1, false);
+SELECT pg_catalog.setval('public.city_id_seq', 1, false);
 
 
 --
 -- Name: country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('country_id_seq', 1, false);
+SELECT pg_catalog.setval('public.country_id_seq', 1, false);
 
 
 --
 -- Name: store_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('store_id_seq', 1, false);
+SELECT pg_catalog.setval('public.store_id_seq', 1, false);
 
 
 --
 -- Name: stores_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('stores_id_seq', 1, false);
+SELECT pg_catalog.setval('public.stores_id_seq', 1, false);
 
 
 --
 -- Name: city city_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY city
-  ADD CONSTRAINT city_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.city
+    ADD CONSTRAINT city_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: country country_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY country
-  ADD CONSTRAINT country_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.country
+    ADD CONSTRAINT country_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: districts districts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY districts
-  ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.districts
+    ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: listings listings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY listings
-  ADD CONSTRAINT listings_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.listings
+    ADD CONSTRAINT listings_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: propertyKinds propertyTypes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "propertyKinds"
-  ADD CONSTRAINT "propertyTypes_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public."propertyKinds"
+    ADD CONSTRAINT "propertyTypes_pkey" PRIMARY KEY (id);
 
 
 --
 -- Name: regions regions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY regions
-  ADD CONSTRAINT regions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.regions
+    ADD CONSTRAINT regions_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: store store_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY store
-  ADD CONSTRAINT store_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.store
+    ADD CONSTRAINT store_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: stores stores_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY stores
-  ADD CONSTRAINT stores_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.stores
+    ADD CONSTRAINT stores_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: suburbs suburbs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY suburbs
-  ADD CONSTRAINT suburbs_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.suburbs
+    ADD CONSTRAINT suburbs_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: city_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX city_name ON city USING btree (name);
+CREATE INDEX city_name ON public.city USING btree (name);
 
 
 --
 -- Name: country_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX country_name ON country USING btree (name);
+CREATE INDEX country_name ON public.country USING btree (name);
 
 
 --
 -- Name: districts_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX districts_name ON districts USING btree (name);
+CREATE INDEX districts_name ON public.districts USING btree (name);
 
 
 --
 -- Name: listings_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX listings_name ON listings USING btree (name);
+CREATE INDEX listings_name ON public.listings USING btree (name);
 
 
 --
 -- Name: property_kinds_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX property_kinds_name ON "propertyKinds" USING btree (name);
+CREATE INDEX property_kinds_name ON public."propertyKinds" USING btree (name);
 
 
 --
 -- Name: property_types_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX property_types_name ON "propertyKinds" USING btree (name);
+CREATE INDEX property_types_name ON public."propertyKinds" USING btree (name);
 
 
 --
 -- Name: propetyTypes_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX "propetyTypes_name" ON "propertyKinds" USING btree (name);
+CREATE INDEX "propetyTypes_name" ON public."propertyKinds" USING btree (name);
 
 
 --
 -- Name: regions_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX regions_name ON regions USING btree (name);
+CREATE INDEX regions_name ON public.regions USING btree (name);
 
 
 --
 -- Name: store_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX store_name ON store USING btree (name);
+CREATE INDEX store_name ON public.store USING btree (name);
 
 
 --
 -- Name: stores_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX stores_name ON stores USING btree (name);
+CREATE INDEX stores_name ON public.stores USING btree (name);
 
 
 --
 -- Name: suburbs_name; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX suburbs_name ON suburbs USING btree (name);
+CREATE INDEX suburbs_name ON public.suburbs USING btree (name);
 
 
 --
 -- Name: districts districts_regionId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY districts
-  ADD CONSTRAINT "districts_regionId_fkey" FOREIGN KEY ("regionId") REFERENCES regions(id);
+ALTER TABLE ONLY public.districts
+    ADD CONSTRAINT "districts_regionId_fkey" FOREIGN KEY ("regionId") REFERENCES public.regions(id);
 
 
 --
 -- Name: listings fk_area; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY listings
-  ADD CONSTRAINT fk_area FOREIGN KEY ("suburbId") REFERENCES suburbs(id);
+ALTER TABLE ONLY public.listings
+    ADD CONSTRAINT fk_area FOREIGN KEY ("suburbId") REFERENCES public.suburbs(id);
 
 
 --
 -- Name: listings fk_propertyType; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY listings
-  ADD CONSTRAINT "fk_propertyType" FOREIGN KEY ("propertyKindId") REFERENCES "propertyKinds"(id);
+ALTER TABLE ONLY public.listings
+    ADD CONSTRAINT "fk_propertyType" FOREIGN KEY ("propertyKindId") REFERENCES public."propertyKinds"(id);
 
 
 --
 -- Name: store store_districtId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY store
-  ADD CONSTRAINT "store_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES districts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY public.store
+    ADD CONSTRAINT "store_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES public.districts(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
 -- Name: stores stores_districtId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY stores
-  ADD CONSTRAINT "stores_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES districts(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE ONLY public.stores
+    ADD CONSTRAINT "stores_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES public.districts(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --
 -- Name: suburbs suburbs_districtId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY suburbs
-  ADD CONSTRAINT "suburbs_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES districts(id);
+ALTER TABLE ONLY public.suburbs
+    ADD CONSTRAINT "suburbs_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES public.districts(id);
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: postgres
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
 --
 
 GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- Name: LANGUAGE plpgsql; Type: ACL; Schema: -; Owner: postgres
+--
+
+GRANT ALL ON LANGUAGE plpgsql TO postgres;
 
 
 --

@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import serialize from 'serialize-javascript'
-import config from '../../config/config'
+import React from 'react';
+import PropTypes from 'prop-types';
+import serialize from 'serialize-javascript';
+import config from '../../config';
 
 /* eslint-disable react/no-danger */
 
@@ -26,7 +26,7 @@ class Html extends React.Component {
   };
 
   render() {
-    const { title, description, styles, scripts, app, children } = this.props
+    const { title, description, styles, scripts, app, children } = this.props;
     return (
       <html className="no-js" lang="en">
         <head>
@@ -61,7 +61,9 @@ class Html extends React.Component {
           <script
             dangerouslySetInnerHTML={{ __html: `window.App=${serialize(app)}` }}
           />
-          {scripts.map(script => <script key={script} src={script} />)}
+          {scripts.map(script => (
+            <script key={script} src={script} />
+          ))}
           {config.analytics.googleTrackingId && (
             <script
               dangerouslySetInnerHTML={{
@@ -82,8 +84,8 @@ class Html extends React.Component {
           )}
         </body>
       </html>
-    )
+    );
   }
 }
 
-export default Html
+export default Html;

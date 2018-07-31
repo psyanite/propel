@@ -1,24 +1,38 @@
-import Sequelize from 'sequelize'
-import config from '../../config/config'
+import Sequelize from 'sequelize';
+import config from '../../config';
 
 // https://github.com/sequelize/sequelize/issues/8417
 
-const sequelize = new Sequelize(
-  config.database.name,
-  config.database.username,
-  config.database.password,
-  {
-    host: config.database.host,
-    port: config.database.port,
-    dialect: config.database.dialect,
-    operatorsAliases: Sequelize.Op,
-    define: {
-      underscored: false,
-      underscoredAll: true,
-      freezeTableName: true,
-      timestamps: false,
-    },
-  },
-)
+const define = {
+  underscored: false,
+  underscoredAll: true,
+  freezeTableName: true,
+  timestamps: false,
+};
 
-export default sequelize
+let sequelize;
+
+if (config.env === config.ENV.development) {
+  sequelize = new Sequelize(
+    config.database.name,
+    config.database.username,
+    config.database.password,
+    {
+      host: config.database.host,
+      port: config.database.port,
+      dialect: config.database.dialect,
+      operatorsAliases: Sequelize.Op,
+      define,
+    },
+  );
+} else {
+  sequelize = new Sequelize(config.database.url, {
+    operatorsAliases: Sequelize.Op,
+    dialectOptions: {
+      ssl: true,
+    },
+    define,
+  });
+}
+
+export default sequelize;

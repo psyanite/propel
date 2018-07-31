@@ -13,10 +13,10 @@
  * https://github.com/membership/membership.db/tree/master/postgres
  */
 
-import passport from 'passport'
-import { Strategy as FacebookStrategy } from 'passport-facebook'
-import { User, UserLogin, UserClaim, UserProfile } from './data/models'
-import config from '../config/config'
+import passport from 'passport';
+import { Strategy as FacebookStrategy } from 'passport-facebook';
+import { User, UserLogin, UserClaim, UserProfile } from './data/models';
+import config from '../config';
 
 /**
  * Sign in with Facebook.
@@ -39,18 +39,18 @@ passport.use(
     },
     (req, accessToken, refreshToken, profile, done) => {
       /* eslint-disable no-underscore-dangle */
-      const loginName = 'facebook'
-      const claimType = 'urn:facebook:access_token'
+      const loginName = 'facebook';
+      const claimType = 'urn:facebook:access_token';
       const fooBar = async () => {
         if (req.user) {
           const userLogin = await UserLogin.findOne({
             attributes: ['name', 'key'],
             where: { name: loginName, key: profile.id },
-          })
+          });
           if (userLogin) {
             // There is already a Facebook account that belongs to you.
             // Sign in with that account or delete it, then link it with your current account.
-            done()
+            done();
           } else {
             const user = await User.create(
               {
@@ -73,11 +73,11 @@ passport.use(
                   { model: UserProfile, as: 'profile' },
                 ],
               },
-            )
+            );
             done(null, {
               id: user.id,
               email: user.email,
-            })
+            });
           }
         } else {
           const users = await User.findAll({
@@ -91,18 +91,18 @@ passport.use(
                 required: true,
               },
             ],
-          })
+          });
           if (users.length) {
-            const user = users[0].get({ plain: true })
-            done(null, user)
+            const user = users[0].get({ plain: true });
+            done(null, user);
           } else {
             let user = await User.findOne({
               where: { email: profile._json.email },
-            })
+            });
             if (user) {
               // There is already an account using this email address. Sign in to
               // that account and link it with Facebook manually from Account Settings.
-              done(null)
+              done(null);
             } else {
               user = await User.create(
                 {
@@ -125,19 +125,19 @@ passport.use(
                     { model: UserProfile, as: 'profile' },
                   ],
                 },
-              )
+              );
               done(null, {
                 id: user.id,
                 email: user.email,
-              })
+              });
             }
           }
         }
-      }
+      };
 
-      fooBar().catch(done)
+      fooBar().catch(done);
     },
   ),
-)
+);
 
-export default passport
+export default passport;

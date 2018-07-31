@@ -77,10 +77,7 @@ module.exports = {
 
     // ESLint plugin for prettier formatting
     // https://github.com/prettier/eslint-plugin-prettier
-    // 'prettier/prettier': 'error',
-
-    // No semi-colons
-    "semi": ["error", "never"],
+    'prettier/prettier': 'error',
   },
 
   settings: {
