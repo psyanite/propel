@@ -1,7 +1,7 @@
-import React from 'react'
-import graphqlify from 'graphqlify'
-import Meowout from '../../../components/Meowout/Meowout'
-import Listing from './Listing'
+import React from 'react';
+import graphqlify from 'graphqlify';
+import Meowout from '../../../components/Meowout/Meowout';
+import Listing from './Listing';
 
 async function action({ params, fetch }) {
   const listingQuery = graphqlify({
@@ -29,16 +29,16 @@ async function action({ params, fetch }) {
         image: {},
       },
     },
-  })
+  });
 
   const resp = await fetch('/graphql', {
     method: 'POST',
     body: JSON.stringify({ query: listingQuery }),
-  })
-  const { data } = await resp.json()
-  const listing = data.listingById.pop()
+  });
+  const { data } = await resp.json();
+  const listing = data.listingById.pop();
   if (!listing) {
-    throw new Error('Meow')
+    throw new Error('Meow');
   }
 
   return {
@@ -49,7 +49,7 @@ async function action({ params, fetch }) {
         <Listing listing={listing} />
       </Meowout>
     ),
-  }
+  };
 }
 
-export default action
+export default action;

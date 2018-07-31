@@ -1,35 +1,35 @@
-import React from 'react'
-import graphqlify from 'graphqlify'
-import Meowout from '../../../components/Meowout/Meowout'
-import Listings from './Listings'
+import React from 'react';
+import graphqlify from 'graphqlify';
+import Meowout from '../../../components/Meowout/Meowout';
+import Listings from './Listings';
 
-const isUndefined = item => typeof item === 'undefined'
+const isUndefined = item => typeof item === 'undefined';
 const isNonEmptyArray = item =>
-  !isUndefined(item) && Array.isArray(item) && item.length > 0
+  !isUndefined(item) && Array.isArray(item) && item.length > 0;
 
 const convertToNumStuff = item => {
   if (isNonEmptyArray(item)) {
-    return item.map(value => Number(value))
+    return item.map(value => Number(value));
   }
-  return Number(item)
-}
+  return Number(item);
+};
 
 const buildParams = queryParams => {
-  const params = {}
+  const params = {};
   Object.keys(queryParams).forEach(key => {
-    const queryItem = queryParams[key]
+    const queryItem = queryParams[key];
     switch (key) {
       case 'districtId':
-        params.districtId = convertToNumStuff(queryItem)
-        break
+        params.districtId = convertToNumStuff(queryItem);
+        break;
       case 'suburbId':
-        params.suburbId = convertToNumStuff(queryItem)
-        break
+        params.suburbId = convertToNumStuff(queryItem);
+        break;
       default:
     }
-  })
-  return params
-}
+  });
+  return params;
+};
 
 const buildListingsQuery = params => {
   const query = {
@@ -55,15 +55,15 @@ const buildListingsQuery = params => {
       image: {},
       description: {},
     },
-  }
+  };
   if (typeof params !== 'undefined' && params !== null) {
-    query.params = params
+    query.params = params;
   }
-  return query
-}
+  return query;
+};
 
 async function action({ query, fetch }) {
-  const params = buildParams(query)
+  const params = buildParams(query);
 
   const graphqlQuery = graphqlify({
     listings: buildListingsQuery(params),
@@ -87,21 +87,21 @@ async function action({ query, fetch }) {
         name: {},
       },
     },
-  })
+  });
 
   const resp = await fetch('/graphql', {
     method: 'POST',
     body: JSON.stringify({ query: graphqlQuery }),
-  })
+  });
 
-  const { data } = await resp.json()
-  if (!data) throw new Error('Meow')
+  const { data } = await resp.json();
+  if (!data) throw new Error('Meow');
 
-  const listings = data.listings
+  const listings = data.listings;
   const filters = {
     districts: data.filtersDistrict,
     propertyTypes: data.filtersPropertyTypes,
-  }
+  };
 
   return {
     chunks: ['listings-list'],
@@ -111,7 +111,7 @@ async function action({ query, fetch }) {
         <Listings filters={filters} listings={listings} params={params} />
       </Meowout>
     ),
-  }
+  };
 }
 
-export default action
+export default action;

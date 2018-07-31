@@ -3,14 +3,14 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLObjectType as ObjectType,
   GraphQLString as String,
-} from 'graphql'
-import { resolver } from 'graphql-sequelize'
-import { Listing, Suburb, PropertyKind } from '../models'
-import SuburbType from './Location/SuburbType'
-import PropertyKindType from './PropertyKindType'
+} from 'graphql';
+import { resolver } from 'graphql-sequelize';
+import { Listing, Suburb, PropertyKind } from '../models';
+import SuburbType from './Location/SuburbType';
+import PropertyKindType from './PropertyKindType';
 
-Listing.Suburb = Listing.belongsTo(Suburb)
-Listing.PropertyKind = Listing.belongsTo(PropertyKind)
+Listing.Suburb = Listing.belongsTo(Suburb);
+Listing.PropertyKind = Listing.belongsTo(PropertyKind);
 
 // todo: add comments and descriptions
 const ListingType = new ObjectType({
@@ -34,6 +34,6 @@ const ListingType = new ObjectType({
     image: { type: new NonNull(String) },
     description: { type: new NonNull(String) },
   },
-})
+});
 
-export default ListingType
+export default ListingType;

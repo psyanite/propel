@@ -1,7 +1,7 @@
-import React from 'react'
-import graphqlify from 'graphqlify'
-import Layout from '../../components/Home/Layout'
-import Home from './Home'
+import React from 'react';
+import graphqlify from 'graphqlify';
+import Layout from '../../components/Home/Layout';
+import Home from './Home';
 
 async function action({ fetch }) {
   const filtersQuery = graphqlify({
@@ -18,14 +18,14 @@ async function action({ fetch }) {
         },
       },
     },
-  })
+  });
 
   const resp = await fetch('/graphql', {
     method: 'POST',
     body: JSON.stringify({ query: filtersQuery }),
-  })
-  const { data } = await resp.json()
-  if (!data) throw new Error('Meow')
+  });
+  const { data } = await resp.json();
+  if (!data) throw new Error('Meow');
 
   return {
     title: 'Meow',
@@ -34,7 +34,7 @@ async function action({ fetch }) {
         <Home filters={data} />
       </Layout>
     ),
-  }
+  };
 }
 
-export default action
+export default action;

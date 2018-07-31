@@ -4,12 +4,12 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLObjectType as ObjectType,
   GraphQLString as String,
-} from 'graphql'
-import { resolver } from 'graphql-sequelize'
-import { District, Region } from '../../models'
-import DistrictType from './DistrictType'
+} from 'graphql';
+import { resolver } from 'graphql-sequelize';
+import { District, Region } from '../../models';
+import DistrictType from './DistrictType';
 
-Region.Districts = Region.hasMany(District)
+Region.Districts = Region.hasMany(District);
 
 // todo: add comments and descriptions
 const RegionType = new ObjectType({
@@ -22,6 +22,6 @@ const RegionType = new ObjectType({
       resolve: resolver(Region.Districts),
     },
   }),
-})
+});
 
-export default RegionType
+export default RegionType;

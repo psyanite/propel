@@ -1,5 +1,5 @@
-import DataType from 'sequelize'
-import Model from '../sequelize'
+import DataType from 'sequelize';
+import Model from '../sequelize';
 
 const Listing = Model.define(
   'listings',
@@ -45,6 +45,6 @@ const Listing = Model.define(
   {
     indexes: [{ fields: ['name'] }],
   },
-)
+);
 
-export default Listing
+export default Listing;

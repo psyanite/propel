@@ -1,5 +1,5 @@
-import DataType from 'sequelize'
-import Model from '../../sequelize'
+import DataType from 'sequelize';
+import Model from '../../sequelize';
 
 const Suburb = Model.define(
   'suburbs',
@@ -17,6 +17,6 @@ const Suburb = Model.define(
   {
     indexes: [{ fields: ['name'] }],
   },
-)
+);
 
-export default Suburb
+export default Suburb;

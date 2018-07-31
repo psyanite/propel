@@ -7,16 +7,18 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import UserType from '../types/UserType'
+import UserType from '../types/UserType';
 
 const Me = {
   type: UserType,
   resolve({ request }) {
-    return request.user && {
-      id: request.user.id,
-      email: request.user.email,
-    }
+    return (
+      request.user && {
+        id: request.user.id,
+        email: request.user.email,
+      }
+    );
   },
-}
+};
 
-export default Me
+export default Me;

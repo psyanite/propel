@@ -9,7 +9,7 @@
 
 /* @flow */
 
-import type { graphql as graphqType, GraphQLSchema } from 'graphql'
+import type { graphql as graphqType, GraphQLSchema } from 'graphql';
 
 type Fetch = (url: string, options: ?any) => Promise<any>;
 
@@ -40,24 +40,24 @@ function createFetch(
       'Content-Type': 'application/json',
       ...(cookie ? { Cookie: cookie } : null),
     },
-  }
+  };
 
   return async (url: string, options: any) => {
-    const isGraphQL = url.startsWith('/graphql')
+    const isGraphQL = url.startsWith('/graphql');
     if (schema && graphql && isGraphQL) {
       // We're SSR, so route the graphql internal to avoid latency
-      const query = JSON.parse(options.body)
+      const query = JSON.parse(options.body);
       const result = await graphql(
         schema,
         query.query,
         { request: {} }, // fill in request vars needed by graphql
         null,
         query.variables,
-      )
+      );
       return Promise.resolve({
         status: result.errors ? 400 : 200,
         json: () => Promise.resolve(result),
-      })
+      });
     }
 
     return isGraphQL || url.startsWith('/api')
@@ -69,8 +69,8 @@ function createFetch(
             ...(options && options.headers),
           },
         })
-      : fetch(url, options)
-  }
+      : fetch(url, options);
+  };
 }
 
-export default createFetch
+export default createFetch;

@@ -7,10 +7,10 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react'
-import PropTypes from 'prop-types'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from './Admin.css'
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './Admin.css';
 
 class Admin extends React.Component {
   static propTypes = {
@@ -25,8 +25,8 @@ class Admin extends React.Component {
           <p>...</p>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default withStyles(s)(Admin)
+export default withStyles(s)(Admin);

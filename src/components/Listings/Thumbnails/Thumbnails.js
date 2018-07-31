@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import c from '../Common.css'
-import s from './Thumbnails.css'
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import c from '../Common.css';
+import s from './Thumbnails.css';
 
 // todo: update propTypes
 // todo: rework buildUri
@@ -21,15 +21,11 @@ class Thumbnails extends React.Component {
   render() {
     return (
       <div className={c.thumbnails}>
-        {this.props.listings.map(listing =>
+        {this.props.listings.map(listing => (
           <a className={c.row} key={listing.id} href={this.buildUri(listing)}>
             <img className={s.picture} src={listing.image} alt={listing.name} />
-            <span className={s.name}>
-              {listing.name}
-            </span>
-            <span className={s.suburb}>
-              {listing.suburb.name}
-            </span>
+            <span className={s.name}>{listing.name}</span>
+            <span className={s.suburb}>{listing.suburb.name}</span>
             <span className={s.price}>
               <sup className={c.priceSign}>$</sup>
               <span className={c.priceValue}>
@@ -43,11 +39,11 @@ class Thumbnails extends React.Component {
               </span>
             </span>
             <hr />
-          </a>,
-        )}
+          </a>
+        ))}
       </div>
-    )
+    );
   }
 }
 
-export default withStyles(c, s)(Thumbnails)
+export default withStyles(c, s)(Thumbnails);

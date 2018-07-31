@@ -11,10 +11,10 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLString as String,
   GraphQLObjectType as ObjectType,
-} from 'graphql'
+} from 'graphql';
 
-import { Listing } from '../models'
-import ListingType from '../types/ListingType'
+import { Listing } from '../models';
+import ListingType from '../types/ListingType';
 
 const addListing = {
   type: ListingType,
@@ -26,7 +26,7 @@ const addListing = {
     },
   },
   resolve: (value, { name }) => Listing.create({ name }),
-}
+};
 
 const Mutation = new ObjectType({
   name: 'Meowtation',
@@ -34,6 +34,6 @@ const Mutation = new ObjectType({
   fields: {
     addListing,
   },
-})
+});
 
-export default Mutation
+export default Mutation;

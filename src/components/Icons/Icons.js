@@ -1,10 +1,10 @@
 /* eslint-disable react/no-multi-comp */
-import React from 'react'
+import React from 'react';
 
 class List extends React.Component {
   render() {
     return (
-      <svg viewBox="0 0 286.054 286.054" >
+      <svg viewBox="0 0 286.054 286.054">
         <g>
           <path
             d="M277.115,0H8.939C4.005,0,0,4.005,0,8.939v26.818c0,4.943,4.005,8.939,8.939,8.939h268.176
@@ -18,14 +18,14 @@ class List extends React.Component {
           />
         </g>
       </svg>
-    )
+    );
   }
 }
 
 class Thumbnails extends React.Component {
   render() {
     return (
-      <svg viewBox="0 0 286.054 286.054" >
+      <svg viewBox="0 0 286.054 286.054">
         <g>
           <path
             d="M62.574,0H8.939C4.005,0,0,4.005,0,8.939v53.635c0,4.943,4.005,8.939,8.939,8.939h53.635
@@ -41,14 +41,14 @@ class Thumbnails extends React.Component {
           />
         </g>
       </svg>
-    )
+    );
   }
 }
 
 class Tiles extends React.Component {
   render() {
     return (
-      <svg viewBox="0 0 286.054 286.054" >
+      <svg viewBox="0 0 286.054 286.054">
         <g>
           <path
             d="M277.115,160.906h-107.27c-4.943,0-8.939,3.996-8.939,8.939v107.27c0,4.943,3.996,8.939,8.939,8.939
@@ -61,14 +61,14 @@ class Tiles extends React.Component {
           />
         </g>
       </svg>
-    )
+    );
   }
 }
 
 class Search extends React.Component {
   render() {
     return (
-      <svg viewBox="0 0 286.054 286.054" >
+      <svg viewBox="0 0 286.054 286.054">
         <g>
           <path
             d="M244.186,214.604l-54.379-54.378c-0.289-0.289-0.628-0.491-0.93-0.76
@@ -80,8 +80,8 @@ class Search extends React.Component {
           />
         </g>
       </svg>
-    )
+    );
   }
 }
 
-export { List, Thumbnails, Tiles, Search }
+export { List, Thumbnails, Tiles, Search };

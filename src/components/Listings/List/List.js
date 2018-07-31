@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import s from '../Common.css'
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from '../Common.css';
 
 // todo: update propTypes
 // todo: rework buildUri
@@ -28,14 +28,10 @@ class List extends React.Component {
           <hr />
         </div>
 
-        {this.props.listings.map(listing =>
+        {this.props.listings.map(listing => (
           <a className={s.row} key={listing.id} href={this.buildUri(listing)}>
-            <span>
-              {listing.name}
-            </span>
-            <span>
-              {listing.suburb.name}
-            </span>
+            <span>{listing.name}</span>
+            <span>{listing.suburb.name}</span>
             <span>
               <sup className={s.priceSign}>$</sup>
               <span className={s.priceValue}>
@@ -49,11 +45,11 @@ class List extends React.Component {
               </span>
             </span>
             <hr />
-          </a>,
-        )}
+          </a>
+        ))}
       </div>
-    )
+    );
   }
 }
 
-export default withStyles(s)(List)
+export default withStyles(s)(List);
