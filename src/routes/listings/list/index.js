@@ -105,7 +105,7 @@ async function action({ query, fetch }) {
 
   return {
     chunks: ['listings-list'],
-    title: 'Meow',
+    title: 'Proper Propel',
     component: (
       <Meowout>
         <Listings filters={filters} listings={listings} params={params} />

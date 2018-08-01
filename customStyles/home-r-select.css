@@ -1,0 +1,41 @@
+/* District Selector Styles */
+.Select.district {
+  display: flex;
+  align-items: center;
+  width: 250px;
+  padding: 20px;
+  border-radius: 3px 0 0 10px;
+  background-color: #40a0fa;
+  font-family: 'Dosis', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.Select.district .Select-value-label,
+.Select.district .Select-clear-zone,
+.Select.district .Select-arrow {
+  color: #fff !important;
+}
+
+.Select.district .Select-value {
+  margin: 5px 0;
+  line-height: 1.3em;
+}
+
+.Select.district .Select-arrow {
+  border-color: #fff transparent transparent;
+}
+
+/* Suburb Selector Styles */
+.Select.suburb {
+  display: inline-block;
+  align-items: stretch;
+  width: 400px;
+  padding: 20px;
+  font-family: 'Dosis', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #8599ad;
+}

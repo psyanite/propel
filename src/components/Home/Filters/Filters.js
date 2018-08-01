@@ -1,10 +1,10 @@
-/* eslint-disable css-modules/no-unused-class */
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import rSelectStyles from 'react-select/dist/react-select.css';
-import customRSelectStyles from '../../../../customStyles/rSelect.css';
-import Filter from '../../Filters/Filter';
+import { HomeFilter } from '../../Filters/Filter';
+import customRSelectStyles from '../../../../customStyles/r-select.css';
+import homeSelectStyles from '../../../../customStyles/home-r-select.css';
 import s from './Filters.css';
 
 const buildDistrictsFilter = districts => {
@@ -130,13 +130,13 @@ class Filters extends React.Component {
     const { filters } = this.state;
     return (
       <div className={s.root}>
-        <Filter
+        <HomeFilter
           key={filters.district.id}
           filter={filters.district}
           onChange={this.onChange}
           selectedValues={this.state.selectedValues[filters.district.id]}
         />
-        <Filter
+        <HomeFilter
           key={filters.suburb.id}
           filter={filters.suburb}
           onChange={this.onChange}
@@ -147,4 +147,5 @@ class Filters extends React.Component {
   }
 }
 
-export default withStyles(rSelectStyles, customRSelectStyles, s)(Filters);
+// export default withStyles(rSelectStyles, customRSelectStyles, s)(Filters);
+export default withStyles(rSelectStyles, customRSelectStyles, homeSelectStyles, s)(Filters);

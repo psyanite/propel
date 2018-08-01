@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import rSelectStyles from 'react-select/dist/react-select.css';
-import customRSelectStyles from '../../../../customStyles/rSelect.css';
+import customRSelectStyles from '../../../../customStyles/r-select.css';
+import homeSelectStyles from '../../../../customStyles/home-r-select.css';
 import s from './Filter.css';
 
 // todo: this is an abomination
@@ -54,7 +55,7 @@ class Filter extends React.Component {
   };
 
   render() {
-    const filter = this.props.filter;
+    const { filter } = this.props;
     return (
       <div className={s.root}>
         <Select
@@ -72,4 +73,6 @@ class Filter extends React.Component {
   }
 }
 
-export default withStyles(rSelectStyles, customRSelectStyles, s)(Filter);
+export const HomeFilter = withStyles(rSelectStyles, customRSelectStyles, homeSelectStyles, s)(Filter);
+
+export const ListingFilter = withStyles(rSelectStyles, customRSelectStyles, s)(Filter);

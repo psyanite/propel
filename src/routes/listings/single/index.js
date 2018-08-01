@@ -43,7 +43,7 @@ async function action({ params, fetch }) {
 
   return {
     chunks: ['listings-single'],
-    title: 'Meow',
+    title: 'Proper Propel',
     component: (
       <Meowout>
         <Listing listing={listing} />

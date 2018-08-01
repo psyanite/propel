@@ -28,7 +28,7 @@ async function action({ fetch }) {
   if (!data) throw new Error('Meow');
 
   return {
-    title: 'Meow',
+    title: 'Proper Propel',
     component: (
       <Layout>
         <Home filters={data} />

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import graphqlify from 'graphqlify';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import rSelectStyles from 'react-select/dist/react-select.css';
 import {
@@ -7,9 +8,8 @@ import {
   Thumbnails as ThumbnailsIcon,
   Tiles as TilesIcon,
 } from '../../../components/Icons';
-import Filter from '../../Filters/Filter';
+import { ListingFilter } from '../../Filters/Filter';
 import s from './Filters.css';
-import graphqlify from 'graphqlify';
 
 const isNonEmptyArray = item =>
   typeof item !== 'undefined' && Array.isArray(item) && item.length > 0;
@@ -327,7 +327,7 @@ class Filters extends React.Component {
         <div className={s.filters}>
           <div className={s.filter}>
             <h1>District</h1>
-            <Filter
+            <ListingFilter
               key={filters.district.id}
               filter={filters.district}
               onChange={this.handleChange}
@@ -336,7 +336,7 @@ class Filters extends React.Component {
           </div>
           <div className={s.filter}>
             <h1>Suburb</h1>
-            <Filter
+            <ListingFilter
               key={filters.suburb.id}
               filter={filters.suburb}
               onChange={this.handleChange}
@@ -345,13 +345,13 @@ class Filters extends React.Component {
           </div>
           <div className={s.filter}>
             <h1>Price</h1>
-            <Filter
+            <ListingFilter
               key={filters.priceMin.id}
               filter={filters.priceMin}
               onChange={this.handleChange}
               selectedValues={this.state.selectedValues[filters.priceMin.id]}
             />
-            <Filter
+            <ListingFilter
               key={filters.priceMax.id}
               filter={filters.priceMax}
               onChange={this.handleChange}
@@ -360,7 +360,7 @@ class Filters extends React.Component {
           </div>
           <div className={s.filter}>
             <h1>Property type</h1>
-            <Filter
+            <ListingFilter
               key={filters.propertyKindId.id}
               filter={filters.propertyKindId}
               onChange={this.handleChange}

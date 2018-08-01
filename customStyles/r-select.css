@@ -48,51 +48,6 @@
   color: #1c7cf1;
 }
 
-
-
-/* Home - Select District Styles */
-form[class^='Home-'] .Select.district {
-  display: flex;
-  align-items: center;
-  width: 250px;
-  padding: 20px;
-  border-radius: 3px 0 0 10px;
-  background-color: #40a0fa;
-  font-family: 'Dosis', sans-serif;
-  font-size: 26px;
-  font-weight: 800;
-  height: 100%;
-  vertical-align: middle;
-}
-
-form[class^='Home-'] .Select.district .Select-value-label,
-form[class^='Home-'] .Select.district .Select-clear-zone,
-form[class^='Home-'] .Select.district .Select-arrow {
-  color: #fff !important;
-}
-
-form[class^='Home-'] .Select.district .Select-value {
-  margin: 5px 0;
-  line-height: 1.3em;
-}
-
-form[class^='Home-'] .Select.district .Select-arrow {
-  border-color: #fff transparent transparent;
-}
-
-/* Home - Select Suburb Styles */
-form[class^='Home-'] .Select.suburb {
-  display: inline-block;
-  align-items: stretch;
-  width: 400px;
-  padding: 20px;
-  font-family: 'Dosis', sans-serif;
-  font-size: 26px;
-  font-weight: 800;
-  color: #8599ad;
-}
-
-
 /* Listings */
 div[class^='Listings-filters'] .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label {
   color: #52687f;
