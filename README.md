@@ -6,6 +6,7 @@
 
 Propel is a rudimentary search engine that will bring you fictional properties near you at the touch of your fingerprints. Propel delivers Sequelized data from a PostgreSQL database via a shiny GraphQL API, crafted beautifully using React and PostCSS.
 
+
 <p align="center">
   <img width="600" src="docs/images/homepage.png" />
 </p>
