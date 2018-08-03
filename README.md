@@ -59,6 +59,8 @@ DATABASE_PASSWORD = 'password'
 
 ### GraphQL Meowries
 
+🔥 Check it out now! https://proper-propel.herokuapp.com/graphql
+
 ```
 allListings: [Listing]
 
