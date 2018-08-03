@@ -1,8 +1,8 @@
 # 🚀 Propel 1.0.0
 
-🔥 Check it out now! https://proper-propel.herokuapp.com/
+✨ Node.js, Express, PostgreSQL, Sequelize, GraphQL, React.js, Babel, PostCSS, Webpack, Browsersync
 
-Node.js, Express, PostgreSQL, Sequelize, GraphQL, React.js, Babel, PostCSS, Webpack, Browsersync
+🔥 Check it out now! https://proper-propel.herokuapp.com/
 
 Propel is a rudimentary search engine that will bring you fictional properties near you at the touch of your fingerprints. Propel delivers Sequelized data from a PostgreSQL database via a shiny GraphQL API, crafted beautifully using React and PostCSS.
 
