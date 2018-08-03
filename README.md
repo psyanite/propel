@@ -13,7 +13,7 @@ Propel is a rudimentary search engine that will bring you fictional properties n
 * Git
 * Babun
 * Yarn
-* Node
+* Node 8.11.3
 * Intellij
 * DataGrip
 * Git Kraken
