@@ -12,8 +12,6 @@ Propel is a rudimentary search engine that will bring you fictional properties n
   <img width="600" src="docs/images/homepage.png" />
 </p>
 
-<p>&nbsp;</p>
-
 <p align="center">
   <img width="600" src="docs/images/search-results.png" />
 </p>
