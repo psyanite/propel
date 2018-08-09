@@ -8,8 +8,11 @@ import customRSelectStyles from '../../../../customStyles/r-select.css';
 import homeSelectStyles from '../../../../customStyles/home-r-select.css';
 import s from './Filter.css';
 
-// todo: this is an abomination
-
+/**
+ * Custom filter component, a wrap-around Jed's Select
+ * It has custom styles, and Jed's Select did not have a 'Select All' option,
+ * which is why I had to develop this custom Filter.
+ */
 class Filter extends React.Component {
   static propTypes = {
     filter: PropTypes.shape({
@@ -73,6 +76,20 @@ class Filter extends React.Component {
   }
 }
 
-export const HomeFilter = withStyles(rSelectStyles, customRSelectStyles, homeSelectStyles, s)(Filter);
+/**
+ * todo: absolutely ridiculous
+ * find out how to style properly https://react-select.com/styles
+ * the problem was that react-select would have its custom styles, but I was using PostCSS, and webpack
+ * would compile my CSS for me so I had to at first this worked with my select class parameters, but for some reason
+ * after I deployed to Heroku it would no longer work.
+ */
+export const HomeFilter = withStyles(
+  rSelectStyles,
+  customRSelectStyles,
+  homeSelectStyles,
+  s,
+)(Filter);
 
-export const ListingFilter = withStyles(rSelectStyles, customRSelectStyles, s)(Filter);
+export const ListingFilter = withStyles(rSelectStyles, customRSelectStyles, s)(
+  Filter,
+);

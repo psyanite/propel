@@ -11,9 +11,16 @@ import {
 import { ListingFilter } from '../../Filters/Filter';
 import s from './Filters.css';
 
+// todo: move this into a helper?
 const isNonEmptyArray = item =>
   typeof item !== 'undefined' && Array.isArray(item) && item.length > 0;
 
+/**
+ * Builds and returns the district filter.
+ *
+ * @param districts
+ * @returns {{district: {id: string, placeholder: string, options: Array, isMulti: boolean, styleName: string}}}
+ */
 const buildDistrictsFilter = districts => {
   const filter = {
     id: 'districtId',
@@ -32,6 +39,15 @@ const buildDistrictsFilter = districts => {
   return { district: filter };
 };
 
+/**
+ * Builds and returns a map of each district to an array of suburb options.
+ *
+ * {
+ *   1: ({ name: Pupper's rock, id: 23, districtId: 1}, {...})
+ *   ...
+ * }
+ * @param districts
+ */
 const buildDistrictSuburbOptions = districts => {
   const options = {};
   districts.forEach(district => {
@@ -44,6 +60,9 @@ const buildDistrictSuburbOptions = districts => {
   return options;
 };
 
+/**
+ * Builds and returns the price filter.
+ */
 const buildPriceFilters = () => {
   const filters = {};
   filters.priceMin = {
@@ -82,6 +101,11 @@ const buildPriceFilters = () => {
   return filters;
 };
 
+/**
+ * Builds and returns the property-kind filter.
+ *
+ * @param propertyKindIds
+ */
 const buildPropertyKindIdFilter = propertyKindIds => {
   const filter = {};
   filter.propertyKindId = {
@@ -114,6 +138,12 @@ const getTargetedDistrictIds = initSelected => {
   return null;
 };
 
+/**
+ * Builds and returns the initial selected values.
+ *
+ * @param initSelected
+ * @param filters
+ */
 const buildSelectedValues = (initSelected, filters) => {
   const selectedValues = {};
 
@@ -142,7 +172,16 @@ const buildSelectedValues = (initSelected, filters) => {
   return selectedValues;
 };
 
-const buildSuburbFilter = (targetedDistrictIds, districtSuburbs) => {
+ /**
+ * Builds and returns the suburb filter.
+ *
+ * If there are selected districts, all suburbs from the selected districts
+ * will be added as options to the suburb filter.
+ * @param selectedDistrictIds
+ * @param districtSuburbs
+ * @returns {{suburb: {id: string, placeholder: string, options: Array, isMulti: boolean, styleName: string}}}
+ */
+const buildSuburbFilter = (selectedDistrictIds, districtSuburbs) => {
   const filter = {
     id: 'suburbId',
     placeholder: 'Search by suburb',
@@ -150,7 +189,7 @@ const buildSuburbFilter = (targetedDistrictIds, districtSuburbs) => {
     isMulti: true,
     styleName: 'suburb',
   };
-  targetedDistrictIds.forEach(districtId => {
+  selectedDistrictIds.forEach(districtId => {
     filter.options = Object.assign(filter.options, districtSuburbs[districtId]);
   });
   filter.options.unshift({ label: 'All suburbs', value: '' });
@@ -166,6 +205,7 @@ const buildFilters = (data, districtSuburbs, initSelected) =>
     buildPropertyKindIdFilter(data.propertyTypes),
   );
 
+// todo: not sure if this is a good idea
 const isBlank = selectedValues =>
   Object.keys(selectedValues).every(
     key => !selectedValues[key] || !selectedValues[key].length,
@@ -251,7 +291,7 @@ class Filters extends React.Component {
     initSelected: PropTypes.shape().isRequired,
   };
 
-  // todo: absolute abomination
+  // todo: absolutely ridiculous
   constructor(props) {
     super(props);
     this.districtSuburbs = buildDistrictSuburbOptions(props.data.districts);
@@ -266,27 +306,42 @@ class Filters extends React.Component {
 
   districtSuburbs = null;
 
+  /**
+   * When the user clicks on the Refine button to generate new results
+   */
   handleRefine = () =>
     this.props.handleRefine(buildGraphqlBody(this.state.selectedValues));
 
+  /**
+   * When one an item has been added or removed from one of the filters
+   * @param kind
+   * @param newItems
+   */
   handleChange = (kind, newItems) => {
     const { selectedValues } = this.state;
     if (kind === 'districtId' && selectedValues[kind] !== newItems) {
-      this.updateDistrict(kind, newItems);
+      this.updateDistrict(newItems);
     }
     selectedValues[kind] = newItems;
-    this.updateSelectedValues(selectedValues);
+    this.setState({ selectedValues });
   };
 
-  // todo: i haf no idea wat dis does lol
-  updateDistrict = (kind, newDistricts) => {
+  /**
+   * This method is called when an item is added or removed from the districts filter.
+   * Thus, the selected values and options of the selected values will be updated.
+   * @param newDistricts
+   */
+  updateDistrict = newDistricts => {
     if (Array.isArray(newDistricts)) {
       const { selectedValues } = this.state;
       const newDistrictsIds = newDistricts.map(district => district.value);
+
+      // Remove all selected suburbIds, that do not belong to newDistricts
       selectedValues.suburbId = selectedValues.suburbId.filter(suburb =>
         newDistrictsIds.includes(suburb.districtId),
       );
 
+      // Add and remove options from the suburb filter
       const { filters } = this.state;
       let suburbOptions = [];
       newDistricts.forEach(district => {
@@ -299,10 +354,6 @@ class Filters extends React.Component {
       this.state.filters.suburb.options = [];
       this.state.selectedValues.suburbId = [];
     }
-  };
-
-  updateSelectedValues = selectedValues => {
-    this.setState({ selectedValues });
   };
 
   render() {

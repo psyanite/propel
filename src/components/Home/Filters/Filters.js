@@ -91,7 +91,7 @@ class Filters extends React.Component {
     onUpdateSelectedValues: PropTypes.func.isRequired,
   };
 
-  // todo: absolute abomination
+  // todo: absolutely ridiculous
   constructor(props) {
     super(props);
     const { data } = this.props;
